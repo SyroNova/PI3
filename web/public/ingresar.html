@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#2563eb" />
+  <title>Registrar Nuevo Paciente — ElectroMed</title>
+  <link rel="icon" href="./assets/logo-electromed.png" type="image/png" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="stylesheet" href="./styles/base.css" />
+  <link rel="stylesheet" href="./styles/ingresar.css" />
+</head>
+<body>
+  <main class="ingresar-page">
+    <!-- Barra superior con fecha/hora y logout -->
+    <div class="app-topbar" role="banner">
+      <div class="app-topbar__left">
+        <span id="today" class="app-topbar__date">Hoy</span>
+        <span class="app-topbar__sep">•</span>
+        <span id="time" class="app-topbar__time">00:00</span>
+      </div>
+      <div>
+        <button class="app-topbar__logout" data-action="toggle-theme" aria-pressed="false" title="Cambiar tema">☀️</button>
+        <button class="app-topbar__logout" aria-label="Configuración" onclick="window.location.href='config.html'" title="Configuración">
+          <span class="app-topbar__logout-icon">⚙️</span>
+          <span class="app-topbar__logout-label">Config</span>
+        </button>
+        <button class="app-topbar__logout" aria-label="Cerrar sesión" onclick="window.location.href='index.html'" title="Cerrar sesión" style="margin-left:8px;">
+          <span class="app-topbar__logout-icon">🚪</span>
+          <span class="app-topbar__logout-label">Salir</span>
+        </button>
+      </div>
+    </div>
+    <!-- Cabecera central -->
+    <header class="main-header">
+      <div class="main-header-content">
+        <span class="main-header-icon">🩺</span>
+        <div>
+          <h1 class="main-title">Registrar Nuevo Paciente</h1>
+          <p class="main-subtitle">Completa la información del paciente para su admisión hospitalaria</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- 🧾 FORMULARIO -->
+  <form class="patient-form" id="patient-form">
+
+      <!-- 📋 Datos personales -->
+      <section class="form-section">
+        <h2>👤 Datos Personales</h2>
+        <div class="form-grid">
+          <div>
+            <label for="identificacion" class="field-label">Número de identificación</label>
+            <input type="text" id="identificacion" required data-label="Número de identificación" />
+          </div>
+          <div>
+            <label for="primer-nombre" class="field-label">Primer Nombre</label>
+            <input type="text" id="primer-nombre" required data-label="Primer nombre" />
+          </div>
+          <div>
+            <label for="segundo-nombre" class="field-label">Segundo Nombre (Opcional)</label>
+            <input type="text" id="segundo-nombre" data-label="Segundo nombre" />
+          </div>
+          <div>
+            <label for="primer-apellido" class="field-label">Primer Apellido</label>
+            <input type="text" id="primer-apellido" required data-label="Primer apellido" />
+          </div>
+          <div>
+            <label for="segundo-apellido" class="field-label">Segundo Apellido</label>
+            <input type="text" id="segundo-apellido" data-label="Segundo apellido" />
+          </div>
+          <div>
+            <label for="telefono" class="field-label">Teléfono</label>
+            <input type="tel" id="telefono" pattern="[0-9\s()+-]{7,20}" required data-label="Teléfono" />
+          </div>
+          <div>
+            <label for="fecha-nacimiento" class="field-label">Fecha de Nacimiento</label>
+            <input type="date" id="fecha-nacimiento" required data-label="Fecha de nacimiento" />
+          </div>
+          <div>
+            <label for="sexo" class="field-label">Sexo</label>
+            <select id="sexo" required data-label="Sexo">
+              <option value="">Seleccionar...</option>
+              <option>Masculino</option>
+              <option>Femenino</option>
+            </select>
+          </div>
+          <div>
+            <label for="correo" class="field-label">Correo Electrónico</label>
+            <input type="email" id="correo" required data-label="Correo electrónico" />
+          </div>
+        </div>
+      </section>
+
+      <!-- 🏥 Datos de hospitalización -->
+      <section class="form-section">
+        <h2>🏥 Datos de Hospitalización</h2>
+        <div class="form-grid">
+          <div>
+            <label for="fecha-ingreso" class="field-label">Fecha de Ingreso</label>
+            <input type="date" id="fecha-ingreso" required data-label="Fecha de ingreso" />
+          </div>
+          <div>
+            <label for="Area" class="field-label">Área</label>
+            <input type="text" id="Area" list="areas-list" autocomplete="off" required data-label="Área" />
+            <datalist id="areas-list">
+              <option value="UCI" />
+              <option value="Urgencias" />
+              <option value="Hospitalización" />
+            </datalist>
+          </div>
+          <div>
+            <label for="habitacion" class="field-label">Habitación</label>
+            <input type="text" id="habitacion" required data-label="Habitación" />
+          </div>
+          <div style="position:relative;width:100%">
+            <label for="departamento" class="field-label">Departamento</label>
+            <input type="text" id="departamento" list="departamentos-list" autocomplete="off" required data-label="Departamento" style="width:100%" />
+            <div id="departamento-sugerencias" style="position:relative"></div>
+          </div>
+          <datalist id="departamentos-list">
+            <option value="Amazonas" />
+            <option value="Antioquia" />
+            <option value="Arauca" />
+            <option value="Atlántico" />
+            <option value="Bolívar" />
+            <option value="Boyacá" />
+            <option value="Caldas" />
+            <option value="Caquetá" />
+            <option value="Casanare" />
+            <option value="Cauca" />
+            <option value="Cesar" />
+            <option value="Chocó" />
+            <option value="Córdoba" />
+            <option value="Cundinamarca" />
+            <option value="Guainía" />
+            <option value="Guaviare" />
+            <option value="Huila" />
+            <option value="La Guajira" />
+            <option value="Magdalena" />
+            <option value="Meta" />
+            <option value="Nariño" />
+            <option value="Norte de Santander" />
+            <option value="Putumayo" />
+            <option value="Quindío" />
+            <option value="Risaralda" />
+            <option value="San Andrés y Providencia" />
+            <option value="Santander" />
+            <option value="Sucre" />
+            <option value="Tolima" />
+            <option value="Valle del Cauca" />
+            <option value="Vaupés" />
+            <option value="Vichada" />
+          </datalist>
+          <div>
+            <label for="ciudad" class="field-label">Ciudad</label>
+            <input type="text" id="ciudad" list="ciudades-list" autocomplete="off" required data-label="Ciudad" />
+            <datalist id="ciudades-list">
+            <option value="Bogotá" />
+            <option value="Medellín" />
+            <option value="Cali" />
+            <option value="Barranquilla" />
+            <option value="Cartagena" />
+            <option value="Cúcuta" />
+            <option value="Bucaramanga" />
+            <option value="Pereira" />
+            <option value="Santa Marta" />
+            <option value="Ibagué" />
+            <option value="Manizales" />
+            <option value="Villavicencio" />
+            <option value="Neiva" />
+            <option value="Pasto" />
+            <option value="Armenia" />
+            <option value="Montería" />
+            <option value="Sincelejo" />
+            <option value="Popayán" />
+            <option value="Valledupar" />
+            <option value="Tunja" />
+            <option value="Riohacha" />
+            <option value="Quibdó" />
+            <option value="Florencia" />
+            <option value="Yopal" />
+            <option value="San Andrés" />
+            <option value="Leticia" />
+            <option value="Mocoa" />
+            <option value="Puerto Carreño" />
+            <option value="Mitú" />
+            <option value="Inírida" />
+            <option value="San José del Guaviare" />
+            </datalist>
+          </div>
+          <div>
+            <label for="eps" class="field-label">EPS o Aseguradora</label>
+            <input type="text" id="eps" required data-label="EPS o Aseguradora" />
+          </div>
+        </div>
+      </section>
+
+      <!-- 💉 Información médica -->
+      <section class="form-section">
+        <h2>💉 Información Médica</h2>
+        <div class="form-grid">
+          <div>
+            <label for="diagnostico" class="field-label">Diagnóstico Principal</label>
+            <input type="text" id="diagnostico" required data-label="Diagnóstico principal" />
+          </div>
+          <div>
+            <label for="alergias" class="field-label">Alergias Conocidas</label>
+            <input type="text" id="alergias" data-label="Alergias conocidas" />
+          </div>
+          <div>
+            <label for="medicamentos" class="field-label">Medicamentos Actuales</label>
+            <input type="text" id="medicamentos" data-label="Medicamentos actuales" />
+          </div>
+        </div>
+      </section>
+
+      <!-- 📄 Motivo de ingreso -->
+      <section class="form-section">
+        <h2>🩹 Motivo de Ingreso</h2>
+        <label for="motivo" class="field-label">Descripción del Motivo</label>
+        <textarea id="motivo" placeholder="Describe el motivo del ingreso del paciente..." style="font-family: 'Segoe UI', Arial, sans-serif;" required minlength="10" data-label="Motivo de ingreso"></textarea>
+      </section>
+
+      <!-- ✅ BOTONES -->
+      <div id="form-errors" role="alert" aria-live="polite" style="display:none;margin:0 0 12px;border:1px solid #ef4444;background:#fef2f2;color:#991b1b;padding:10px;border-radius:8px;font-size:0.95rem"></div>
+      <div class="form-actions">
+        <button type="button" class="btn-cancel" onclick="window.location.href='dashboard.html'">Cancelar</button>
+        <button type="submit" class="btn-submit">Registrar Paciente</button>
+      </div>
+
+    </form>
+  </main>
+
+  <script src="./theme.js"></script>
+  <script src="./register-sw.js"></script>
+  <script type="module" src="./dist/app-ingresar.js"></script>
+  <script>
+    // 🕐 Actualizar fecha y hora
+    function updateDateTime() {
+      const now = new Date();
+      document.getElementById("today").textContent = now.toLocaleDateString("es-ES", { weekday: "long", day: "numeric", month: "long" });
+      document.getElementById("time").textContent = now.toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 60000);
+
+    // Autocompletado personalizado de departamentos
+    const departamentos = [
+      "Amazonas","Antioquia","Arauca","Atlántico","Bolívar","Boyacá","Caldas","Caquetá","Casanare","Cauca","Cesar","Chocó","Córdoba","Cundinamarca","Guainía","Guaviare","Huila","La Guajira","Magdalena","Meta","Nariño","Norte de Santander","Putumayo","Quindío","Risaralda","San Andrés y Providencia","Santander","Sucre","Tolima","Valle del Cauca","Vaupés","Vichada"
+    ];
+    const inputDepto = document.getElementById('departamento');
+    let sugerenciasDiv = document.getElementById('departamento-sugerencias');
+    if (!sugerenciasDiv) {
+      // Crear contenedor si no existe para evitar errores
+      sugerenciasDiv = document.createElement('div');
+      sugerenciasDiv.id = 'departamento-sugerencias';
+      sugerenciasDiv.style.position = 'relative';
+      inputDepto.insertAdjacentElement('afterend', sugerenciasDiv);
+    }
+    inputDepto.addEventListener('input', function() {
+      const val = this.value.toLowerCase();
+      sugerenciasDiv.innerHTML = '';
+      if (val.length === 0) return;
+      const filtrados = departamentos.filter(dep => dep.toLowerCase().includes(val));
+      if (filtrados.length === 0) return;
+      const lista = document.createElement('ul');
+      lista.style.position = 'absolute';
+      lista.style.left = '0';
+      lista.style.top = '100%';
+      lista.style.width = '100%';
+      lista.style.background = '#fff';
+      lista.style.border = '1px solid #cbd5e1';
+      lista.style.borderRadius = '8px';
+      lista.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+      lista.style.margin = '0';
+      lista.style.padding = '0';
+      lista.style.zIndex = '10';
+      filtrados.forEach(dep => {
+        const item = document.createElement('li');
+        item.textContent = dep;
+        item.style.listStyle = 'none';
+        item.style.padding = '0.7rem 1rem';
+        item.style.cursor = 'pointer';
+        item.style.fontSize = '1rem';
+        item.addEventListener('mousedown', function(e) {
+          e.preventDefault();
+          inputDepto.value = dep;
+          sugerenciasDiv.innerHTML = '';
+        });
+        lista.appendChild(item);
+      });
+      sugerenciasDiv.appendChild(lista);
+    });
+    document.addEventListener('click', function(e) {
+      if (sugerenciasDiv && !sugerenciasDiv.contains(e.target) && e.target !== inputDepto) {
+        sugerenciasDiv.innerHTML = '';
+      }
+    });
+
+    // Nota: la lógica de validación/envío fue movida a TypeScript (app-ingresar.ts)
+
+  </script>
+</body>
+</html>

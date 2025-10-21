@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#2563eb" />
+    <title>ElectroMed — Iniciar sesión</title>
+    <meta name="description" content="Acceso a la plataforma ElectroMed" />
+    <link rel="icon" href="./assets/logo-electromed.png" type="image/png">
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="apple-touch-icon" href="./assets/logo-electromed.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/base.css" />
+    <link rel="stylesheet" href="./styles/login.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="card" aria-labelledby="brand-title">
+        <header class="brand">
+          <img src="./assets/logo-electromed.png" alt="Logo ElectroMed" class="brand__logo" width="64" height="64"/>
+          <h1 id="brand-title" class="brand__title">ElectroMed</h1>
+        </header>
+
+        <form id="loginForm" class="form" novalidate>
+          <div class="field">
+            <label for="username" class="field__label">Usuario</label>
+            <div class="input">
+              <span class="input__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                  <path d="M12 12c2.761 0 5-2.239 5-5S14.761 2 12 2 7 4.239 7 7s2.239 5 5 5Zm0 2c-4.418 0-8 2.239-8 5v1h16v-1c0-2.761-3.582-5-8-5Z"/>
+                </svg>
+              </span>
+              <input id="username" name="username" type="text" autocomplete="username" placeholder="Usuario" class="input__control" required />
+            </div>
+            <p class="field__error" id="username-error" role="alert" aria-live="polite"></p>
+          </div>
+
+          <div class="field">
+            <label for="password" class="field__label">Contraseña</label>
+            <div class="input">
+              <span class="input__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                  <path d="M17 8h-1V6a4 4 0 0 0-8 0v2H7a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2Zm-6 0V6a2 2 0 1 1 4 0v2h-4Z"/>
+                </svg>
+              </span>
+              <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Contraseña" class="input__control" required minlength="6" />
+              <button type="button" class="input__suffix" id="togglePwd" aria-label="Mostrar u ocultar contraseña">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                  <path d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+                </svg>
+              </button>
+            </div>
+            <p class="field__error" id="password-error" role="alert" aria-live="polite"></p>
+          </div>
+
+          <button id="submitBtn" class="btn btn--primary" type="submit">
+            <span class="btn__content">Iniciar sesión</span>
+            <span class="btn__spinner" aria-hidden="true"></span>
+          </button>
+
+          <p class="help">
+            <a href="./forgot.html" id="forgotLink">¿Olvidaste la contraseña?</a>
+          </p>
+        </form>
+
+        <p class="legal">
+          © <span id="year"></span> ElectroMed. Todos los derechos reservados.
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__container">
+        <div class="footer__section">
+          <h3 class="footer__title">ElectroMed</h3>
+          <p class="footer__text">
+            Sistema integrado de gestión médica y monitoreo de electrolitos.
+            Tecnología al servicio de la salud.
+          </p>
+        </div>
+
+        <div class="footer__section">
+          <h4 class="footer__subtitle">Contacto</h4>
+          <ul class="footer__list">
+            <li>📞 +57 321 456 7890</li>
+            <li>✉️ contacto@electromed.com.co</li>
+            <li>📍 Autopista Piedecuesta Kilómetro 7, Floridablanca, Santander.</li>
+          </ul>
+        </div>
+
+        <div class="footer__section">
+          <h4 class="footer__subtitle">Información</h4>
+          <ul class="footer__list">
+            <li><a href="./terminos.html" class="footer__link">Términos y Condiciones</a></li>
+            <li><a href="./privacidad.html" class="footer__link">Política de Privacidad</a></li>
+            <li><a href="./proteccion-datos.html" class="footer__link">Protección de Datos</a></li>
+            <li><a href="./soporte.html" class="footer__link">Soporte Técnico</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__section">
+          <h4 class="footer__subtitle">Certificaciones</h4>
+          <ul class="footer__list">
+            <li>✓ INVIMA - Registro Sanitario</li>
+            <li>✓ ISO 13485:2016</li>
+            <li>✓ Ley 1581/2012 - Datos Personales</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__copyright">
+          © <span id="footerYear"></span> ElectroMed S.A.S. - Todos los derechos reservados. 
+          Sistema de Gestión Médica.
+        </p>
+      </div>
+    </footer>
+
+    <script src="./register-sw.js"></script>
+    <script type="module" src="./dist/app.js"></script>
+    <script>
+      // Actualizar años dinámicamente
+      const currentYear = new Date().getFullYear();
+      document.getElementById('year').textContent = currentYear;
+      document.getElementById('footerYear').textContent = currentYear;
+      function updateDateTime(){
+        const now = new Date();
+        const d = document.getElementById('today');
+        const t = document.getElementById('time');
+        if(d) d.textContent = now.toLocaleDateString('es-ES',{weekday:'long', day:'numeric', month:'long'});
+        if(t) t.textContent = now.toLocaleTimeString('es-ES',{hour:'2-digit', minute:'2-digit'});
+      }
+      updateDateTime();
+      setInterval(updateDateTime, 60000);
+    </script>
+  </body>
+</html>

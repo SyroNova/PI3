@@ -1,0 +1,222 @@
+/* Topbar reutiliza estilos globales en base.css */
+
+/* Cabecera central principal */
+.main-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+.main-header-content {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  background: #f9fbff;
+  border-radius: 18px;
+  box-shadow: 0 4px 16px rgba(37,99,235,0.07);
+  padding: 1.2rem 2.5rem 1.2rem 2rem;
+}
+[data-theme="dark"] .main-header-content {
+  background: var(--card) !important;
+  color: var(--text);
+  box-shadow: 0 4px 16px rgba(37,99,235,0.18);
+}
+.main-header-icon {
+  font-size: 3.2rem;
+  color: #2563eb;
+  background: linear-gradient(135deg, #e0e7ef 60%, #2563eb 100%);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+}
+.main-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0;
+}
+[data-theme="dark"] .main-title {
+  color: #fff !important;
+}
+.main-subtitle {
+  font-size: 1.08rem;
+  color: #64748b;
+  margin: 0.2rem 0 0 0;
+}
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(to bottom, #f9fbff, #f1f5f9);
+    margin: 0;
+    color: #1e293b;
+  }
+  
+  /* HEADER SIN SOMBRA */
+  .ingresar-header.clean-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 4rem;
+    background: transparent;
+    box-shadow: none;
+  }
+  
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .logo {
+    width: 55px;
+  }
+  
+  .header-left h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  
+  .header-left p {
+    margin: 0;
+    color: #64748b;
+    font-size: 1rem;
+  }
+  
+  .header-right {
+    text-align: right;
+  }
+  
+  #today {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+  
+  #time {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #2563eb;
+    margin-top: 0.3rem;
+    display: block;
+  }
+  
+  /* FORMULARIO */
+  .patient-form {
+    max-width: 1000px;
+    margin: 2rem auto 4rem;
+    padding: 2.5rem;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  }
+  [data-theme="dark"] .patient-form {
+      background: var(--card) !important;
+      color: var(--text);
+      border-color: var(--border);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  }
+  
+  .form-section {
+    margin-bottom: 2.5rem;
+  }
+  [data-theme="dark"] .form-section {
+      background: transparent;
+      color: var(--text);
+  }
+  
+  .form-section h2 {
+    font-size: 1.5rem;
+    color: #1e3a8a;
+    margin-bottom: 1.2rem;
+  }
+  
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .field-label {
+    display: block;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #475569;
+    margin-bottom: 0.5rem;
+  }
+  [data-theme="dark"] .field-label {
+    color: #94a3b8;
+  }
+  
+  input, select, textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #cbd5e1;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: 0.3s;
+    box-sizing: border-box;
+  }
+  [data-theme="dark"] input,
+  [data-theme="dark"] select,
+  [data-theme="dark"] textarea {
+      background: #162032 !important;
+      color: var(--text);
+      border-color: var(--border);
+  }
+  
+  input:focus, select:focus, textarea:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+    outline: none;
+  }
+  
+  textarea {
+    width: 100%;
+    min-height: 120px;
+    resize: vertical;
+  }
+  
+  /* BOTONES */
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .btn-cancel, .btn-submit {
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
+  }
+  [data-theme="dark"] .btn-cancel,
+  [data-theme="dark"] .btn-submit {
+      background: #1e293b !important;
+      color: var(--text);
+      border: 1px solid var(--border);
+  }
+  
+  .btn-cancel {
+    background: #e2e8f0;
+    color: #1e293b;
+  }
+  
+  .btn-cancel:hover {
+    background: #cbd5e1;
+  }
+  
+  
+  .btn-submit:hover {
+    background: linear-gradient(135deg, #1d4ed8, #1e3a8a);
+    transform: translateY(-2px);
+  }
+  

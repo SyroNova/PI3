@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ElectroMed — Información de la Cuenta</title>
+  <link rel="icon" href="./assets/logo-electromed.png" type="image/png" />
+  <link rel="stylesheet" href="./styles/base.css" />
+  <link rel="stylesheet" href="./styles/info-cuenta.css" />
+</head>
+<body>
+  <!-- Topbar unificada -->
+  <div class="app-topbar" role="banner">
+    <div class="app-topbar__left">
+      <span id="today" class="app-topbar__date">Hoy</span>
+      <span class="app-topbar__sep">•</span>
+      <span id="time" class="app-topbar__time">00:00</span>
+    </div>
+    <div class="app-topbar__right" style="display:flex; align-items:center; gap:8px;">
+      <button class="app-topbar__logout" data-action="toggle-theme" aria-pressed="false" title="Cambiar tema">☀️</button>
+      <button class="app-topbar__logout" aria-label="Configuración" onclick="window.location.href='config.html'" title="Configuración">
+        <span class="app-topbar__logout-icon">⚙️</span>
+        <span class="app-topbar__logout-label">Config</span>
+      </button>
+      <button class="app-topbar__logout" aria-label="Cerrar sesión" onclick="window.location.href='index.html'" title="Cerrar sesión">
+        <span class="app-topbar__logout-icon">🚪</span>
+        <span class="app-topbar__logout-label">Salir</span>
+      </button>
+    </div>
+  </div>
+
+  <main class="account-container">
+    <!-- Cabecera centrada -->
+    <header class="main-header">
+      <span class="main-header-icon">👩‍⚕️</span>
+      <h1 class="main-title">Información de la Cuenta</h1>
+      <p class="main-subtitle">Consulta y administra tu perfil profesional</p>
+    </header>
+
+    <!-- Tarjetas principales -->
+    <section class="profile-section">
+      <div class="profile-card">
+        <div class="avatar">🩺</div>
+        <h2 class="name">Dr. Andrés Rodríguez</h2>
+        <p class="position">Jefe de UCI - Hospital Central</p>
+        <p class="email">andres.rodriguez@electromed.co</p>
+      </div>
+
+      <div class="contact-card">
+        <h3>📞 Contacto</h3>
+        <p><strong>Teléfono fijo:</strong> +57 601 4567890</p>
+        <p><strong>Celular:</strong> +57 310 654 7890</p>
+        <p><strong>Dirección:</strong> Cra 45 #23 - 10, Bogotá</p>
+      </div>
+    </section>
+
+    <!-- Especialidades -->
+    <section class="specialties-section">
+      <h3>Especialidades</h3>
+      <div class="specialties-grid">
+        <span class="tag">Pediatría</span>
+        <span class="tag">Neurología</span>
+        <span class="tag">Laparoscopia</span>
+        <span class="tag">Anestesiología</span>
+      </div>
+    </section>
+
+    <!-- Biografía -->
+    <section class="bio-section">
+      <h3>Biografía</h3>
+      <p>
+        El Dr. Andrés Rodríguez es especialista en medicina interna con más de 20 años de experiencia en el ámbito clínico y docente. 
+        Destacado por su compromiso con la atención integral de los pacientes, ha liderado múltiples proyectos de investigación y formación académica, 
+        contribuyendo activamente al desarrollo del sector salud en Colombia.
+      </p>
+    </section>
+
+  </main>
+
+  <script src="./theme.js"></script>
+  <script>
+    // 🕐 Fecha y hora en tiempo real
+    function updateDateTime() {
+      const now = new Date();
+      document.getElementById("today").textContent = now.toLocaleDateString("es-ES", {
+        weekday: "long",
+        day: "numeric",
+        month: "long"
+      });
+      document.getElementById("time").textContent = now.toLocaleTimeString("es-ES", {
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+    }
+    updateDateTime();
+  setInterval(updateDateTime, 60000);
+  </script>
+</body>
+</html>

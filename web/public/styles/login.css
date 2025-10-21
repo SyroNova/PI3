@@ -1,0 +1,125 @@
+/* específico login (placeholder por si quieres separar estilos) */
+
+body {
+  background-image: url('../assets/image.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.shell {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 3vw, 48px);
+  min-height: auto;
+}
+
+/* Footer Styles */
+.footer {
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(10px);
+  color: #e2e8f0;
+  padding: 40px 20px 20px;
+  margin-top: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 32px;
+  margin-bottom: 24px;
+}
+
+.footer__section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #60a5fa;
+  margin: 0;
+  letter-spacing: 0.3px;
+}
+
+.footer__subtitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #93c5fd;
+  margin: 0 0 8px 0;
+}
+
+.footer__text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #cbd5e1;
+  margin: 0;
+  max-width: 300px;
+}
+
+.footer__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer__list li {
+  font-size: 14px;
+  color: #cbd5e1;
+  line-height: 1.5;
+}
+
+.footer__link {
+  color: #cbd5e1;
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+.footer__link:hover {
+  color: #60a5fa;
+  text-decoration: underline;
+}
+
+.footer__bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.footer__copyright {
+  font-size: 13px;
+  color: #94a3b8;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Responsive ajustes */
+@media (max-width: 768px) {
+  .footer {
+    padding: 32px 16px 16px;
+  }
+  
+  .footer__container {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .footer__text {
+    max-width: 100%;
+  }
+}

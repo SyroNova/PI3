@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ElectroMed — Consultar Paciente</title>
+  <link rel="icon" href="./assets/logo-electromed.png" type="image/png" />
+  <link rel="stylesheet" href="./styles/base.css" />
+  <link rel="stylesheet" href="./styles/consultar.css" />
+</head>
+<body>
+  <!-- Barra superior: fecha, hora y logout -->
+  <div class="app-topbar" role="banner">
+    <div class="app-topbar__left">
+      <span class="app-topbar__item app-topbar__date" id="today">Hoy</span>
+      <span class="app-topbar__sep">•</span>
+      <span class="app-topbar__item app-topbar__time" id="time">00:00</span>
+    </div>
+    <div>
+      <button class="app-topbar__logout" data-action="toggle-theme" aria-pressed="false" title="Cambiar tema">☀️</button>
+      <button class="app-topbar__logout" aria-label="Configuración" onclick="window.location.href='config.html'" title="Configuración">
+        <span class="app-topbar__logout-icon">⚙️</span>
+        <span class="app-topbar__logout-label">Config</span>
+      </button>
+      <button class="app-topbar__logout" aria-label="Cerrar sesión" onclick="window.location.href='index.html'" title="Cerrar sesión" style="margin-left:8px;">
+        <span class="app-topbar__logout-icon">🚪</span>
+        <span class="app-topbar__logout-label">Salir</span>
+      </button>
+    </div>
+  </div>
+
+  <main class="consultar">
+    <!-- Cabecera principal -->
+    <header class="main-header">
+      <span class="main-header-icon">🩺</span>
+      <div>
+        <h1 class="main-title">Consultar Paciente</h1>
+        <p class="main-subtitle">Busca y accede a la información clínica registrada</p>
+      </div>
+    </header>
+
+    <!-- Formulario de búsqueda -->
+    <section class="search-section">
+      <h2 class="section-title">🔎 Buscar Paciente</h2>
+      <form class="search-form">
+        <input type="text" placeholder="Ingresa nombre, cédula o ID del paciente" class="search-input" />
+        <button type="button" class="search-btn" onclick="window.location.href='consultarPaciente.html'">
+            Buscar
+          </button>
+          
+      </form>
+    </section>
+
+    <!-- Resultados (puedes dejar esto para cuando conectes el backend) -->
+    <section class="results">
+      <p class="results-placeholder">Aquí aparecerán los resultados de la búsqueda...</p>
+    </section>
+
+  </main>
+
+  <script>
+    // 🕒 Fecha y hora dinámica
+    function updateDateTime() {
+      const now = new Date();
+      document.getElementById('today').textContent = now.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+      document.getElementById('time').textContent = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+    }
+  setInterval(updateDateTime, 60000);
+    updateDateTime();
+  </script>
+  <script src="./theme.js"></script>
+</body>
+</html>

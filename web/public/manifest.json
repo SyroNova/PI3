@@ -1,0 +1,50 @@
+{
+  "name": "ElectroMed - Sistema de Gestión Médica",
+  "short_name": "ElectroMed",
+  "description": "Sistema integral de gestión hospitalaria con capacidades offline-first",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./assets/logo-electromed.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./assets/logo-electromed.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["medical", "health", "productivity"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "Acceso rápido al dashboard",
+      "url": "/dashboard.html",
+      "icons": []
+    },
+    {
+      "name": "Registrar Paciente",
+      "short_name": "Registrar",
+      "description": "Registro rápido de paciente",
+      "url": "/ingresar.html",
+      "icons": []
+    },
+    {
+      "name": "Consultar Pacientes",
+      "short_name": "Consultar",
+      "description": "Buscar pacientes",
+      "url": "/consultar.html",
+      "icons": []
+    }
+  ],
+  "prefer_related_applications": false
+}

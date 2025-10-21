@@ -1,0 +1,199 @@
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(to bottom, #f8fafc, #eef2f7);
+  margin: 0;
+  padding: 0;
+  color: #1e293b;
+}
+
+.panel-planta {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Topbar usa estilos globales */
+/* Cabecera centrada */
+.main-header { display:grid; place-items:center; gap:6px; margin: 10px auto 24px; text-align:center; }
+.main-header-icon { font-size:2.6rem; color:#22c55e; }
+.main-title { margin:0; font-size:2rem; }
+[data-theme="dark"] .main-title {
+  color: #fff !important;
+}
+.main-subtitle { margin:0; color:#64748b; }
+
+.panel-nav {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.panel-tab {
+  background: #fff;
+  border: 2px solid #22c55e;
+  color: #22c55e;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 6px rgba(34,197,94,0.08);
+}
+.panel-tab.active, .panel-tab:hover {
+  background: #22c55e;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(34,197,94,0.15);
+}
+
+.back-btn, .logout-btn {
+  background: none;
+  border: none;
+  font-size: 1.7rem;
+  cursor: pointer;
+  color: #64748b;
+  margin-right: 0.5rem;
+  transition: color 0.2s;
+}
+.back-btn:hover, .logout-btn:hover {
+  color: #22c55e;
+}
+
+.panel-content {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  padding: 2rem;
+}
+
+.panel-filtros {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+.panel-filtros label {
+  font-weight: 500;
+  color: #334155;
+}
+.panel-filtros input, .panel-filtros select {
+  margin-left: 0.5rem;
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 1rem;
+}
+
+#panel-table {
+  min-height: 300px;
+}
+
+/* Tabla de exámenes */
+.panel-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.panel-table th, .panel-table td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
+}
+.panel-table th {
+  background: #f1f5f9;
+  font-weight: 600;
+  color: #2563eb;
+}
+.panel-table tr.vencido td {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+.panel-table tr.activo td {
+  background: #dcfce7;
+  color: #166534;
+}
+.panel-table tr:hover td {
+  background: #f0fdf4;
+}
+[data-theme="dark"] .panel-table th {
+  background: #162032 !important;
+  color: #60a5fa !important;
+}
+[data-theme="dark"] .panel-table tr.vencido td {
+  background: #3b1c1c !important;
+  color: #f87171 !important;
+}
+[data-theme="dark"] .panel-table tr.activo td {
+  background: #1c3b2a !important;
+  color: #22c55e !important;
+}
+[data-theme="dark"] .panel-table tr:hover td {
+  background: #162032 !important;
+}
+
+/* Dark mode: panel container, filters, tabs and table base */
+[data-theme="dark"] .panel-planta {
+  color: #e5e7eb;
+}
+
+[data-theme="dark"] .panel-content {
+  background: #0f172a; /* slate-900-ish */
+  border: 1px solid #1f2a44;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+}
+
+[data-theme="dark"] .panel-filtros label {
+  color: #cbd5e1;
+}
+[data-theme="dark"] .panel-filtros input,
+[data-theme="dark"] .panel-filtros select {
+  background: #0b1220;
+  border-color: #334155;
+  color: #e5e7eb;
+}
+[data-theme="dark"] .panel-filtros input::placeholder {
+  color: #64748b;
+}
+
+/* Tabs */
+[data-theme="dark"] .panel-tab {
+  background: #0b1220;
+  border-color: #22c55e;
+  color: #22c55e;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+[data-theme="dark"] .panel-tab.active,
+[data-theme="dark"] .panel-tab:hover {
+  background: #22c55e;
+  color: #0b1220;
+  box-shadow: 0 4px 12px rgba(34,197,94,0.25);
+}
+
+/* Icon buttons */
+[data-theme="dark"] .back-btn,
+[data-theme="dark"] .logout-btn {
+  color: #cbd5e1;
+}
+[data-theme="dark"] .back-btn:hover,
+[data-theme="dark"] .logout-btn:hover {
+  color: #22c55e;
+}
+
+/* Table base in dark (non-status rows) */
+[data-theme="dark"] .panel-table {
+  background: #0f172a;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.35);
+}
+[data-theme="dark"] .panel-table th,
+[data-theme="dark"] .panel-table td {
+  border-bottom: 1px solid #1f2a44;
+}
+[data-theme="dark"] .panel-table td {
+  color: #e5e7eb;
+  background: transparent;
+}

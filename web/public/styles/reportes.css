@@ -1,0 +1,227 @@
+/* Topbar usa estilos globales de base.css */
+
+/* Cabecera central principal */
+.main-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+.main-header-content {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  background: #f9fbff;
+  border-radius: 18px;
+  box-shadow: 0 4px 16px rgba(37,99,235,0.07);
+  padding: 1.2rem 2.5rem 1.2rem 2rem;
+}
+[data-theme="dark"] .main-header-content {
+  background: var(--card) !important;
+  color: var(--text);
+  box-shadow: 0 4px 16px rgba(37,99,235,0.18);
+}
+.main-header-icon {
+  font-size: 3.2rem;
+  color: #2563eb;
+  background: linear-gradient(135deg, #e0e7ef 60%, #2563eb 100%);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+}
+.main-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0;
+}
+[data-theme="dark"] .main-title {
+  color: #fff !important;
+}
+.main-subtitle {
+  font-size: 1.08rem;
+  color: #64748b;
+  margin: 0.2rem 0 0 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(to bottom, #f9fbff, #f1f5f9);
+  margin: 0;
+  padding: 0;
+  color: #1e293b;
+}
+[data-theme="dark"] body {
+  background: linear-gradient(to bottom, #0f172a, #1e293b);
+  color: #f1f5f9;
+}
+
+.reportes-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.reportes-content {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  padding: 2rem;
+}
+[data-theme="dark"] .reportes-content {
+  background: var(--card);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.reportes-controls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.btn-export {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 2px 6px rgba(37,99,235,0.08);
+}
+.btn-export:hover {
+  background: #1d4ed8;
+}
+[data-theme="dark"] .btn-export {
+  background: #60a5fa;
+  color: #1e293b;
+}
+[data-theme="dark"] .btn-export:hover {
+  background: #2563eb;
+  color: #fff;
+}
+
+.reportes-filtros {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+.reportes-filtros label {
+  font-weight: 500;
+  color: #334155;
+}
+.reportes-filtros input, .reportes-filtros select {
+  margin-left: 0.5rem;
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 1rem;
+  background: #fff;
+  color: #1e293b;
+}
+[data-theme="dark"] .reportes-filtros label {
+  color: #cbd5e1;
+}
+[data-theme="dark"] .reportes-filtros input,
+[data-theme="dark"] .reportes-filtros select {
+  background: #162032;
+  color: #f1f5f9;
+  border: 1px solid #475569;
+}
+
+#reportes-table {
+  min-height: 300px;
+  margin-bottom: 2rem;
+}
+
+.reportes-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.reportes-table th, .reportes-table td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
+}
+.reportes-table th {
+  background: #f1f5f9;
+  font-weight: 600;
+  color: #22c55e;
+}
+.reportes-table tr:hover td {
+  background: #f0fdf4;
+}
+[data-theme="dark"] .reportes-table {
+  background: #1e293b;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+[data-theme="dark"] .reportes-table th,
+[data-theme="dark"] .reportes-table td {
+  border-bottom: 1px solid #334155;
+  color: #f1f5f9;
+}
+[data-theme="dark"] .reportes-table th {
+  background: #334155;
+  color: #22c55e;
+}
+[data-theme="dark"] .reportes-table tr:hover td {
+  background: #14532d;
+}
+
+#reportes-graficos {
+  min-height: 300px;
+  margin-top: 2rem;
+  background: #f8fafc;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 1.5rem;
+  overflow: hidden;
+}
+[data-theme="dark"] #reportes-graficos {
+  background: #334155;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  color: #f1f5f9;
+}
+
+/* Layout y tamaño de charts */
+.charts-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+.chart-item{
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  min-height: 220px;
+  max-height: 360px;
+  height: 280px; /* permite maintainAspectRatio:false controlar el canvas */
+  overflow: hidden;
+}
+.chart-item canvas{
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+[data-theme="dark"] .chart-item{
+  background: var(--card);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.35);
+}
+
+/* Eliminar media query del modo oscuro ya que ahora se usa data-theme */

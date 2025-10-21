@@ -1,0 +1,17 @@
+{
+  "name": "electromed-landing-mvc",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ElectroMed landing + recuperación de contraseña (MVC, TypeScript, CSS).",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "serve": "live-server public --port=5173 --open=/index.html",
+    "dev": "concurrently \"npm:watch\" \"npm:serve\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1",
+    "live-server": "^1.2.0",
+    "typescript": "^5.6.3"
+  }
+}
