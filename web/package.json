@@ -4,10 +4,10 @@
   "private": true,
   "description": "ElectroMed landing + recuperación de contraseña (MVC, TypeScript, CSS).",
   "scripts": {
-  "build": "tsc",
-  "start": "serve public -l 3000",
-  "dev": "concurrently \"npm:watch\" \"npm:serve\""
-},
+    "build": "chmod +x ./node_modules/.bin/tsc && tsc",
+    "start": "serve public -l 3000",
+    "dev": "concurrently \"npm:watch\" \"npm:serve\""
+  },
   "devDependencies": {
     "concurrently": "^9.0.1",
     "live-server": "^1.2.0"
