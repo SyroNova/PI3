@@ -5,7 +5,7 @@
   "description": "ElectroMed landing + recuperación de contraseña (MVC, TypeScript, CSS).",
   "scripts": {
     "build": "npx tsc",
-    "start": "serve public -l 3000",
+    "start": "serve public",
     "dev": "concurrently \"npm:watch\" \"npm:serve\""
   },
   "devDependencies": {
