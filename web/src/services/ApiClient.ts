@@ -1,25 +1,20 @@
 export class ApiClient {
   private baseUrl: string;
-
-  constructor() {
-    // Configurable via localStorage to point to your backend, e.g. http://localhost:3000
-    const stored = localStorage.getItem('apiBaseUrl');
-    if (stored) {
-      this.baseUrl = stored;
-    } else {
-      // Heuristic: if running on vite dev (port 5173), default backend to 3000
-      const isDev = typeof window !== 'undefined' && /^(127\.0\.0\.1|localhost)$/i.test(window.location.hostname) && (window.location.port === '5173' || window.location.port === '5500');
-      if (isDev) {
-        const host = window.location.hostname; // use same hostname to avoid cross-name issues
-        this.baseUrl = `http://${host}:3000`;
+  private readonly host: string = 'pi3-production.up.railway.app'
+  
+    constructor() {
+      // Configurable via localStorage to point to your backend, e.g. http://localhost:3000
+      const stored = localStorage.getItem('apiBaseUrl');
+      if (stored) {
+        this.baseUrl = stored;
       } else {
-        this.baseUrl = '';
-      }
-      if (this.baseUrl) {
-        console.info('[ApiClient] Using default dev API baseUrl:', this.baseUrl);
+        
+        this.baseUrl = this.host;
+        
+        
       }
     }
-  }
+
 
   setBaseUrl(url: string) {
     this.baseUrl = url;
