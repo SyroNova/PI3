@@ -5,6 +5,7 @@
   "description": "ElectroMed landing + recuperación de contraseña (MVC, TypeScript, CSS).",
   "scripts": {
     "build": "tsc",
+    "start": "node dist/index.js"
     "watch": "tsc -w",
     "serve": "live-server public --port=5173 --open=/index.html",
     "dev": "concurrently \"npm:watch\" \"npm:serve\""
