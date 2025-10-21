@@ -1,0 +1,111 @@
+/* === Layout general === */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #f8fafc, #f1f5f9);
+    margin: 0;
+    padding: 0;
+    color: #1e293b;
+  }
+  
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+  
+  /* Topbar usa estilos globales en base.css */
+  .main-header{ display:grid; place-items:center; gap:6px; margin:14px auto 20px; text-align:center; }
+  .main-header .main-title{ color:#0b63b6; margin:0; }
+  [data-theme="dark"] .main-header .main-title {
+    color: #fff !important;
+  }
+  .main-header .main-subtitle{ margin:0; color:#64748b; }
+  
+  
+  /* === Grid de columnas === */
+  .alerts__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  /* === Tarjetas de cada columna === */
+  .alert-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  [data-theme="dark"] .alert-card {
+      background: var(--card) !important;
+      color: var(--text);
+      border-color: var(--border);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+  }
+  
+  .alert-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  }
+  
+  .alert-card h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #0b63b6;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 6px;
+  }
+  [data-theme="dark"] .alert-card h2 {
+      color: var(--primary-600);
+      border-bottom: 2px solid var(--border);
+  }
+  
+  /* === Alertas individuales === */
+  .alert {
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.4;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+  }
+  [data-theme="dark"] .alert {
+      background: #162032 !important;
+      color: var(--text);
+      border-left: 6px solid var(--primary-600);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.18);
+  }
+  
+  /* === Colores por estado === */
+  .alert--warning {
+    background: #fef3c7;
+    border-left: 6px solid #f59e0b;
+    color: #92400e;
+  }
+  
+  .alert--info {
+    background: #e0f2fe;
+    border-left: 6px solid #0284c7;
+    color: #075985;
+  }
+  
+  .alert--ok {
+    background: #dcfce7;
+    border-left: 6px solid #16a34a;
+    color: #14532d;
+  }
+  
+  /* === Responsive === */
+  @media (max-width: 992px) {
+    .alerts__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .main-header-icon {
+    font-size: 2.6rem; color: #0b63b6; 
+  }

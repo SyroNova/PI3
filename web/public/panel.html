@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel por Planta — ElectroMed</title>
+  <link rel="icon" href="./assets/logo-electromed.png" type="image/png" />
+  <link rel="stylesheet" href="./styles/base.css" />
+  <link rel="stylesheet" href="./styles/panel.css" />
+</head>
+<body>
+  <!-- Topbar unificada -->
+  <div class="app-topbar" role="banner">
+    <div class="app-topbar__left">
+      <span id="today" class="app-topbar__date">Hoy</span>
+      <span class="app-topbar__sep">•</span>
+      <span id="time" class="app-topbar__time">00:00</span>
+    </div>
+    <div class="app-topbar__right" style="display:flex; align-items:center; gap:8px;">
+      <button class="app-topbar__logout" data-action="toggle-theme" aria-pressed="false" title="Cambiar tema">☀️</button>
+      <button class="app-topbar__logout" aria-label="Configuración" onclick="window.location.href='config.html'" title="Configuración">
+        <span class="app-topbar__logout-icon">⚙️</span>
+        <span class="app-topbar__logout-label">Config</span>
+      </button>
+      <button class="app-topbar__logout" aria-label="Cerrar sesión" onclick="window.location.href='index.html'" title="Cerrar sesión">
+        <span class="app-topbar__logout-icon">🚪</span>
+        <span class="app-topbar__logout-label">Salir</span>
+      </button>
+    </div>
+  </div>
+
+  <main class="panel-planta">
+    <!-- Cabecera centrada -->
+    <header class="main-header">
+      <span class="main-header-icon">🏥</span>
+      <h1 class="main-title">Panel por Planta</h1>
+      <p class="main-subtitle">Monitoreo por área hospitalaria</p>
+    </header>
+
+    <!-- Navegación por plantas -->
+    <nav class="panel-nav">
+      <button class="panel-tab" data-planta="uci">UCI</button>
+      <button class="panel-tab" data-planta="urgencias">Urgencias</button>
+      <button class="panel-tab" data-planta="hospitalizacion">Hospitalización</button>
+    </nav>
+
+    <section class="panel-content">
+      <div class="panel-filtros">
+        <label>Paciente: <input type="text" id="filtro-paciente" placeholder="Buscar por nombre o ID" /></label>
+        <label>Fecha: <input type="date" id="filtro-fecha" /></label>
+        <label>Estado:
+          <select id="filtro-estado">
+            <option value="">Todos</option>
+            <option value="activo">Activo</option>
+            <option value="vencido">Vencido</option>
+          </select>
+        </label>
+      </div>
+      <div id="panel-table">
+        <table class="panel-table">
+          <thead>
+            <tr>
+              <th>Paciente</th>
+              <th>Fecha Examen</th>
+              <th>Estado</th>
+              <th>Sodio</th>
+              <th>Potasio</th>
+              <th>Cloro</th>
+              <th>Alertas</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="panel-tbody">
+            <!-- Poblar desde backend -->
+          </tbody>
+        </table>
+        <div id="panel-msg" style="margin-top:2rem; color:#64748b;">Sin datos. Conectar a backend.</div>
+      </div>
+    </section>
+  </main>
+  <script src="./theme.js"></script>
+  <script src="./register-sw.js"></script>
+  <script type="module" src="./dist/app-panel.js"></script>
+  <script>
+    // Fecha y hora
+    function updateDateTime(){
+      const now = new Date();
+      const d = document.getElementById('today');
+      const t = document.getElementById('time');
+      if(d) d.textContent = now.toLocaleDateString('es-ES',{weekday:'long', day:'numeric', month:'long'});
+      if(t) t.textContent = now.toLocaleTimeString('es-ES',{hour:'2-digit', minute:'2-digit'});
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 60000);
+
+    // La lógica del panel está implementada en TypeScript (app-panel.ts)
+  </script>
+</body>
+</html>

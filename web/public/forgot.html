@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ElectroMed — Recuperar contraseña</title>
+    <meta name="description" content="Recupera tu contraseña de acceso a ElectroMed" />
+    <link rel="icon" href="./assets/logo-electromed.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/base.css" />
+    <link rel="stylesheet" href="./styles/forgot.css" />
+  </head>
+  <body>
+    <!-- Topbar unificada -->
+  <div class="app-topbar" role="banner">
+    <div class="app-topbar__left">
+      <span id="today" class="app-topbar__date">Hoy</span>
+      <span class="app-topbar__sep">•</span>
+      <span id="time" class="app-topbar__time">00:00</span>
+    </div>
+    <div class="app-topbar__right" style="display:flex; align-items:center; gap:8px;">
+      <button class="app-topbar__logout" data-action="toggle-theme" aria-pressed="false" title="Cambiar tema">☀️</button>
+    </div>
+  </div>
+
+    <main class="shell">
+      <section class="card" aria-labelledby="brand-title">
+        <header class="brand brand--column">
+          <img src="./assets/logo-electromed.png" alt="Logo ElectroMed" class="brand__logo" />
+          <h1 id="brand-title" class="brand__title">Recuperar Contraseña</h1>
+          <p class="brand__subtitle">Ingresa tu correo y sigue los pasos para restablecerla.</p>
+        </header>
+
+        <form id="stepEmail" class="form" novalidate>
+          <div class="field">
+            <label for="recEmail" class="field__label">Correo electrónico</label>
+            <div class="input">
+              <span class="input__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 13 2 6.76V18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6.76L12 13Zm10-8H2l10 6 10-6Z"/></svg>
+              </span>
+              <input id="recEmail" type="email" class="input__control" placeholder="usuario@electromed.com" autocomplete="email" required />
+            </div>
+            <p class="field__error" id="recEmail-error"></p>
+          </div>
+          <button id="sendCodeBtn" class="btn btn--primary" type="submit">
+            <span class="btn__content">Enviar código</span>
+            <span class="btn__spinner" aria-hidden="true"></span>
+          </button>
+          <p class="help"><a href="./index.html">Volver al login</a></p>
+        </form>
+
+        <form id="stepReset" class="form is-hidden" novalidate>
+          <div class="note">
+            Hemos enviado un código de 6 dígitos a <strong id="sentTo"></strong>
+            <button type="button" id="editEmailBtn" class="edit-email-btn" title="Editar correo electrónico" aria-label="Editar correo">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+              </svg>
+            </button>
+          </div>
+          <div class="field">
+            <label for="recCode" class="field__label">Código de verificación</label>
+            <div class="input">
+              <span class="input__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3 4h18v2H3zm0 7h18v2H3zm0 7h18v2H3z"/></svg>
+              </span>
+              <input id="recCode" inputmode="numeric" pattern="\d{6}" maxlength="6" placeholder="000000" class="input__control" required />
+            </div>
+            <p class="field__error" id="recCode-error"></p>
+          </div>
+          <div class="field">
+            <label for="newPwd" class="field__label">Nueva contraseña</label>
+            <div class="input">
+              <span class="input__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17 8h-1V6a4 4 0 0 0-8 0v2H7a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2Zm-6 0V6a2 2 0 1 1 4 0v2h-4Z"/></svg>
+              </span>
+              <input id="newPwd" type="password" class="input__control" placeholder="Mínimo 8 caracteres" required minlength="8" />
+              <button type="button" class="input__suffix" data-toggle="pwd1" aria-label="Mostrar u ocultar contraseña">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/></svg>
+              </button>
+            </div>
+            <p class="field__error" id="newPwd-error"></p>
+          </div>
+          <div class="field">
+            <label for="newPwd2" class="field__label">Confirmar contraseña</label>
+            <div class="input">
+              <span class="input__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17 8h-1V6a4 4 0 0 0-8 0v2H7a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2Zm-6 0V6a2 2 0 1 1 4 0v2h-4Z"/></svg>
+              </span>
+              <input id="newPwd2" type="password" class="input__control" placeholder="Repite la contraseña" required minlength="8" />
+              <button type="button" class="input__suffix" data-toggle="pwd2" aria-label="Mostrar u ocultar contraseña">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/></svg>
+              </button>
+            </div>
+            <p class="field__error" id="newPwd2-error"></p>
+          </div>
+          <div class="row-between">
+            <button id="resendBtn" class="btn btn--ghost" type="button" disabled>Reenviar código (<span id="timer">60</span>s)</button>
+            <a class="link" href="./index.html">Volver al login</a>
+          </div>
+          <button id="resetBtn" class="btn btn--primary" type="submit">
+            <span class="btn__content">Restablecer contraseña</span>
+            <span class="btn__spinner" aria-hidden="true"></span>
+          </button>
+          <p class="legal">© <span id="year"></span> ElectroMed. Todos los derechos reservados.</p>
+        </form>
+      </section>
+    </main>
+    <script type="module" src="../dist/app-forgot.js"></script>
+    <script src="./theme.js"></script>
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+      function updateDateTime(){
+        const now = new Date();
+        const d = document.getElementById('today');
+        const t = document.getElementById('time');
+        if(d) d.textContent = now.toLocaleDateString('es-ES',{weekday:'long', day:'numeric', month:'long'});
+        if(t) t.textContent = now.toLocaleTimeString('es-ES',{hour:'2-digit', minute:'2-digit'});
+      }
+      updateDateTime();
+      setInterval(updateDateTime, 60000);
+
+      // Funcionalidad para editar el correo electrónico
+      const editEmailBtn = document.getElementById('editEmailBtn');
+      if(editEmailBtn){
+        editEmailBtn.addEventListener('click', function(){
+          const stepEmail = document.getElementById('stepEmail');
+          const stepReset = document.getElementById('stepReset');
+          if(stepEmail && stepReset){
+            stepReset.classList.add('is-hidden');
+            stepEmail.classList.remove('is-hidden');
+            // Enfocar el campo de correo
+            const emailInput = document.getElementById('recEmail');
+            if(emailInput) emailInput.focus();
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

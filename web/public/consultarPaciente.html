@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ElectroMed — Consultar Paciente</title>
+  <link rel="icon" href="./assets/logo-electromed.png" type="image/png" />
+  <link rel="stylesheet" href="./styles/base.css" />
+  <link rel="stylesheet" href="./styles/consultarPaciente.css" />
+</head>
+<body>
+  <!-- Topbar unificada -->
+  <div class="app-topbar" role="banner">
+    <div class="app-topbar__left">
+      <span id="today" class="app-topbar__date">Hoy</span>
+      <span class="app-topbar__sep">•</span>
+      <span id="time" class="app-topbar__time">00:00</span>
+    </div>
+    <div>
+      <button class="app-topbar__logout" data-action="toggle-theme" aria-pressed="false" title="Cambiar tema">☀️</button>
+      <button class="app-topbar__logout" aria-label="Configuración" onclick="window.location.href='config.html'" title="Configuración">
+        <span class="app-topbar__logout-icon">⚙️</span>
+        <span class="app-topbar__logout-label">Config</span>
+      </button>
+      <button class="app-topbar__logout" aria-label="Cerrar sesión" onclick="window.location.href='index.html'" title="Cerrar sesión" style="margin-left:8px;">
+        <span class="app-topbar__logout-icon">🚪</span>
+        <span class="app-topbar__logout-label">Salir</span>
+      </button>
+    </div>
+  </div>
+
+  <main class="consultar-paciente">
+    <!-- Cabecera centrada -->
+    <header class="main-header">
+      <span class="main-header-icon">👤</span>
+      <h1 class="main-title">Consulta de Paciente</h1>
+      <p class="main-subtitle">Revisa información y registra resultados</p>
+    </header>
+
+    <!-- Información del paciente con avatar -->
+    <section class="patient-info patient-info--visual">
+      <div class="patient-info__top">
+        <div class="patient-avatar">👤</div>
+        <div>
+          <h2>Información del Paciente</h2>
+          <p class="patient-status"><span id="estado-paciente"></span></p>
+        </div>
+      </div>
+      <div class="info-grid">
+        <div class="info-item"><strong>Nombre:</strong> <span id="nombre-paciente"></span></div>
+        <div class="info-item"><strong>Edad:</strong> <span id="edad-paciente"></span></div>
+        <div class="info-item"><strong>Sexo:</strong> <span id="sexo-paciente"></span></div>
+        <div class="info-item"><strong>Diagnóstico:</strong> <span id="diagnostico-paciente"></span></div>
+        <div class="info-item"><strong>Fecha de ingreso:</strong> <span id="fecha-ingreso"></span></div>
+      </div>
+    </section>
+
+    <!-- Registro de resultados de electrolitos visual mejorado -->
+    <section class="registro-electrolitos registro-electrolitos--visual">
+      <h2><span style="color:#3b82f6;">🧪</span> Registro de Resultados de Electrolitos</h2>
+      <form id="form-electrolitos" autocomplete="off" class="electro-form">
+        <div class="form-grid">
+          <div class="field field--full">
+            <label for="fecha-examen">Fecha del examen</label>
+            <input type="date" id="fecha-examen" name="fecha-examen" required />
+          </div>
+          
+          <!-- Panel Básico (Obligatorio) -->
+          <div class="field">
+            <label for="sodio">Sodio (Na⁺) *</label>
+            <input type="number" step="0.01" id="sodio" name="sodio" placeholder="135 - 145 mEq/L" required />
+            <small class="rango" id="rango-sodio"></small>
+          </div>
+          <div class="field">
+            <label for="potasio">Potasio (K⁺) *</label>
+            <input type="number" step="0.01" id="potasio" name="potasio" placeholder="3.5 - 5.0 mEq/L" required />
+            <small class="rango" id="rango-potasio"></small>
+          </div>
+          <div class="field">
+            <label for="cloro">Cloro (Cl⁻) *</label>
+            <input type="number" step="0.01" id="cloro" name="cloro" placeholder="98 - 106 mEq/L" required />
+            <small class="rango" id="rango-cloro"></small>
+          </div>
+          <div class="field">
+            <label for="bicarbonato">Bicarbonato (HCO₃⁻) *</label>
+            <input type="number" step="0.01" id="bicarbonato" name="bicarbonato" placeholder="22 - 28 mEq/L" required />
+            <small class="rango" id="rango-bicarbonato"></small>
+          </div>
+          
+          <!-- Panel Extendido (Opcional) -->
+          <div class="field">
+            <label for="calcio">Calcio (Ca²⁺)</label>
+            <input type="number" step="0.01" id="calcio" name="calcio" placeholder="8.5 - 10.5 mg/dL" />
+            <small class="rango" id="rango-calcio"></small>
+          </div>
+          <div class="field">
+            <label for="magnesio">Magnesio (Mg²⁺)</label>
+            <input type="number" step="0.01" id="magnesio" name="magnesio" placeholder="1.7 - 2.2 mg/dL" />
+            <small class="rango" id="rango-magnesio"></small>
+          </div>
+          <div class="field">
+            <label for="fosforo">Fósforo (P, fosfato)</label>
+            <input type="number" step="0.01" id="fosforo" name="fosforo" placeholder="2.5 - 4.5 mg/dL" />
+            <small class="rango" id="rango-fosforo"></small>
+          </div>
+          
+          <div class="form-actions">
+            <button type="submit" class="btn-submit btn-submit--visual">Guardar resultado</button>
+          </div>
+        </div>
+      </form>
+      <div id="alerta-electrolitos" style="margin-top:1rem;"></div>
+    </section>
+
+    <!-- Historial clínico visual mejorado -->
+    <section class="historial-clinico historial-clinico--visual">
+      <h2><span style="color:#22c55e;">📈</span> Historial Clínico</h2>
+      <div id="timeline-electrolitos">
+        <!-- Aquí se mostrarán los registros reales desde el backend -->
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="./theme.js"></script>
+  <script>
+    // Fecha y hora en tiempo real
+    function updateDateTime() {
+      const now = new Date();
+      document.getElementById('today').textContent =
+        now.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+      document.getElementById('time').textContent =
+        now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+    }
+  setInterval(updateDateTime, 60000);
+    updateDateTime();
+
+    // Validación automática de rangos (actualizado con valores de tabla médica)
+    const rangos = {
+      sodio: { min: 135, max: 145, bajo: 'Hiponatremia', alto: 'Hipernatremia', unidad: 'mEq/L' },
+      potasio: { min: 3.5, max: 5.0, bajo: 'Hipopotasemia (o hipocalemia)', alto: 'Hiperpotasemia (o hiperkalemia)', unidad: 'mEq/L' },
+      cloro: { min: 98, max: 106, bajo: 'Hipocloremia', alto: 'Hipercloremia', unidad: 'mEq/L' },
+      bicarbonato: { min: 22, max: 28, bajo: 'Acidosis metabólica', alto: 'Alcalosis metabólica', unidad: 'mEq/L' },
+      calcio: { min: 8.5, max: 10.5, bajo: 'Hipocalcemia', alto: 'Hipercalcemia', unidad: 'mg/dL' },
+      magnesio: { min: 1.7, max: 2.2, bajo: 'Hipomagnesemia', alto: 'Hipermagnesemia', unidad: 'mg/dL' },
+      fosforo: { min: 2.5, max: 4.5, bajo: 'Hipofosfatemia', alto: 'Hiperfosfatemia', unidad: 'mg/dL' }
+    };
+
+    function validarElectrolito(id, valor) {
+      const r = rangos[id];
+      if (!r || valor === "") return "";
+      valor = parseFloat(valor);
+      if (isNaN(valor)) return "";
+      if (valor < r.min) return `<span style='color:#ef4444;font-weight:600'>${r.bajo}</span> <span style='color:#dc2626'>(bajo)</span>`;
+      if (valor > r.max) return `<span style='color:#ef4444;font-weight:600'>${r.alto}</span> <span style='color:#dc2626'>(alto)</span>`;
+      return `<span style='color:#22c55e;font-weight:600'>✓ Normal</span>`;
+    }
+
+    ['sodio','potasio','cloro','bicarbonato','calcio','magnesio','fosforo'].forEach(id => {
+      const input = document.getElementById(id);
+      if (input) {
+        input.addEventListener('input', () => {
+          document.getElementById('rango-' + id).innerHTML = validarElectrolito(id, input.value);
+        });
+      }
+    });
+
+    // Eliminar datos simulados, conectar a backend aquí
+    document.getElementById('form-electrolitos').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Aquí deberías enviar los datos al backend
+      document.getElementById('alerta-electrolitos').innerHTML = '<span style="color:#22c55e">Resultado guardado (simulado, conectar API)</span>';
+    });
+    // TODO: Poblar datos del paciente y timeline desde el backend
+  </script>
+</body>
+</html>

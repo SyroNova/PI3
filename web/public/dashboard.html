@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#2563eb" />
+  <title>ElectroMed — Dashboard</title>
+  <link rel="icon" href="./assets/logo-electromed.png" type="image/png" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="stylesheet" href="./styles/base.css" />
+  <link rel="stylesheet" href="./styles/dashboard.css" />
+</head>
+<body>
+  <main class="dashboard">
+
+    <!-- HEADER -->
+    <header class="dash-header">
+      <div class="header-left">
+        <img src="./assets/logo-electromed.png" alt="Logo" class="logo" />
+        <div>
+          <h1 class="title">Bienvenido, <span id="medico-nombre">Usuario</span></h1>
+          <p class="subtitle" id="medico-rol"></p>
+          <script>
+            (function () {
+              try {
+                const rawUser = sessionStorage.getItem('user') || localStorage.getItem('user');
+                const user = rawUser ? JSON.parse(rawUser) : {};
+                const rol =
+                  user.role ||
+                  user.rol ||
+                  sessionStorage.getItem('medicoRol') ||
+                  localStorage.getItem('medicoRol');
+
+                const el = document.getElementById('medico-rol');
+                if (el) el.textContent = rol || '';
+              } catch (_) {}
+            })();
+          </script>
+        </div>
+        <script>
+          (function () {
+            try {
+              const rawUser =
+          sessionStorage.getItem('user') ||
+          localStorage.getItem('user');
+              const user = rawUser ? JSON.parse(rawUser) : {};
+
+              const nombre =
+          user.name ||
+          user.nombre ||
+          user.fullName ||
+          user.displayName ||
+          sessionStorage.getItem('medicoNombre') ||
+          localStorage.getItem('medicoNombre');
+
+              const rol =
+          user.role ||
+          user.rol ||
+          sessionStorage.getItem('medicoRol') ||
+          localStorage.getItem('medicoRol');
+
+              const hospital =
+          user.hospital ||
+          user.hospitalNombre ||
+          sessionStorage.getItem('hospitalNombre') ||
+          localStorage.getItem('hospitalNombre');
+
+              const nombreEl = document.getElementById('medico-nombre');
+              if (nombre && nombreEl) nombreEl.textContent = nombre;
+
+              const infoEl = document.getElementById('medico-info');
+              if (infoEl) {
+          if (rol && hospital) infoEl.textContent = `${rol} - ${hospital}`;
+          else if (rol) infoEl.textContent = rol;
+          else if (hospital) infoEl.textContent = hospital;
+              }
+            } catch (_) {
+              /* noop */
+            }
+          })();
+        </script>
+      </div>
+      <div class="header-right">
+        <p id="today" class="date"></p>
+        <div class="time-container">
+          <span id="time" class="time"></span>
+          <button class="gear-btn" data-action="toggle-theme" aria-label="Cambiar tema" title="Cambiar tema">☀️</button>
+          <button class="gear-btn" aria-label="Configuración" onclick="window.location.href='config.html'">
+            ⚙️
+          </button>
+          <button class="gear-btn" aria-label="Cerrar sesión" onclick="window.location.href='index.html'" title="Cerrar sesión">
+            🚪
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- MÉTRICAS -->
+    <section class="metrics-section">
+      <div class="metric-card">
+        <div class="metric-icon">👤</div>
+        <h2 class="metric-value"></h2>
+        <p class="metric-label">Pacientes Activos</p>
+      </div>
+      <div class="metric-card warning">
+        <div class="metric-icon">⚠️</div>
+        <h2 class="metric-value"></h2>
+        <p class="metric-label">Alertas Pendientes</p>
+      </div>
+      <div class="metric-card success">
+        <div class="metric-icon">📊</div>
+        <h2 class="metric-value"></h2>
+        <p class="metric-label">Análisis Hoy</p>
+      </div>
+      <div class="metric-card neutral">
+        <div class="metric-icon">🏥</div>
+        <h2 class="metric-value"></h2>
+        <p class="metric-label">Egresos</p>
+      </div>
+    </section>
+
+    <!-- ACCIONES -->
+    <section class="actions-section">
+      <h3 class="section-title">Acciones Principales</h3>
+      <div class="actions-grid">
+        <a href="ingresar.html" class="action-btn">
+          🩺 <span>Ingresar Paciente</span>
+          <small>Registrar nuevo paciente</small>
+        </a>
+        <a href="consultar.html" class="action-btn">
+          🔎 <span>Consultar Paciente</span>
+          <small>Ver historial y resultados</small>
+        </a>
+        <a href="alta.html" class="action-btn">
+          ✅ <span>Dar de Alta</span>
+          <small>Finalizar ingreso</small>
+        </a>
+        <a href="alerts.html" class="action-btn">
+          🚨 <span>Panel de Alertas</span>
+          <small>Alertas automáticas</small>
+        </a>
+        <a href="panel.html" class="action-btn panel">
+          🏥 <span>Panel por plantas</span>
+          <small>UCI, Urgencias, Hospitalización</small>
+        </a>
+        <a href="reportes.html" class="action-btn reportes">
+          📊 <span>Reportes</span>
+          <small>Exportar PDF/Excel</small>
+        </a>      
+      </div>
+    </section>
+
+    <!-- Footer -->
+      <footer class="footer">
+        <div class="footer__container" style="text-align:center; padding: 1.2rem 0;">
+          <p class="footer__copyright" style="margin:0; color:var(--muted); font-size:1rem;">
+            © 2025 ElectroMed S.A.S. - Todos los derechos reservados.
+          </p>
+        </div>
+      </footer>
+  </main>
+
+  <script src="./theme.js"></script>
+  <script src="./register-sw.js"></script>
+  <script>
+    // Fecha y hora local en vivo
+    function updateDateTime() {
+      const now = new Date();
+      document.getElementById('today').textContent =
+        now.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+      document.getElementById('time').textContent =
+        now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+    }
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+  </script>
+</body>
+</html>

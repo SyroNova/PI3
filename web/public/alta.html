@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ElectroMed — Dar de Alta</title>
+  <link rel="icon" href="./assets/logo-electromed.png" type="image/png" />
+  <link rel="stylesheet" href="./styles/base.css" />
+  <link rel="stylesheet" href="./styles/alta.css" />
+</head>
+<body>
+  <!-- Topbar unificada -->
+  <div class="app-topbar">
+    <div class="app-topbar__left">
+      <span class="app-topbar__item app-topbar__date" id="today"></span>
+      <span class="app-topbar__sep">•</span>
+      <span class="app-topbar__item app-topbar__time" id="time"></span>
+    </div>
+    <div>
+      <button class="app-topbar__logout" data-action="toggle-theme" aria-pressed="false" title="Cambiar tema">☀️</button>
+      <button class="app-topbar__logout" onclick="window.location.href='config.html'">
+        <span class="app-topbar__logout-icon">⚙️</span>
+        <span class="app-topbar__logout-label">Config</span>
+      </button>
+      <button class="app-topbar__logout" onclick="window.location.href='index.html'">
+        <span class="app-topbar__logout-icon">🚪</span>
+        <span class="app-topbar__logout-label">Salir</span>
+      </button>
+    </div>
+  </div>
+
+  <main class="alta-main">
+    <header class="main-header">
+      <div class="main-header-content">
+        <div class="main-header-icon">✅</div>
+        <div>
+          <h1 class="main-title">Dar de Alta</h1>
+          <p class="main-subtitle">Finalizar hospitalización y registrar egreso del paciente</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="patient-form">
+      <form id="alta-form">
+        <div class="form-section">
+          <h2>Datos de Alta</h2>
+          <div class="form-grid">
+            <div>
+              <label for="id">Identificación</label>
+              <input id="id" name="id" type="text" placeholder="Número de documento" required />
+            </div>
+            <div>
+              <label for="fecha">Fecha de alta</label>
+              <input id="fecha" name="fecha" type="date" required />
+            </div>
+            <div>
+              <label for="motivo">Motivo</label>
+              <select id="motivo" name="motivo" required>
+                <option value="">Selecciona motivo</option>
+                <option>Mejoría</option>
+                <option>Traslado a otra IPS</option>
+                <option>Voluntario</option>
+                <option>Fallecimiento</option>
+              </select>
+            </div>
+            <div>
+              <label for="tipoEgreso">Tipo de egreso (según norma)</label>
+              <select id="tipoEgreso" name="tipoEgreso" required>
+                <option value="">Selecciona tipo</option>
+                <option>Egreso por mejoría</option>
+                <option>Egreso por remisión</option>
+                <option>Egreso voluntario</option>
+                <option>Egreso por fallecimiento</option>
+              </select>
+            </div>
+            <div>
+              <label for="destino">Destino</label>
+              <select id="destino" name="destino" required>
+                <option value="">Selecciona destino</option>
+                <option>Domicilio</option>
+                <option>Ambulatorio</option>
+                <option>Rehabilitación</option>
+                <option>Otra institución</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2>Epicrisis e indicaciones</h2>
+          <div class="form-grid">
+            <div style="grid-column: 1 / -1;">
+              <label for="epicrisis">Epicrisis</label>
+              <textarea id="epicrisis" name="epicrisis" rows="5" placeholder="Resumen clínico del proceso y evolución"></textarea>
+            </div>
+            <div style="grid-column: 1 / -1;">
+              <label for="indicaciones">Indicaciones de salida</label>
+              <textarea id="indicaciones" name="indicaciones" rows="5" placeholder="Cuidados, medicación, controles y signos de alarma"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2>Responsable y evaluación</h2>
+          <div class="form-grid">
+            <div>
+              <label for="responsable">Profesional responsable</label>
+              <input id="responsable" name="responsable" type="text" placeholder="Nombre del médico" required />
+            </div>
+            <div>
+              <label for="reingreso">Riesgo de reingreso</label>
+              <select id="reingreso" name="reingreso">
+                <option>Bajo</option>
+                <option>Medio</option>
+                <option>Alto</option>
+              </select>
+            </div>
+            <div style="grid-column: 1 / -1;">
+              <label for="observaciones">Observaciones</label>
+              <textarea id="observaciones" name="observaciones" rows="4" placeholder="Notas relevantes para el egreso"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-cancel" onclick="window.location.href='dashboard.html'">Cancelar</button>
+          <button type="submit" class="btn-submit" id="btn-submit-alta">Confirmar Alta</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <!-- Modal de confirmación -->
+  <div class="modal-backdrop" id="modal-backdrop" hidden>
+    <div class="modal">
+      <h3>Confirmar Alta</h3>
+      <p id="modal-text">¿Confirmas el alta del paciente?</p>
+      <div class="modal-actions">
+        <button class="btn-cancel" type="button" id="modal-cancel">Volver</button>
+        <button class="btn-submit" type="button" id="modal-confirm">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./theme.js"></script>
+  <script>
+    // Fecha y hora en topbar
+    function updateDateTime() {
+      const now = new Date();
+      const todayEl = document.getElementById('today');
+      const timeEl = document.getElementById('time');
+      if (todayEl) todayEl.textContent = now.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+      if (timeEl) timeEl.textContent = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+    }
+    setInterval(updateDateTime, 60000);
+    updateDateTime();
+  </script>
+</body>
+</html>

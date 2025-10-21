@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ElectroMed — Configuración</title>
+  <link rel="icon" href="./assets/logo-electromed.png" type="image/png" />
+  <link rel="stylesheet" href="./styles/base.css" />
+  <link rel="stylesheet" href="./styles/config.css" />
+</head>
+<body>
+  <!-- Topbar unificada -->
+  <div class="app-topbar" role="banner">
+    <div class="app-topbar__left">
+      <span id="today" class="app-topbar__date">Hoy</span>
+      <span class="app-topbar__sep">•</span>
+      <span id="time" class="app-topbar__time">00:00</span>
+    </div>
+    <div class="app-topbar__right" style="display:flex; align-items:center; gap:8px;">
+      <button class="app-topbar__logout" data-action="toggle-theme" aria-pressed="false" title="Cambiar tema">☀️</button>
+      <button class="app-topbar__logout" aria-label="Configuración" onclick="window.location.href='config.html'" title="Configuración">
+        <span class="app-topbar__logout-icon">⚙️</span>
+        <span class="app-topbar__logout-label">Config</span>
+      </button>
+      <button class="app-topbar__logout" aria-label="Cerrar sesión" onclick="window.location.href='index.html'" title="Cerrar sesión">
+        <span class="app-topbar__logout-icon">🚪</span>
+        <span class="app-topbar__logout-label">Salir</span>
+      </button>
+    </div>
+  </div>
+
+  <main class="config">
+    <!-- Cabecera centrada -->
+    <header class="main-header">
+      <span class="main-header-icon">⚙️</span>
+      <h1 class="main-title">Configuración</h1>
+      <p class="main-subtitle">Administra tu cuenta y seguridad</p>
+    </header>
+
+    <!-- Sección principal -->
+    <section class="config-section">
+      <div class="config-horizontal">
+
+        <!-- Información de la cuenta -->
+        <a href="./info-cuenta.html" class="config-card-horizontal">
+          <div class="icon-wrapper icon-blue">👤</div>
+          <div class="card-content">
+            <h3>Información de la cuenta</h3>
+            <p>Consulta y actualiza tu correo, número telefónico y datos personales asociados a tu perfil.</p>
+          </div>
+          <span class="arrow">→</span>
+        </a>
+
+        <!-- Cambiar contraseña -->
+        <a href="./password.html" class="config-card-horizontal">
+          <div class="icon-wrapper icon-orange">🔐</div>
+          <div class="card-content">
+            <h3>Cambiar contraseña</h3>
+            <p>Refuerza la seguridad de tu cuenta modificando tu contraseña regularmente de forma segura.</p>
+          </div>
+          <span class="arrow">→</span>
+        </a>
+
+      </div>
+    </section>
+  </main>
+
+  <script src="./theme.js"></script>
+  <script>
+    // 🕐 Actualizar hora local automáticamente
+    function updateDateTime() {
+      const now = new Date();
+      const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long' };
+      document.getElementById('today').textContent = now.toLocaleDateString('es-ES', opcionesFecha);
+      document.getElementById('time').textContent = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 60000);
+  </script>
+</body>
+</html>

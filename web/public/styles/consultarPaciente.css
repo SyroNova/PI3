@@ -1,0 +1,299 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(to bottom, #f8fafc, #eef2f7);
+    margin: 0;
+    padding: 0;
+    color: #1e293b;
+}
+
+/* Topbar usa estilos globales en base.css */
+/* Cabecera centrada */
+.main-header { display:grid; place-items:center; gap:6px; margin: 10px auto 18px; text-align:center; }
+.main-header-icon { font-size:2.4rem; }
+.main-title { margin:0; }
+[data-theme="dark"] .main-title {
+  color: #fff !important;
+}
+.main-subtitle { margin:0; color:#64748b; }
+
+.patient-info--visual {
+  box-shadow: 0 6px 24px rgba(34,197,94,0.08);
+  background: linear-gradient(135deg, #f8fafc 60%, #e0f2fe 100%);
+    padding: 1.2rem 1rem 1rem 1rem;
+    border-radius: 14px;
+    margin-bottom: 1rem;
+}
+[data-theme="dark"] .patient-info--visual {
+  background: var(--card) !important;
+  color: var(--text);
+  box-shadow: 0 6px 24px rgba(34,197,94,0.18);
+}
+.patient-info__top {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+.patient-avatar {
+  font-size: 3.5rem;
+  background: #e0f2fe;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(59,130,246,0.08);
+}
+.patient-status {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #22c55e;
+}
+  
+  .consultar-paciente {
+  max-width: 900px;
+  margin: 1.2rem auto;
+  padding: 1rem;
+  }
+  
+  /* Header anterior eliminado en favor de main-header */
+  
+  /* INFO PACIENTE */
+  .patient-info {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+  }
+  [data-theme="dark"] .patient-info {
+      background: var(--card) !important;
+      color: var(--text);
+      border-color: var(--border);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  }
+  
+  .info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+.info-item {
+  background: #f1f5f9;
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  font-size: 1.05rem;
+  box-shadow: 0 2px 8px rgba(59,130,246,0.04);
+}
+[data-theme="dark"] .info-item {
+  background: #162032 !important;
+  color: var(--text);
+}
+  
+  /* GRÁFICA */
+  .chart-section {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 20px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+  [data-theme="dark"] .chart-section {
+      background: var(--card) !important;
+      color: var(--text);
+      border-color: var(--border);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  }
+  
+  /* NIVELES */
+  .niveles {
+    margin-bottom: 2rem;
+  }
+  
+  .niveles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .nivel-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  [data-theme="dark"] .nivel-card {
+      background: var(--card) !important;
+      color: var(--text);
+      border-color: var(--border);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+  }
+  
+  .nivel-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  }
+  
+  .nivel-card .valor {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0.5rem 0;
+  }
+  
+  .alto { border-top: 5px solid #ef4444; }
+  .normal { border-top: 5px solid #22c55e; }
+  .bajo { border-top: 5px solid #3b82f6; }
+  
+
+/* REGISTRO DE ELECTROLITOS */
+.registro-electrolitos {
+  background: linear-gradient(135deg, #f8fafc 60%, #e0f2fe 100%);
+  padding: 2.5rem 2rem 2rem 2rem;
+  border-radius: 24px;
+  box-shadow: 0 6px 24px rgba(59,130,246,0.08);
+  margin-bottom: 2.5rem;
+}
+[data-theme="dark"] .registro-electrolitos {
+  background: var(--card) !important;
+  color: var(--text);
+  box-shadow: 0 6px 24px rgba(59,130,246,0.18);
+}
+.registro-electrolitos--visual h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.2rem;
+  font-weight: 700;
+ 
+}
+
+.registro-electrolitos h2 {
+  /* Eliminar propiedades incorrectas, solo usar en el contenedor principal */
+  margin-top: 0;
+  font-size: 1.4rem;
+}
+
+#form-electrolitos {
+  margin-top: 1rem;
+}
+.electro-form .form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 1.5rem;
+}
+.electro-form .field { display: grid; gap: .4rem; }
+.electro-form .field--full { grid-column: 1 / -1; }
+.electro-form label { font-weight: 600; color: #0f172a; }
+[data-theme="dark"] .electro-form label {
+  color: var(--text);
+}
+.electro-form input[type="number"],
+.electro-form input[type="date"] {
+  padding: 0.7rem 1rem;
+  border-radius: 12px;
+  border: 2px solid #cbd5e1;
+  font-size: 1rem;
+  background: #ffffff;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+[data-theme="dark"] .electro-form input[type="number"],
+[data-theme="dark"] .electro-form input[type="date"] {
+  background: #162032 !important;
+  color: var(--text);
+  border-color: var(--border);
+}
+.electro-form input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37,99,235,0.18);
+  outline: none;
+}
+.electro-form .rango {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.form-actions { grid-column: 1 / -1; display:flex; justify-content:center; }
+
+.btn-submit {
+  background: linear-gradient(90deg, #22c55e 60%, #3b82f6 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.9rem 2rem;
+  font-size: 1.08rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(34,197,94,0.08);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.btn-submit--visual:hover {
+  background: linear-gradient(90deg, #16a34a 60%, #2563eb 100%);
+  box-shadow: 0 4px 16px rgba(34,197,94,0.12);
+}
+
+#alerta-electrolitos {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* HISTORIAL CLÍNICO */
+.historial-clinico {
+  background: linear-gradient(135deg, #f8fafc 60%, #e0f2fe 100%);
+  padding: 2.5rem 2rem 2rem 2rem;
+  border-radius: 24px;
+  box-shadow: 0 6px 24px rgba(34,197,94,0.08);
+  margin-bottom: 2.5rem;
+}
+[data-theme="dark"] .historial-clinico {
+  background: var(--card) !important;
+  color: var(--text);
+  box-shadow: 0 6px 24px rgba(34,197,94,0.18);
+}
+.historial-clinico--visual h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.2rem;
+  font-weight: 700;
+ 
+}
+.historial-clinico h2 {
+  margin-top: 0;
+  font-size: 1.4rem;
+}
+#timeline-electrolitos {
+  margin-top: 1rem;
+  border-left: 3px solid #22c55e;
+  padding-left: 1.5rem;
+  position: relative;
+ 
+}
+#timeline-electrolitos .timeline-item {
+  margin-bottom: 2rem;
+  position: relative;
+  background: #f1f5f9;
+  border-radius: 12px;
+  padding: 1rem 1.2rem 1rem 2.5rem;
+  box-shadow: 0 2px 8px rgba(34,197,94,0.04);
+}
+[data-theme="dark"] #timeline-electrolitos .timeline-item {
+  background: #162032 !important;
+  color: var(--text);
+}
+#timeline-electrolitos .timeline-item:before {
+  content: '🩺';
+  position: absolute;
+  left: -2.2rem;
+  top: 0.7rem;
+  font-size: 1.3rem;
+  background: #22c55e;
+  color: #fff;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(34,197,94,0.15);
+}
+  

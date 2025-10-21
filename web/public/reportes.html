@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reportes — ElectroMed</title>
+  <link rel="icon" href="./assets/logo-electromed.png" type="image/png" />
+  <link rel="stylesheet" href="./styles/base.css" />
+  <link rel="stylesheet" href="./styles/reportes.css" />
+</head>
+<body>
+  <!-- Topbar unificada -->
+  <div class="app-topbar" role="banner">
+    <div class="app-topbar__left">
+      <span id="today" class="app-topbar__date">Hoy</span>
+      <span class="app-topbar__sep">•</span>
+      <span id="time" class="app-topbar__time">00:00</span>
+    </div>
+    <div>
+      <button class="app-topbar__logout" data-action="toggle-theme" aria-pressed="false" title="Cambiar tema">☀️</button>
+      <button class="app-topbar__logout" aria-label="Configuración" onclick="window.location.href='config.html'" title="Configuración">
+        <span class="app-topbar__logout-icon">⚙️</span>
+        <span class="app-topbar__logout-label">Config</span>
+      </button>
+      <button class="app-topbar__logout" aria-label="Cerrar sesión" onclick="window.location.href='index.html'" title="Cerrar sesión" style="margin-left:8px;">
+        <span class="app-topbar__logout-icon">🚪</span>
+        <span class="app-topbar__logout-label">Salir</span>
+      </button>
+    </div>
+  </div>
+
+  <main class="reportes-main">
+    <!-- Cabecera centrada -->
+    <header class="main-header">
+      <div class="main-header-content">
+        <span class="main-header-icon">📊</span>
+        <div>
+          <h1 class="main-title">Reportes y Exportación</h1>
+          <p class="main-subtitle">Genera y exporta informes clínicos</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="reportes-content">
+      <div class="reportes-controls">
+        <button class="btn-export" id="export-pdf">Exportar PDF</button>
+        <button class="btn-export" id="export-excel">Exportar Excel</button>
+      </div>
+      <div class="reportes-filtros">
+        <label>Paciente: <input type="text" id="filtro-paciente" placeholder="Buscar por nombre o ID" /></label>
+        <label>Fecha inicio: <input type="date" id="filtro-fecha-inicio" /></label>
+        <label>Fecha fin: <input type="date" id="filtro-fecha-fin" /></label>
+        <label>Planta:
+          <select id="filtro-planta">
+            <option value="">Todas</option>
+            <option value="uci">UCI</option>
+            <option value="urgencias">Urgencias</option>
+            <option value="hospitalizacion">Hospitalización</option>
+          </select>
+        </label>
+      </div>
+      <div id="reportes-table">
+        <table class="reportes-table">
+          <thead>
+            <tr>
+              <th>Paciente</th>
+              <th>Fecha Examen</th>
+              <th>Planta</th>
+              <th>Sodio</th>
+              <th>Potasio</th>
+              <th>Cloro</th>
+              <th>Alertas</th>
+            </tr>
+          </thead>
+          <tbody id="reportes-tbody">
+            <!-- Poblar desde backend -->
+          </tbody>
+        </table>
+        <div id="reportes-msg" style="margin-top:2rem; color:#64748b;">Sin datos. Conectar a backend.</div>
+      </div>
+      <div id="reportes-graficos">
+        <!-- Aquí se mostrarán los gráficos desde el backend -->
+        <div id="grafico-placeholder" style="color:#64748b;">Sin gráficos. Conectar a backend.</div>
+      </div>
+    </section>
+  </main>
+  <script src="./theme.js"></script>
+  <script src="./register-sw.js"></script>
+  <!-- Chart.js CDN (modo UMD) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script type="module" src="./dist/app-reportes.js"></script>
+  <script>
+    // Fecha y hora topbar
+    function updateDateTime(){
+      const now = new Date();
+      const d = document.getElementById('today');
+      const t = document.getElementById('time');
+      if(d) d.textContent = now.toLocaleDateString('es-ES',{weekday:'long', day:'numeric', month:'long'});
+      if(t) t.textContent = now.toLocaleTimeString('es-ES',{hour:'2-digit', minute:'2-digit'});
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 60000);
+  </script>
+</body>
+</html>
