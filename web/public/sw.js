@@ -1,9 +1,8 @@
 // Service Worker para ElectroMed - Offline First
-const CACHE_NAME = 'electromed-v2';
-const RUNTIME_CACHE = 'electromed-runtime-v2';
+const CACHE_NAME = 'electromed-v3';
+const RUNTIME_CACHE = 'electromed-runtime-v3';
 
-// Recursos estáticos para cachear durante la instalación
-// Importante: usar rutas relativas al scope del SW (carpeta public)
+// Recursos estáticos (rutas absolutas desde /public)
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -63,99 +62,107 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Estrategia de fetch: Network First con fallback a Cache
+// Interceptar fetch (Network First para APIs, Cache First para recursos)
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // Solo cachear requests del mismo origen
-  if (url.origin !== location.origin) {
-    return;
-  }
+  // Ignorar peticiones externas
+  if (url.origin !== location.origin) return;
 
-  // Para APIs: Network First
+  // Para APIs → Network First
   if (url.pathname.startsWith('/api/')) {
     event.respondWith(networkFirstStrategy(request));
     return;
   }
 
-  // Para recursos estáticos: Cache First
+  // Para páginas HTML → permitir redirecciones explícitamente
+  if (request.destination === 'document') {
+    event.respondWith(htmlStrategy(request));
+    return;
+  }
+
+  // Para otros recursos estáticos → Cache First
   event.respondWith(cacheFirstStrategy(request));
 });
 
-// Estrategia Cache First (para recursos estáticos)
+// Estrategia Cache First (CSS, JS, imágenes, etc.)
 async function cacheFirstStrategy(request) {
   const cachedResponse = await caches.match(request);
-  if (cachedResponse) {
-    return cachedResponse;
-  }
+  if (cachedResponse) return cachedResponse;
 
   try {
-    const networkResponse = await fetch(request);
+    const networkResponse = await fetch(request, { redirect: 'follow' });
+
+    // Evitar problemas con respuestas redireccionadas
+    if (networkResponse.type === 'opaqueredirect') {
+      return Response.redirect(networkResponse.url, 302);
+    }
+
     if (networkResponse.ok) {
       const cache = await caches.open(RUNTIME_CACHE);
       cache.put(request, networkResponse.clone());
     }
+
     return networkResponse;
   } catch (error) {
-    console.log('[SW] Fetch falló, retornando respuesta offline:', error);
-    // Retornar página offline personalizada si existe
-  return caches.match('./index.html');
+    console.warn('[SW] Cache First: fetch falló →', error);
+    return caches.match('/index.html');
   }
 }
 
-// Estrategia Network First (para APIs)
+// Estrategia Network First (APIs)
 async function networkFirstStrategy(request) {
   try {
-    const networkResponse = await fetch(request);
+    const networkResponse = await fetch(request, { redirect: 'follow' });
+
     if (networkResponse.ok) {
       const cache = await caches.open(RUNTIME_CACHE);
       cache.put(request, networkResponse.clone());
     }
+
     return networkResponse;
   } catch (error) {
-    console.log('[SW] Network falló, buscando en cache:', error);
+    console.warn('[SW] Network First: offline →', error);
     const cachedResponse = await caches.match(request);
-    if (cachedResponse) {
-      return cachedResponse;
-    }
-    
-    // Retornar respuesta offline
+    if (cachedResponse) return cachedResponse;
+
     return new Response(
-      JSON.stringify({ 
-        offline: true, 
-        message: 'No hay conexión a Internet' 
-      }),
-      {
-        headers: { 'Content-Type': 'application/json' },
-        status: 503
-      }
+      JSON.stringify({ offline: true, message: 'No hay conexión a Internet' }),
+      { headers: { 'Content-Type': 'application/json' }, status: 503 }
     );
   }
 }
 
-// Sincronización en background
+// Estrategia especial para documentos HTML
+async function htmlStrategy(request) {
+  try {
+    const networkResponse = await fetch(request, { redirect: 'follow' });
+    if (networkResponse.type === 'opaqueredirect') {
+      return Response.redirect(networkResponse.url, 302);
+    }
+    return networkResponse;
+  } catch (error) {
+    console.warn('[SW] HTML Strategy: offline, mostrando index.html');
+    return caches.match('/index.html');
+  }
+}
+
+// Sincronización en background (opcional)
 self.addEventListener('sync', (event) => {
   console.log('[SW] Sincronización en background:', event.tag);
-  
+
   if (event.tag === 'sync-patients') {
     event.waitUntil(syncPatients());
   }
 });
 
-// Función para sincronizar pacientes pendientes
 async function syncPatients() {
   try {
-    // Aquí implementarías la lógica para enviar datos pendientes al servidor
     console.log('[SW] Sincronizando pacientes pendientes...');
-    
-    // Notificar a los clientes que la sincronización se completó
     const clients = await self.clients.matchAll();
     clients.forEach(client => {
-      client.postMessage({
-        type: 'SYNC_COMPLETE',
-        data: { success: true }
-      });
+      client.postMessage({ type: 'SYNC_COMPLETE', data: { success: true } });
     });
   } catch (error) {
     console.error('[SW] Error en sincronización:', error);
