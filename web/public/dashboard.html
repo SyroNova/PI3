@@ -18,8 +18,8 @@
       <div class="header-left">
         <img src="./assets/logo-electromed.png" alt="Logo" class="logo" />
         <div>
-          <h1 class="title">Bienvenido, <span id="medico-nombre">Usuario</span></h1>
-          <p class="subtitle" id="medico-rol"></p>
+          <h1 class="title" id="welcome">Bienvenido, <span id="medico-nombre">Usuario</span></h1>
+          <p class="subtitle" id="role"></p>
           <script>
             (function () {
               try {
@@ -162,7 +162,6 @@
 
   <script src="./theme.js"></script>
   <script src="./register-sw.js"></script>
-  <script type="module" src="./dist/app-dashboard.js"></script>
   <script>
     // Fecha y hora local en vivo
     function updateDateTime() {
@@ -175,9 +174,10 @@
     setInterval(updateDateTime, 1000);
     updateDateTime();
   </script>
+  <script type="module" src="./dist/app-dashboard.js"></script>
+
 </body>
 </html>
-
 
 
 
