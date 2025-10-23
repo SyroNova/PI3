@@ -4,7 +4,7 @@ import { apiClient } from './ApiClient.js';
 export class DashboardService {
   async getName(): Promise<string> {
     try {
-      const data = await apiClient.get<{ name: string }>('/api/me');
+      const data = await apiClient.get<{ name: string }>('/api/dashboard/me');
       return data.name;
     } catch {
       return 'Usuario';
@@ -12,7 +12,7 @@ export class DashboardService {
   }
   async getRole(): Promise<string> {
     try {
-      const data = await apiClient.get<{ role: string }>('/api/me');
+      const data = await apiClient.get<{ role: string }>('/api/dashboard/me');
       return data.role || '';
     } catch {
       return '';
@@ -36,3 +36,4 @@ export class DashboardService {
     }
   }
 }
+
