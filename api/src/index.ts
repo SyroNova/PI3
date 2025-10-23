@@ -46,7 +46,7 @@ app.use('/api/reports', reportRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/discharges', dischargeRoutes);
 app.use('/api/devices', deviceRoutes);
-app.use('/api/me', dashboardRoutes); // /api/me uses dashboard controller
+app.use('/api/dashboard', dashboardRoutes); // /api/me uses dashboard controller
 
 // Error handler (must be last)
 app.use(errorHandler);
