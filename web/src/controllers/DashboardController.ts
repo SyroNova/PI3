@@ -28,7 +28,6 @@ export class DashboardController {
     this.view.setRole(this.model.role);
     this.view.setDate(new Date());
     this.view.renderMetrics(this.model.metrics);
-    this.view.renderRecents(this.model.patients);
 
     // Reloj
     this.tick();
@@ -50,3 +49,4 @@ export class DashboardController {
 
   destroy(){ if (this.clock) window.clearInterval(this.clock); }
 }
+
