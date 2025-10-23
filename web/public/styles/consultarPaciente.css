@@ -217,7 +217,7 @@ body {
 .form-actions { grid-column: 1 / -1; display:flex; justify-content:center; }
 
 .btn-submit {
-  background: linear-gradient(90deg, #22c55e 60%, #3b82f6 100%);
+  background: #1E7BC6; /* azul sólido */
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -225,13 +225,15 @@ body {
   font-size: 1.08rem;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(34,197,94,0.08);
+  box-shadow: 0 2px 8px rgba(30,123,198,0.25);
   transition: background 0.2s, box-shadow 0.2s;
 }
-.btn-submit--visual:hover {
-  background: linear-gradient(90deg, #16a34a 60%, #2563eb 100%);
-  box-shadow: 0 4px 16px rgba(34,197,94,0.12);
+
+.btn-submit:hover {
+  background: #0E4A7D; /* azul más oscuro al pasar el mouse */
+  box-shadow: 0 4px 12px rgba(30,123,198,0.3);
 }
+
 
 #alerta-electrolitos {
   font-size: 1rem;

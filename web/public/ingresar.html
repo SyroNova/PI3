@@ -23,31 +23,29 @@
         <button class="app-topbar__logout" data-action="toggle-theme" aria-pressed="false" title="Cambiar tema">☀️</button>
         <button class="app-topbar__logout" aria-label="Configuración" onclick="window.location.href='config.html'" title="Configuración">
           <span class="app-topbar__logout-icon">⚙️</span>
-          <span class="app-topbar__logout-label">Config</span>
+          
         </button>
         <button class="app-topbar__logout" aria-label="Cerrar sesión" onclick="window.location.href='index.html'" title="Cerrar sesión" style="margin-left:8px;">
-          <span class="app-topbar__logout-icon">🚪</span>
+          
           <span class="app-topbar__logout-label">Salir</span>
         </button>
       </div>
     </div>
     <!-- Cabecera central -->
-    <header class="main-header">
-      <div class="main-header-content">
-        <span class="main-header-icon">🩺</span>
-        <div>
-          <h1 class="main-title">Registrar Nuevo Paciente</h1>
-          <p class="main-subtitle">Completa la información del paciente para su admisión hospitalaria</p>
-        </div>
-      </div>
-    </header>
+    <header class="main-header simple-header">
+  <div class="main-header-text">
+    <h1 class="main-title">Registrar Nuevo Paciente</h1>
+    <p class="main-subtitle">Completa la información del paciente para su admisión hospitalaria</p>
+  </div>
+</header>
+
 
     <!-- 🧾 FORMULARIO -->
   <form class="patient-form" id="patient-form">
 
       <!-- 📋 Datos personales -->
       <section class="form-section">
-        <h2>👤 Datos Personales</h2>
+        <h2> Datos Personales</h2>
         <div class="form-grid">
           <div>
             <label for="identificacion" class="field-label">Número de identificación</label>
@@ -94,7 +92,7 @@
 
       <!-- 🏥 Datos de hospitalización -->
       <section class="form-section">
-        <h2>🏥 Datos de Hospitalización</h2>
+        <h2>Datos de Hospitalización</h2>
         <div class="form-grid">
           <div>
             <label for="fecha-ingreso" class="field-label">Fecha de Ingreso</label>
@@ -198,7 +196,7 @@
 
       <!-- 💉 Información médica -->
       <section class="form-section">
-        <h2>💉 Información Médica</h2>
+        <h2>Información Médica</h2>
         <div class="form-grid">
           <div>
             <label for="diagnostico" class="field-label">Diagnóstico Principal</label>
@@ -217,7 +215,7 @@
 
       <!-- 📄 Motivo de ingreso -->
       <section class="form-section">
-        <h2>🩹 Motivo de Ingreso</h2>
+        <h2>Motivo de Ingreso</h2>
         <label for="motivo" class="field-label">Descripción del Motivo</label>
         <textarea id="motivo" placeholder="Describe el motivo del ingreso del paciente..." style="font-family: 'Segoe UI', Arial, sans-serif;" required minlength="10" data-label="Motivo de ingreso"></textarea>
       </section>

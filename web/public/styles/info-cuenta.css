@@ -25,29 +25,27 @@ body {
     font-size: 2.6rem; /* Aumenta el tamaño del icono */
 }
   
-  /* --- Perfil y contacto --- */
   .profile-section {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin-bottom: 2rem;
-  }
-  
-  .profile-card,
-  .contact-card {
-    background: #fff;
-    border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    padding: 2rem;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  [data-theme="dark"] .profile-card,
-  [data-theme="dark"] .contact-card {
-      background: var(--card) !important;
-      color: var(--text);
-      border-color: var(--border);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.18);
-  }
+  display: flex;
+  justify-content: center;
+  align-items: stretch; /* iguala la altura de las tarjetas */
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap; /* para que sea responsive */
+}
+
+.profile-card,
+.contact-card {
+  flex: 1;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centra el texto verticalmente */
+}
   
   .profile-card:hover,
   .contact-card:hover {
