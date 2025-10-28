@@ -24,7 +24,7 @@ export class ReportesService {
 
   constructor(baseUrl?: string) {
     // Usar misma origin por defecto
-    this.baseUrl = baseUrl || window.location.origin; // Use || for consistency
+    this.baseUrl = baseUrl || 'https://pi3-production.up.railway.app'; // Use || for consistency
   }
 
   /**
@@ -76,4 +76,5 @@ function toNumber(v: any): number | undefined {
   const n = typeof v === 'string' ? parseFloat(v) : typeof v === 'number' ? v : NaN;
   return Number.isFinite(n) ? n : undefined;
 }
+
 
