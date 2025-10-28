@@ -1,3 +1,5 @@
+import { apiClient } from "./ApiClient.js";
+
 export type ElectrolyteRecord = {
   id?: string;
   patientId?: string;
@@ -76,5 +78,6 @@ function toNumber(v: any): number | undefined {
   const n = typeof v === 'string' ? parseFloat(v) : typeof v === 'number' ? v : NaN;
   return Number.isFinite(n) ? n : undefined;
 }
+
 
 
