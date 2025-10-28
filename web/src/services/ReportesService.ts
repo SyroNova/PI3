@@ -46,12 +46,7 @@ export class ReportesService {
    */
   async fetchElectrolytes(filters: ReportFilters): Promise<ElectrolyteResponse> {
     const url = this.buildUrl(filters);
-    const res = await fetch(url, {
-      headers: {
-        'Accept': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token') ?? ''}`,
-      },
-    });
+    const res = await apiClient.get(url)
 
     if (!res.ok) {
       // Si el server no existe en dev, dará 405/404; propagar para UI
@@ -81,3 +76,4 @@ function toNumber(v: any): number | undefined {
   const n = typeof v === 'string' ? parseFloat(v) : typeof v === 'number' ? v : NaN;
   return Number.isFinite(n) ? n : undefined;
 }
+
