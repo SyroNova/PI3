@@ -22,19 +22,13 @@ export type ReportFilters = {
 export type ElectrolyteResponse = ElectrolyteRecord[];
 
 export class ReportesService {
-  private baseUrl: string;
-
-  constructor(baseUrl?: string) {
-    // Usar misma origin por defecto
-    this.baseUrl = baseUrl || 'https://pi3-production.up.railway.app'; // Use || for consistency
-  }
 
   /**
    * Construye URL de consulta para el backend.
    * Espera un endpoint tipo /api/reports/electrolytes con query params.
    */
   private buildUrl(filters: ReportFilters): string {
-    const url = new URL('/api/reports/electrolytes', this.baseUrl);
+    const url = new URL('/api/reports/electrolytes');
     if (filters.paciente) url.searchParams.set('patient', filters.paciente);
     if (filters.fechaInicio) url.searchParams.set('start', filters.fechaInicio);
     if (filters.fechaFin) url.searchParams.set('end', filters.fechaFin);
@@ -78,6 +72,7 @@ function toNumber(v: any): number | undefined {
   const n = typeof v === 'string' ? parseFloat(v) : typeof v === 'number' ? v : NaN;
   return Number.isFinite(n) ? n : undefined;
 }
+
 
 
 
