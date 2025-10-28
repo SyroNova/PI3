@@ -57,7 +57,7 @@ export const getReportData = async (req: AuthRequest, res: Response) => {
 
     const result = rows.map((row: any) => ({
       ...row,
-      alertas: row.alertas ? JSON.parse(row.alertas) : []
+      alertas: row.alertas ? structuredClone(row.alertas) : []
     }));
 
     return res.json(result);
