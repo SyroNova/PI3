@@ -108,11 +108,17 @@
     const filtroPlanta = document.getElementById("filtro-planta");
 
     const datosSimulados = [
-      { paciente: "Juan Pérez", fecha: "2025-10-20", planta: "uci", sodio: 135, potasio: 4.2, cloro: 101, alertas: "Ninguna" },
-      { paciente: "Ana López", fecha: "2025-10-21", planta: "hospitalizacion", sodio: 150, potasio: 5.5, cloro: 110, alertas: "Alto potasio" },
-      { paciente: "Carlos Ruiz", fecha: "2025-10-22", planta: "urgencias", sodio: 128, potasio: 3.8, cloro: 98, alertas: "Bajo sodio" },
-      { paciente: "María Gómez", fecha: "2025-10-23", planta: "uci", sodio: 140, potasio: 4.0, cloro: 103, alertas: "Ninguna" }
-    ];
+  { paciente: "Juan Pérez", fecha: "2025-10-20", planta: "uci", sodio: 135, potasio: 4.2, cloro: 101, alertas: "Ninguna" },
+  { paciente: "Ana López", fecha: "2025-10-21", planta: "hospitalizacion", sodio: 150, potasio: 5.5, cloro: 110, alertas: "Alto potasio" },
+  { paciente: "Carlos Ruiz", fecha: "2025-10-22", planta: "urgencias", sodio: 128, potasio: 3.8, cloro: 98, alertas: "Bajo sodio" },
+  { paciente: "María Gómez", fecha: "2025-10-23", planta: "uci", sodio: 140, potasio: 4.0, cloro: 103, alertas: "Ninguna" },
+
+  // Nuevos 4:
+  { paciente: "Diego Martínez", fecha: "2025-10-24", planta: "urgencias", sodio: 160, potasio: 4.8, cloro: 115, alertas: "Riesgo — Sodio muy alto" },
+  { paciente: "Laura Torres", fecha: "2025-10-25", planta: "hospitalizacion", sodio: 134, potasio: 5.9, cloro: 102, alertas: "Potasio crítico" },
+  { paciente: "Ricardo Silva", fecha: "2025-10-26", planta: "uci", sodio: 144, potasio: 3.5, cloro: 108, alertas: "Ninguna" },
+  { paciente: "Sofía Hernández", fecha: "2025-10-27", planta: "urgencias", sodio: 122, potasio: 4.1, cloro: 94, alertas: "Sodio crítico" }
+];
 
     function renderTabla(data) {
       reportesTbody.innerHTML = "";
@@ -171,6 +177,7 @@
 
 </body>
 </html>
+
 
 
 
