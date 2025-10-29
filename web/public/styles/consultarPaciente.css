@@ -6,6 +6,19 @@ body {
     color: #1e293b;
 }
 
+/* Chart theme variables - centralized here so CSS controls colors for chart text/grid */
+:root {
+  --chart-text: #071033; /* darker for improved contrast in light mode */
+  --chart-grid: rgba(2,6,23,0.06);
+  --section-title: #071033;
+}
+
+[data-theme="dark"] {
+  --chart-text: #E6F2FF;
+  --chart-grid: rgba(255,255,255,0.06);
+  --section-title: #ffffff;
+}
+
 /* Topbar usa estilos globales en base.css */
 /* Cabecera centrada */
 .main-header { display:grid; place-items:center; gap:6px; margin: 10px auto 18px; text-align:center; }
@@ -263,9 +276,17 @@ body {
   margin-top: 0;
   font-size: 1.4rem;
 }
+/* Section headings use centralized color variable to ensure contrast in light/dark themes */
+.seguimiento-electrolitos h2,
+.historial-clinico h2,
+.registro-electrolitos h2,
+.patient-info h2 {
+  color: var(--section-title);
+  font-weight: 700;
+}
 #timeline-electrolitos {
   margin-top: 1rem;
-  border-left: 3px solid #22c55e;
+  border-left: 3px solid var(--status-ok, #22c55e);
   padding-left: 1.5rem;
   position: relative;
  
@@ -288,7 +309,7 @@ body {
   left: -2.2rem;
   top: 0.7rem;
   font-size: 1.3rem;
-  background: #22c55e;
+  background: var(--status-ok, #22c55e);
   color: #fff;
   border-radius: 50%;
   width: 2rem;
@@ -297,5 +318,53 @@ body {
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 6px rgba(34,197,94,0.15);
+}
+
+/* Timeline text details */
+#timeline-electrolitos .timeline-date {
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.35rem;
+}
+[data-theme="dark"] #timeline-electrolitos .timeline-date {
+  color: var(--text);
+}
+#timeline-electrolitos .timeline-values {
+  color: #334155;
+  font-size: 0.98rem;
+}
+[data-theme="dark"] #timeline-electrolitos .timeline-values {
+  color: rgba(255,255,255,0.85);
+}
+
+/* Grafico container y canvas */
+.grafico-container {
+  margin-top: 1.25rem;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(2,6,23,0.04);
+}
+[data-theme="dark"] .grafico-container {
+  background: var(--card) !important;
+  color: var(--text);
+  box-shadow: 0 4px 12px rgba(2,6,23,0.18);
+}
+
+#historial-chart {
+  width: 100% !important;
+  height: 320px !important;
+  display: block;
+}
+
+/* Empty timeline fallback */
+.timeline-container:empty::before {
+  content: 'No hay registros aún';
+  color: #64748b;
+  display: block;
+  padding: 1rem 0;
+}
+[data-theme="dark"] .timeline-container:empty::before {
+  color: rgba(255,255,255,0.7);
 }
   
