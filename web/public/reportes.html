@@ -188,8 +188,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderTabla(filtrados);
 
-    // ✅ Mostrar gráfica solo si Juan Pérez está en los resultados
-    const contieneJuan = filtrados.some(d => d.paciente === "Juan Pérez");
+    actualizarBotones(filtrados); // ✅ NUEVO
+
     if (contieneJuan) {
       graficosContainer.style.display = "block";
       generarGraficaJuanPerez();
@@ -197,6 +197,79 @@ document.addEventListener("DOMContentLoaded", () => {
       graficosContainer.style.display = "none";
     }
   }
+
+  const btnPDF = document.getElementById("export-pdf");
+const btnExcel = document.getElementById("export-excel");
+
+function descargarPDF(datosJuan) {
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF();
+
+  pdf.text("Reporte — Juan Pérez", 20, 20);
+
+  let y = 40;
+  datosJuan.forEach(d => {
+    pdf.text(
+      `Fecha: ${d.fecha} | Sodio: ${d.sodio} | Potasio: ${d.potasio} | Cloro: ${d.cloro}`,
+      20,
+      y
+    );
+    y += 10;
+  });
+
+  pdf.save("reporte-juan-perez.pdf");
+}
+
+function descargarExcel(datosJuan) {
+  const csv = [
+    "Paciente,Fecha,Planta,Sodio,Potasio,Cloro,Alertas",
+    ...datosJuan.map(d => 
+      `${d.paciente},${d.fecha},${d.planta},${d.sodio},${d.potasio},${d.cloro},${d.alertas}`
+    )
+  ].join("\n");
+
+  const blob = new Blob([csv], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "reporte-juan-perez.csv";
+  link.click();
+
+  URL.revokeObjectURL(url);
+}
+
+// ✅ Desactivar por defecto
+btnPDF.disabled = true;
+btnExcel.disabled = true;
+
+// ✅ Actualizar al filtrar
+btnPDF.style.opacity = "0.4";
+btnExcel.style.opacity = "0.4";
+
+function actualizarBotones(filtrados) {
+  const contieneJuan = filtrados.some(d => d.paciente === "Juan Pérez");
+
+  if (contieneJuan) {
+    btnPDF.disabled = false;
+    btnExcel.disabled = false;
+    btnPDF.style.opacity = "1";
+    btnExcel.style.opacity = "1";
+
+    const datosJuan = filtrados.filter(d => d.paciente === "Juan Pérez");
+
+    btnPDF.onclick = () => descargarPDF(datosJuan);
+    btnExcel.onclick = () => descargarExcel(datosJuan);
+  } else {
+    btnPDF.disabled = true;
+    btnExcel.disabled = true;
+    btnPDF.style.opacity = "0.4";
+    btnExcel.style.opacity = "0.4";
+
+    btnPDF.onclick = null;
+    btnExcel.onclick = null;
+  }
+}
 
   // Render inicial
   renderTabla(datosSimulados);
@@ -211,6 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
 
