@@ -97,6 +97,63 @@
     }
     updateDateTime();
     setInterval(updateDateTime, 60000);
+
+    const reportesTbody = document.getElementById("reportes-tbody");
+
+  const datosSimulados = [
+    {
+      paciente: "Juan Pérez",
+      fecha: "2025-10-20",
+      planta: "UCI",
+      sodio: 135,
+      potasio: 4.2,
+      cloro: 101,
+      alertas: "Ninguna"
+    },
+    {
+      paciente: "Ana López",
+      fecha: "2025-10-21",
+      planta: "Hospitalización",
+      sodio: 150,
+      potasio: 5.5,
+      cloro: 110,
+      alertas: "⚠️ Alto potasio"
+    },
+    {
+      paciente: "Carlos Ruiz",
+      fecha: "2025-10-22",
+      planta: "Emergencias",
+      sodio: 128,
+      potasio: 3.8,
+      cloro: 98,
+      alertas: "⚠️ Bajo sodio"
+    },
+    {
+      paciente: "María Gómez",
+      fecha: "2025-10-23",
+      planta: "UCI",
+      sodio: 140,
+      potasio: 4.0,
+      cloro: 103,
+      alertas: "Ninguna"
+    }
+  ];
+
+  datosSimulados.forEach(reporte => {
+    const fila = document.createElement("tr");
+    fila.innerHTML = `
+      <td>${reporte.paciente}</td>
+      <td>${reporte.fecha}</td>
+      <td>${reporte.planta}</td>
+      <td>${reporte.sodio}</td>
+      <td>${reporte.potasio}</td>
+      <td>${reporte.cloro}</td>
+      <td>${reporte.alertas}</td>
+    `;
+    reportesTbody.appendChild(fila);
+    });
+  });
   </script>
 </body>
 </html>
+
