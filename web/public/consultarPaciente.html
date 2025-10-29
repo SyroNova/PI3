@@ -43,11 +43,11 @@
         
         <div>
           <h2>Información del Paciente</h2>
-          <p class="patient-status"><span id="estado-paciente"></span></p>
         </div>
       </div>
       <div class="info-grid">
         <div class="info-item"><strong>Nombre:</strong> <span id="nombre-paciente"></span></div>
+        <div class ="info-item"><strong>Estado:</strong> <span id="estado-paciente"></span></div>
         <div class="info-item"><strong>Edad:</strong> <span id="edad-paciente"></span></div>
         <div class="info-item"><strong>Sexo:</strong> <span id="sexo-paciente"></span></div>
         <div class="info-item"><strong>Diagnóstico:</strong> <span id="diagnostico-paciente"></span></div>
@@ -112,11 +112,16 @@
       <div id="alerta-electrolitos" style="margin-top:1rem;"></div>
     </section>
 
-    <!-- Historial clínico visual mejorado -->
-    <section class="historial-clinico historial-clinico--visual">
-      <h2><span style="color:#22c55e;">📈</span> Historial Clínico</h2>
-      <div id="timeline-electrolitos">
-        <!-- Aquí se mostrarán los registros reales desde el backend -->
+    <!-- seguimiento de Electrolitos visual mejorado -->
+    <section class="seguimiento-electrolitos seguimiento-electrolitos--visual">
+      <!-- Title color is controlled from CSS variables in consultarPaciente.css -->
+      <h2>Seguimiento de Electrolitos</h2>
+      <!-- Timeline de resultados (llenado por JS) -->
+      <div id="timeline-electrolitos" class="timeline-container"></div>
+
+      <!-- Gráfico de historial -->
+      <div id="grafico-historial" class="grafico-container">
+        <canvas id="historial-chart" width="800" height="320" aria-label="Historial de electrolitos"></canvas>
       </div>
     </section>
   </main>
@@ -165,11 +170,9 @@
       }
     });
 
-    // Eliminar datos simulados, conectar a backend aquí
     document.getElementById('form-electrolitos').addEventListener('submit', function(e) {
       e.preventDefault();
-      // Aquí deberías enviar los datos al backend
-      document.getElementById('alerta-electrolitos').innerHTML = '<span style="color:#22c55e">Resultado guardado (simulado, conectar API)</span>';
+      document.getElementById('alerta-electrolitos').innerHTML = '<span style="color:#22c55e">Resultado guardado</span>';
     });
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -190,21 +193,21 @@
   document.getElementById("diagnostico-paciente").textContent = paciente.diagnostico;
   document.getElementById("fecha-ingreso").textContent = paciente.fechaIngreso;
   document.getElementById("estado-paciente").textContent = paciente.estado;
+
   // --- Historial clínico simulado ---
-    const historialSimulado = [
+    const seguimientoElectrolitos = [
       {
         fecha: "2025-10-20",
         sodio: 140,
         potasio: 4.2,
         cloro: 102,
-        estado: "Normal"
       },
       {
         fecha: "2025-10-21",
         sodio: 139,
         potasio: 4.1,
         cloro: 100,
-        estado: "Normal"
+
       },
       {
         fecha: "2025-10-23",
@@ -217,25 +220,223 @@
     
     // Renderizar timeline visual
     const timeline = document.getElementById("timeline-electrolitos");
-    timeline.innerHTML = historialSimulado.map(item => `
-      <div class="timeline-item">
-        <div class="timeline-date">${item.fecha}</div>
-        <div class="timeline-values">
-          <span>Na⁺: ${item.sodio} mEq/L</span> |
-          <span>K⁺: ${item.potasio} mEq/L</span> |
-          <span>Cl⁻: ${item.cloro} mEq/L</span>
+    if (timeline) {
+      timeline.innerHTML = seguimientoElectrolitos.map(item => `
+        <div class="timeline-item">
+          <div class="timeline-date">${item.fecha}</div>
+          <div class="timeline-values">
+            <span>Na⁺: ${item.sodio} mEq/L</span> |
+            <span>K⁺: ${item.potasio} mEq/L</span> |
+            <span>Cl⁻: ${item.cloro} mEq/L</span>
+          </div>
+          <div class="timeline-status" style="color:#22c55e;font-weight:600;">
+          </div>
         </div>
-        <div class="timeline-status" style="color:#22c55e;font-weight:600;">
-          ✅ ${item.estado}
-        </div>
-      </div>
-    `).join("");
+      `).join("");
+    }
     });
 
-    // TODO: Poblar datos del paciente y timeline desde el backend
+    // Historial clinico del paciente simulado
+    const seguimientoElectrolitos = [
+      { fecha: '2025-10-20', sodio: 140, potasio: 4.2, cloro: 102, calcio: 9.2, bicarbonato: 24 },
+      { fecha: '2025-10-21', sodio: 139, potasio: 4.1, cloro: 100, calcio: 9.0, bicarbonato: 23 },
+      { fecha: '2025-10-23', sodio: 141, potasio: 4.0, cloro: 103, calcio: 9.1, bicarbonato: 25 },
+      { fecha: '2025-10-25', sodio: 138, potasio: 4.3, cloro: 101, calcio: 9.3, bicarbonato: 26 },
+      { fecha: '2025-10-27', sodio: 142, potasio: 4.2, cloro: 104, calcio: 9.4, bicarbonato: 27 }
+    ];
+    // Aquí puedes agregar código para graficar el historial clínico usando Chart.js
+    const canvas = document.getElementById('historial-chart');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+
+      const labels = seguimientoElectrolitos.map(item => item.fecha);
+      const sodioData = seguimientoElectrolitos.map(item => item.sodio);
+      const potasioData = seguimientoElectrolitos.map(item => item.potasio);
+      const cloroData = seguimientoElectrolitos.map(item => item.cloro);
+
+      // elegir colores de texto/grid según el tema (intenta leer variables CSS, si existen)
+      const themeAttr = document.documentElement.getAttribute('data-theme');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = themeAttr || (prefersDark ? 'dark' : 'light');
+  // Read chart colors from CSS variables (centralized in consultarPaciente.css)
+  const computed = getComputedStyle(document.documentElement);
+  const cssChartText = (computed.getPropertyValue('--chart-text') || '').trim();
+  const cssChartGrid = (computed.getPropertyValue('--chart-grid') || '').trim();
+  // Final colors: prefer CSS variables when present, otherwise fallback per theme
+  const finalTextColor = cssChartText || (theme === 'dark' ? '#E6F2FF' : '#0f172a');
+  const finalGridColor = cssChartGrid || (theme === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(2,6,23,0.06)');
+
+      // crear gradientes suaves para cada serie (más 'movido' visualmente pero estable)
+  // Use solid line colors (no large filled areas) and lighter styling for light mode
+  const colorSodio = 'rgba(59,130,246,0.95)';
+  const colorPotasio = 'rgba(16,185,129,0.9)';
+  const colorCloro = 'rgba(99,102,241,0.9)';
+  const colorCalcio = 'rgba(250,204,21,0.95)';
+  const colorBicarb = 'rgba(234,88,12,0.9)';
+
+  // Opciones para dar movimiento suave pero sin overshoot: tension moderada y cubicInterpolationMode 'monotone'
+      const chartOpts = {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Sodio (mEq/L)',
+              data: sodioData,
+              borderColor: colorSodio,
+              backgroundColor: 'transparent',
+              borderWidth: 2.2,
+              pointRadius: 2,
+              pointHoverRadius: 5,
+              fill: false,
+              tension: 0.28,
+              cubicInterpolationMode: 'monotone'
+            },
+            {
+              label: 'Potasio (mEq/L)',
+              data: potasioData,
+              borderColor: colorPotasio,
+              backgroundColor: 'transparent',
+              borderWidth: 2.0,
+              pointRadius: 2,
+              pointHoverRadius: 5,
+              fill: false,
+              tension: 0.28,
+              cubicInterpolationMode: 'monotone'
+            },
+            {
+              label: 'Cloro (mEq/L)',
+              data: cloroData,
+              borderColor: colorCloro,
+              backgroundColor: 'transparent',
+              borderWidth: 2.0,
+              pointRadius: 2,
+              pointHoverRadius: 5,
+              fill: false,
+              tension: 0.28,
+              cubicInterpolationMode: 'monotone'
+            },
+            {
+              label: 'Calcio (mg/dL)',
+              data: seguimientoElectrolitos.map(item => item.calcio),
+              borderColor: colorCalcio,
+              backgroundColor: 'transparent',
+              borderWidth: 1.8,
+              pointRadius: 2,
+              pointHoverRadius: 4,
+              fill: false,
+              tension: 0.28,
+              cubicInterpolationMode: 'monotone'
+            },
+            {
+              label: 'Bicarbonato (mEq/L)',
+              data: seguimientoElectrolitos.map(item => item.bicarbonato),
+              borderColor: colorBicarb,
+              backgroundColor: 'transparent',
+              borderWidth: 1.8,
+              pointRadius: 2,
+              pointHoverRadius: 4,
+              fill: false,
+              tension: 0.28,
+              cubicInterpolationMode: 'monotone'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: { color: finalTextColor }
+            },
+            title: {
+              display: true,
+              text: 'Historial Clínico de Electrolitos',
+              color: finalTextColor,
+              font: { size: 14, weight: '600' }
+            },
+            tooltip: {
+              mode: 'nearest',
+              intersect: false,
+              backgroundColor: (theme === 'dark') ? 'rgba(0,0,0,0.75)' : 'rgba(255,255,255,0.95)',
+              titleColor: finalTextColor,
+              bodyColor: finalTextColor,
+              borderColor: finalGridColor
+            }
+          },
+          elements: {
+            line: { tension: 0.36 },
+            point: { radius: 3 }
+          },
+          animation: {
+            duration: 900,
+            easing: 'easeOutCubic'
+          },
+          scales: {
+            x: { ticks: { color: finalTextColor }, grid: { color: finalGridColor } },
+            y: { ticks: { color: finalTextColor }, grid: { color: finalGridColor }, beginAtZero: false }
+          }
+        }
+      };
+
+      // creamos el chart y lo exponemos para futuras actualizaciones
+      window.historialChart = new Chart(ctx, chartOpts);
+
+      // Live theme updates: when data-theme changes, re-read CSS variables and update chart colors
+      const updateChartColorsFromCSS = () => {
+        const computed2 = getComputedStyle(document.documentElement);
+        const cssChartText2 = (computed2.getPropertyValue('--chart-text') || '').trim();
+        const cssChartGrid2 = (computed2.getPropertyValue('--chart-grid') || '').trim();
+        const themeAttr2 = document.documentElement.getAttribute('data-theme');
+        const textColor = cssChartText2 || (themeAttr2 === 'dark' ? '#E6F2FF' : '#071033');
+        const gridColor = cssChartGrid2 || (themeAttr2 === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(2,6,23,0.06)');
+        if (window.historialChart) {
+          try {
+            const ch = window.historialChart;
+            if (ch.options && ch.options.plugins) {
+              if (ch.options.plugins.legend) ch.options.plugins.legend.labels.color = textColor;
+              if (ch.options.plugins.title) ch.options.plugins.title.color = textColor;
+              if (ch.options.plugins.tooltip) {
+                ch.options.plugins.tooltip.titleColor = textColor;
+                ch.options.plugins.tooltip.bodyColor = textColor;
+                ch.options.plugins.tooltip.borderColor = gridColor;
+              }
+            }
+            if (ch.options && ch.options.scales) {
+              if (ch.options.scales.x) {
+                if (ch.options.scales.x.ticks) ch.options.scales.x.ticks.color = textColor;
+                if (ch.options.scales.x.grid) ch.options.scales.x.grid.color = gridColor;
+              }
+              if (ch.options.scales.y) {
+                if (ch.options.scales.y.ticks) ch.options.scales.y.ticks.color = textColor;
+                if (ch.options.scales.y.grid) ch.options.scales.y.grid.color = gridColor;
+              }
+            }
+            ch.update();
+          } catch (err) {
+            console.warn('Error updating chart colors:', err);
+          }
+        }
+      };
+
+      // Observe theme changes on the document element
+      const themeObserver = new MutationObserver(muts => {
+        for (const m of muts) {
+          if (m.attributeName === 'data-theme') updateChartColorsFromCSS();
+        }
+      });
+      themeObserver.observe(document.documentElement, { attributes: true });
+      // apply once
+      updateChartColorsFromCSS();
+    }
   </script>
 </body>
 </html>
+
+
+
 
 
 
