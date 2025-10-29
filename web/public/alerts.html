@@ -40,18 +40,45 @@
       <!-- Grid de columnas -->
         <!-- Grid de columnas -->
         <section class="alerts__grid">
+
+  <!-- Tarjeta de alertas -->
           <section class="alert-card">
             <h2>Alertas</h2>
-            <div class="alert" style="text-align:center; opacity:.7;">No hay alertas registradas.</div>
+        
+            <div class="alert alert-danger">
+              <strong>Alto potasio</strong><br>
+              Paciente: Ana López<br>
+              Planta: Hospitalización<br>
+              Potasio: 5.5 mmol/L
+            </div>
+        
+            <div class="alert alert-warning" style="margin-top: 1rem;">
+              <strong>Bajo sodio</strong><br>
+              Paciente: Carlos Ruiz<br>
+              Planta: Urgencias<br>
+              Sodio: 128 mmol/L
+            </div>
           </section>
+        
+          <!-- Por Revisar -->
           <section class="alert-card">
             <h2>Por Revisar</h2>
-            <div class="alert" style="text-align:center; opacity:.7;">No hay alertas por revisar.</div>
+            <div class="alert" style="text-align:center; opacity:.7;">
+              Todo en orden por ahora ✅
+            </div>
           </section>
+        
+          <!-- Estado del paciente -->
           <section class="alert-card">
             <h2>Estado del paciente</h2>
-            <div class="alert" style="text-align:center; opacity:.7;">No hay registros de estado.</div>
+            <div class="alert alert-info">
+              Juan Pérez — Estable ✅
+            </div>
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              María Gómez — Estable ✅
+            </div>
           </section>
+        
         </section>
     </main>
 
@@ -73,3 +100,4 @@
     <script src="./theme.js"></script>
   </body>
 </html>
+
