@@ -6,6 +6,25 @@ body {
     padding: 0;
     color: #1e293b;
   }
+
+/* Colores por estado como variables para facilitar adaptación a modo oscuro */
+:root{
+  --status-danger: #fee2e2;
+  --status-danger-border: #dc2626;
+  --status-danger-text: #7f1d1d;
+
+  --status-warning: #fef3c7;
+  --status-warning-border: #f59e0b;
+  --status-warning-text: #92400e;
+
+  --status-ok: #dcfce7;
+  --status-ok-border: #16a34a;
+  --status-ok-text: #14532d;
+
+  --status-info: #e0f2fe;
+  --status-info-border: #0284c7;
+  --status-info-text: #075985;
+}
   
   main {
     max-width: 1200px;
@@ -82,22 +101,116 @@ body {
   
   /* === Colores por estado === */
   .alert--warning {
-    background: #fef3c7;
-    border-left: 6px solid #f59e0b;
-    color: #92400e;
+    background: var(--status-warning);
+    border-left: 6px solid var(--status-warning-border);
+    color: var(--status-warning-text);
   }
   
   .alert--info {
-    background: #e0f2fe;
-    border-left: 6px solid #0284c7;
-    color: #075985;
+    background: var(--status-info);
+    border-left: 6px solid var(--status-info-border);
+    color: var(--status-info-text);
   }
   
   .alert--ok {
-    background: #dcfce7;
-    border-left: 6px solid #16a34a;
-    color: #14532d;
+    background: var(--status-ok);
+    border-left: 6px solid var(--status-ok-border);
+    color: var(--status-ok-text);
   }
+
+/* rojo */
+.alert--danger{
+  background: var(--status-danger);
+  border-left: 6px solid var(--status-danger-border);
+  color: var(--status-danger-text);
+}
+
+/* ==== Por revisar: slider horizontal simple ====
+   Usamos overflow-x auto + botones que desplazan el contenedor */
+.alerts-slider {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  max-height: 420px; /* límite para que aparezca scroll vertical */
+  padding-right: 6px;
+  scroll-behavior: smooth;
+}
+.alerts-slider::-webkit-scrollbar{ width:10px }
+.alerts-slide {
+  width: 100%;
+  flex: 0 0 auto;
+}
+.status-pill{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:13px;
+  vertical-align:middle;
+}
+.status--danger{ background: var(--status-danger); color: var(--status-danger-text); border:1px solid rgba(0,0,0,0.06); }
+.status--warning{ background: var(--status-warning); color: var(--status-warning-text); border:1px solid rgba(0,0,0,0.06); }
+.status--ok{ background: var(--status-ok); color: var(--status-ok-text); border:1px solid rgba(0,0,0,0.06); }
+.status--info{ background: var(--status-info); color: var(--status-info-text); border:1px solid rgba(0,0,0,0.06); }
+
+/* Botones del slider (pequeños) */
+.slider-controls{ display:flex; gap:8px; align-items:center; margin-top:8px }
+.slider-btn{ background:transparent; border:1px solid #e2e8f0; padding:6px 8px; border-radius:8px; cursor:pointer }
+[data-theme="dark"] .slider-btn{ border-color: rgba(255,255,255,0.06); color:var(--text) }
+
+/* Modo oscuro: ajustar variables */
+[data-theme="dark"]:root{
+  --status-danger: #3a0b0b;
+  --status-danger-border: #ef4444;
+  --status-danger-text: #ffd7d7;
+
+  --status-warning: #4b3b00;
+  --status-warning-border: #f59e0b;
+  --status-warning-text: #fff2cc;
+
+  --status-ok: #04250f;
+  --status-ok-border: #16a34a;
+  --status-ok-text: #c7f7d1;
+
+  --status-info: #052a3a;
+  --status-info-border: #60a5fa;
+  --status-info-text: #dbeafe;
+}
+
+/* En modo oscuro, aplicar colores a las tarjetas de alerta usando las variables definidas arriba. */
+[data-theme="dark"] .alert--danger{
+  background: var(--status-danger);
+  border-left: 6px solid var(--status-danger-border);
+  color: var(--status-danger-text);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+}
+[data-theme="dark"] .alert--warning{
+  background: var(--status-warning);
+  border-left: 6px solid var(--status-warning-border);
+  color: var(--status-warning-text);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+}
+[data-theme="dark"] .alert--ok{
+  background: var(--status-ok);
+  border-left: 6px solid var(--status-ok-border);
+  color: var(--status-ok-text);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+}
+[data-theme="dark"] .alert--info{
+  background: var(--status-info);
+  border-left: 6px solid var(--status-info-border);
+  color: var(--status-info-text);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+}
+
+/* Asegurarnos de que las pastillas (status-pills) usen colores legibles en dark mode */
+[data-theme="dark"] .status--danger,
+[data-theme="dark"] .status--warning,
+[data-theme="dark"] .status--ok,
+[data-theme="dark"] .status--info{
+  border: 1px solid rgba(255,255,255,0.04);
+}
   
   /* === Responsive === */
   @media (max-width: 992px) {
@@ -109,3 +222,82 @@ body {
   .main-header-icon {
     font-size: 2.6rem; color: #0b63b6; 
   }
+
+/* botón de nueva alerta junto al título */
+.add-alert-btn{
+  margin-left:12px;
+  font-size:13px;
+  padding:6px 10px;
+  border-radius:8px;
+  border:1px solid #cbd5e1;
+  background:#fff;
+  color:#0b63b6;
+  cursor:pointer;
+}
+[data-theme="dark"] .add-alert-btn{ background:transparent; border:1px solid rgba(255,255,255,0.06); color:var(--primary-600) }
+
+/* Modal básico */
+.modal-overlay{ position:fixed; inset:0; background:rgba(2,6,23,0.45); display:none; align-items:center; justify-content:center; z-index:1200; backdrop-filter: blur(4px); }
+.modal-overlay.active{ display:flex }
+.modal-dialog{ background:var(--card, #fff); color:var(--text,#111827); width:680px; max-width:95%; border-radius:12px; padding:18px; box-shadow:0 18px 60px rgba(2,6,23,0.5); transform:translateY(-8px); transition:transform .22s ease, opacity .18s ease; opacity:0 }
+.modal-overlay.active .modal-dialog{ transform:translateY(0); opacity:1 }
+[data-theme="dark"] .modal-dialog{ background: #071225; color:var(--text) }
+.modal-header{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px }
+.modal-title{ font-size:18px; font-weight:700; display:flex; align-items:center; gap:8px }
+.modal-close{ background:transparent; border:0; font-size:18px; cursor:pointer; padding:6px; border-radius:6px }
+.modal-close:hover{ background:rgba(0,0,0,0.06) }
+.modal-form label{ display:block; font-size:13px; margin-bottom:6px; color:var(--muted,#475569) }
+.modal-form input[type="text"], .modal-form textarea, .modal-form select{
+  width:100%; padding:10px 12px; border-radius:10px; border:1px solid #e6edf3; margin-bottom:12px; background:transparent; color:inherit; box-shadow:inset 0 1px 0 rgba(255,255,255,0.02);
+}
+
+/* Custom select appearance so dropdown matches dark mode better */
+.modal-form .select-wrap{ position:relative }
+.modal-form select{ -webkit-appearance:none; -moz-appearance:none; appearance:none; padding-right:40px; background:none }
+.modal-form select::placeholder{ color:inherit }
+
+[data-theme="dark"] .modal-form input[type="text"], [data-theme="dark"] .modal-form textarea{ border:1px solid rgba(255,255,255,0.04); background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent); color:var(--text) }
+[data-theme="dark"] .modal-form select{ border:1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.01); color:var(--text); }
+
+/* Use a pseudo-element on the wrapper for the arrow - more reliable than background on native select */
+.modal-form .select-wrap::after{
+  content: '';
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 8px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%230b63b6' d='M1 1l5 5 5-5' stroke='none' stroke-width='0'/%3E%3C/svg%3E");
+  background-size:12px 8px;
+  background-repeat:no-repeat;
+  pointer-events: none;
+}
+[data-theme="dark"] .modal-form .select-wrap::after{
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23bfe0ff' d='M1 1l5 5 5-5' stroke='none' stroke-width='0'/%3E%3C/svg%3E");
+}
+.modal-form textarea{ min-height:110px; resize:vertical }
+.modal-actions{ display:flex; gap:8px; justify-content:flex-end }
+.btn-primary{ background:linear-gradient(180deg,#0b63b6,#084f93); color:#fff; padding:8px 14px; border-radius:10px; border:0; cursor:pointer; box-shadow:0 6px 18px rgba(11,99,182,0.18) }
+.btn-primary:active{ transform:translateY(1px) }
+.btn-secondary{ background:transparent; color:var(--muted,#475569); padding:8px 12px; border-radius:10px; border:1px solid #e6edf3; cursor:pointer }
+[data-theme="dark"] .btn-secondary{ border-color: rgba(255,255,255,0.04); color:var(--text) }
+
+/* small helper: colored accent line left in modal when priority chosen (JS can toggle .accent-danger etc) */
+.modal-dialog.accent-danger{ box-shadow:0 18px 60px rgba(58,11,11,0.45); border-left:6px solid var(--status-danger-border) }
+.modal-dialog.accent-warning{ box-shadow:0 18px 60px rgba(75,59,0,0.45); border-left:6px solid var(--status-warning-border) }
+.modal-dialog.accent-ok{ box-shadow:0 18px 60px rgba(4,37,15,0.45); border-left:6px solid var(--status-ok-border) }
+.modal-dialog.accent-info{ box-shadow:0 18px 60px rgba(5,42,58,0.45); border-left:6px solid var(--status-info-border) }
+
+/* Custom select widget styles (fallback to native select hidden) */
+.custom-select{ position:relative; }
+.custom-select__trigger{ width:100%; text-align:left; padding:10px 12px; border-radius:10px; border:1px solid #e6edf3; background:transparent; color:inherit; cursor:pointer }
+[data-theme="dark"] .custom-select__trigger{ border:1px solid rgba(255,255,255,0.06); background:transparent }
+.custom-select__list{ position:absolute; left:0; right:0; top:calc(100% + 6px); background:var(--card,#fff); border-radius:8px; box-shadow:0 10px 30px rgba(2,6,23,0.25); max-height:220px; overflow:auto; z-index:1300; display:none; padding:6px 6px }
+[data-theme="dark"] .custom-select__list{ background:#071225 }
+.custom-select.open .custom-select__list{ display:block }
+.custom-select__option{ padding:8px 10px; border-radius:6px; cursor:pointer; color:inherit }
+.custom-select__option:hover, .custom-select__option.highlight{ background: rgba(11,99,182,0.06) }
+.custom-select__option.selected{ background: rgba(11,99,182,0.12); font-weight:700 }
+[data-theme="dark"] .custom-select__option:hover{ background: rgba(255,255,255,0.03) }
+[data-theme="dark"] .custom-select__option.selected{ background: rgba(191,224,255,0.06) }
