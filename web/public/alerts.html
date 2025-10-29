@@ -43,72 +43,157 @@
 
   <!-- Tarjeta de alertas -->
   <section class="alert-card">
-    <h2>Alertas</h2>
+    <h2>Alertas <button class="add-alert-btn" data-target="tarjetaAlertas" title="Crear nueva alerta">＋ Nueva alerta</button></h2>
+    
 
     <!-- Ana López -->
-    <div class="alert alert-danger">
+    <div class="alert alert--danger">
       <strong>Alto potasio</strong><br>
       Paciente: Ana López<br>
       Planta: Hospitalización<br>
       Potasio: 5.5 mmol/L
+      <div style="margin-top:8px"><span class="status-pill status--danger">Crítico</span></div>
     </div>
 
     <!-- Carlos Ruiz -->
-    <div class="alert alert-warning" style="margin-top: 1rem;">
+    <div class="alert alert--warning" style="margin-top: 1rem;">
       <strong>Bajo sodio</strong><br>
       Paciente: Carlos Ruiz<br>
       Planta: Urgencias<br>
       Sodio: 128 mmol/L
+      <div style="margin-top:8px"><span class="status-pill status--warning">Precaución</span></div>
     </div>
 
     <!-- Diego Martínez -->
-    <div class="alert alert-danger" style="margin-top: 1rem;">
+    <div class="alert alert--danger" style="margin-top: 1rem;">
       <strong>Sodio muy alto</strong><br>
       Paciente: Diego Martínez<br>
       Planta: Urgencias<br>
       Sodio: 160 mmol/L
+      <div style="margin-top:8px"><span class="status-pill status--danger">Crítico</span></div>
     </div>
 
     <!-- Laura Torres -->
-    <div class="alert alert-danger" style="margin-top: 1rem;">
+    <div class="alert alert--danger" style="margin-top: 1rem;">
       <strong>Potasio crítico</strong><br>
       Paciente: Laura Torres<br>
       Planta: Hospitalización<br>
       Potasio: 5.9 mmol/L
+      <div style="margin-top:8px"><span class="status-pill status--danger">Crítico</span></div>
     </div>
 
     <!-- Sofía Hernández -->
-    <div class="alert alert-warning" style="margin-top: 1rem;">
+    <div class="alert alert--warning" style="margin-top: 1rem;">
       <strong>Sodio crítico</strong><br>
       Paciente: Sofía Hernández<br>
       Planta: Urgencias<br>
       Sodio: 122 mmol/L
+      <div style="margin-top:8px"><span class="status-pill status--warning">Precaución</span></div>
     </div>
 
   </section>
 
   <!-- Por Revisar -->
-  <section class="alert-card">
-    <h2>Por Revisar</h2>
-    <div class="alert" style="text-align:center; opacity:.7;">
-      Todo en orden por ahora ✅
+  <section class="alert-card" id="porRevisarCard">
+    <h2>Por Revisar <button class="add-alert-btn" data-target="porRevisar" title="Crear nueva alerta">＋ Nueva alerta</button></h2>
+    <!-- Reemplazado: alertas apiladas sin slider -->
+  <div class="alertas-por-revisar" id="porRevisarContainer" aria-label="Alertas por revisar">
+      <div class="alert alert--danger">
+        <strong>Arritmia detectada</strong><br>
+        Paciente: Ana López<br>
+        Planta: UCI
+        <div style="margin-top:8px"><span class="status-pill status--danger">Crítico</span></div>
+      </div>
+
+      <div class="alert alert--warning" style="margin-top:1rem;">
+        <strong>Desbalance electrolítico</strong><br>
+        Paciente: Carlos Ruiz<br>
+        Planta: Piso 3
+        <div style="margin-top:8px"><span class="status-pill status--warning">Precaución</span></div>
+      </div>
+
+      <div class="alert alert--ok" style="margin-top:1rem;">
+        <strong>Control de signos</strong><br>
+        Paciente: María Gómez<br>
+        Planta: Hospitalización
+        <div style="margin-top:8px"><span class="status-pill status--ok">Estable</span></div>
+      </div>
+
+      <div class="alert alert--danger" style="margin-top:1rem;">
+        <strong>Revisión de medicación</strong><br>
+        Paciente: Diego Martínez<br>
+        Planta: Urgencias
+        <div style="margin-top:8px"><span class="status-pill status--danger">Crítico</span></div>
+      </div>
+
+      <div class="alert alert--danger" style="margin-top:1rem;">
+        <strong>Chequeo rutinario</strong><br>
+        Paciente: Laura Torres<br>
+        Planta: UCI
+        <div style="margin-top:8px"><span class="status-pill status--danger">Crítico</span></div>
+      </div>
     </div>
   </section>
 
-  <!-- Estado del paciente -->
+  <!-- Pacientes adicionales -->
   <section class="alert-card">
-    <h2>Estado del paciente</h2>
-    <div class="alert alert-info">
-      Juan Pérez — Estable ✅
+    <h2>Pacientes</h2>
+
+    <div class="alert" style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+      <div>Alberto Morales</div>
+      <div><span class="status-pill status--ok">Estable</span></div>
     </div>
-    <div class="alert alert-info" style="margin-top: 1rem;">
-      María Gómez — Estable ✅
+
+    <div class="alert" style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:1rem;">
+      <div>Beatriz Castillo</div>
+      <div><span class="status-pill status--warning">Precaución</span></div>
     </div>
-    <div class="alert alert-info" style="margin-top: 1rem;">
-      Ricardo Silva — Estable ✅
+
+    <div class="alert" style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:1rem;">
+      <div>Carlos Méndez</div>
+      <div><span class="status-pill status--danger">Crítico</span></div>
+    </div>
+
+    <div class="alert" style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:1rem;">
+      <div>Daniela Ruiz</div>
+      <div><span class="status-pill status--ok">Estable</span></div>
+    </div>
+
+    <div class="alert" style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:1rem;">
+      <div>Esteban López</div>
+      <div><span class="status-pill status--warning">Precaución</span></div>
+    </div>
+
+    <div class="alert" style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:1rem;">
+      <div>Fátima Navarro</div>
+      <div><span class="status-pill status--danger">Crítico</span></div>
+    </div>
+
+    <div class="alert" style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:1rem;">
+      <div>Gabriel Soto</div>
+      <div><span class="status-pill status--ok">Estable</span></div>
+    </div>
+
+    <div class="alert" style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:1rem;">
+      <div>Helena Vega</div>
+      <div><span class="status-pill status--ok">Estable</span></div>
+    </div>
+
+    <div class="alert" style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:1rem;">
+      <div>Ignacio Reyes</div>
+      <div><span class="status-pill status--warning">Precaución</span></div>
+    </div>
+
+    <div class="alert" style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:1rem;">
+      <div>Juliana Cruz</div>
+      <div><span class="status-pill status--ok">Estable</span></div>
+    </div>
+
+    <div class="alert" style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:1rem;">
+      <div>Kevin Torres</div>
+      <div><span class="status-pill status--danger">Crítico</span></div>
     </div>
   </section>
-
 </section>
     </main>
 
@@ -127,7 +212,247 @@
   setInterval(updateClock, 60000);
       updateClock();
     </script>
-    <script src="./theme.js"></script>
+    <!-- Modal: crear nueva alerta (reutilizable) -->
+    <div class="modal-overlay" id="modalOverlay" aria-hidden="true">
+      <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-header">
+          <div class="modal-title" id="modalTitle">Crear nueva alerta</div>
+          <button class="modal-close" id="modalClose" aria-label="Cerrar">✕</button>
+        </div>
+        <form class="modal-form" id="newAlertForm">
+          <input type="hidden" name="target" id="modalTarget" value="" />
+          <label for="alertTitle">Título de la alerta </label>
+          <input id="alertTitle" name="title" type="text" placeholder="Título breve de la alerta" required />
+
+          <label for="alertPatient">Paciente <small style="color:#64748b">(Nombre completo)</small></label>
+          <input id="alertPatient" name="patient" type="text" placeholder="Nombre del paciente" required />
+
+          <label for="alertPlanta">Planta / Ubicación <small style="color:#64748b">(p.ej. UCI, Urgencias)</small></label>
+          <input id="alertPlanta" name="planta" type="text" placeholder="Planta o habitación" />
+
+          <label for="alertPriority">Prioridad / Estado</label>
+          <div class="select-wrap">
+            <select id="alertPriority" name="priority">
+              <option value="danger">Crítico</option>
+              <option value="warning">Precaución</option>
+              <option value="ok" selected>Estable</option>
+            </select>
+          </div>
+
+          <label for="alertValue">Valor / Observación <small style="color:#64748b">(p.ej. 'Potasio: 5.5 mmol/L' o signos relevantes)</small></label>
+          <input id="alertValue" name="value" type="text" placeholder="Valor numérico o descripción corta" />
+
+          <label for="alertNotes">Notas / Indicaciones para el médico <small style="color:#64748b">(Qué debe verificar o hacer)</small></label>
+          <textarea id="alertNotes" name="notes" placeholder="Instrucciones claras: qué revisar, urgencia, recomendaciones..."></textarea>
+
+          <div class="modal-actions">
+            <button type="button" class="btn-secondary" id="modalCancel">Cancelar</button>
+            <button type="submit" class="btn-primary">Crear alerta</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal JS: abre el modal y añade alertas al contenedor seleccionado -->
+    <script>
+      (function(){
+        const openBtns = document.querySelectorAll('.add-alert-btn');
+        const overlay = document.getElementById('modalOverlay');
+        const closeBtn = document.getElementById('modalClose');
+        const cancelBtn = document.getElementById('modalCancel');
+        const form = document.getElementById('newAlertForm');
+        const targetInput = document.getElementById('modalTarget');
+
+        // Create a small custom select UI that mirrors the native select (for consistent styling)
+        function createCustomSelect(selectId){
+          const sel = document.getElementById(selectId);
+          if(!sel) return;
+          const wrap = sel.parentElement; // .select-wrap
+          // hide native select but keep it in DOM
+          sel.style.display = 'none';
+
+          const custom = document.createElement('div');
+          custom.className = 'custom-select';
+          custom.tabIndex = 0;
+
+          const trigger = document.createElement('button');
+          trigger.type = 'button';
+          trigger.className = 'custom-select__trigger';
+          trigger.textContent = sel.querySelector('option:checked')?.textContent || (sel.options[0] && sel.options[0].textContent) || '';
+
+          const list = document.createElement('ul');
+          list.className = 'custom-select__list';
+          list.setAttribute('role','listbox');
+
+          Array.from(sel.options).forEach(opt => {
+            const li = document.createElement('li');
+            li.className = 'custom-select__option' + (opt.selected ? ' selected' : '');
+            li.setAttribute('role','option');
+            li.dataset.value = opt.value;
+            li.textContent = opt.textContent;
+            list.appendChild(li);
+          });
+
+          custom.appendChild(trigger);
+          custom.appendChild(list);
+          wrap.appendChild(custom);
+
+          function close(){ custom.classList.remove('open'); custom.setAttribute('aria-expanded','false'); }
+          function open(){ custom.classList.add('open'); custom.setAttribute('aria-expanded','true'); }
+
+          trigger.addEventListener('click', (e) => { e.stopPropagation(); custom.classList.toggle('open'); });
+
+          list.addEventListener('click', (e)=>{
+            const li = e.target.closest('.custom-select__option');
+            if(!li) return;
+            selectValue(li.dataset.value);
+            close();
+          });
+
+          custom.addEventListener('keydown', (e) => {
+            const opts = Array.from(list.querySelectorAll('.custom-select__option'));
+            let idx = opts.findIndex(o=>o.classList.contains('highlight'));
+            if(e.key === 'ArrowDown'){ e.preventDefault(); idx = Math.min(idx+1, opts.length-1); opts.forEach(o=>o.classList.remove('highlight')); opts[idx].classList.add('highlight'); opts[idx].scrollIntoView({block:'nearest'}); }
+            if(e.key === 'ArrowUp'){ e.preventDefault(); idx = Math.max(idx-1, 0); opts.forEach(o=>o.classList.remove('highlight')); opts[idx].classList.add('highlight'); opts[idx].scrollIntoView({block:'nearest'}); }
+            if(e.key === 'Enter'){ e.preventDefault(); const h = list.querySelector('.highlight') || list.querySelector('.selected'); if(h) { selectValue(h.dataset.value); close(); } }
+            if(e.key === 'Escape'){ e.preventDefault(); close(); }
+          });
+
+          // click outside closes
+          document.addEventListener('click', (ev)=>{ if(!custom.contains(ev.target)) close(); });
+
+          function selectValue(val){
+            // update native select
+            sel.value = val;
+            // update trigger text
+            const opt = sel.querySelector('option[value="' + CSS.escape(val) + '"]');
+            trigger.textContent = opt ? opt.textContent : val;
+            // update list selection
+            list.querySelectorAll('.custom-select__option').forEach(li => li.classList.toggle('selected', li.dataset.value === val));
+            // dispatch change so other listeners (accent) react
+            sel.dispatchEvent(new Event('change', { bubbles: true }));
+          }
+        }
+
+        // initialize custom select for modal
+        createCustomSelect('alertPriority');
+
+        function openModal(target){
+          targetInput.value = target;
+            // remove accent classes
+            const dlg = overlay.querySelector('.modal-dialog');
+            dlg.classList.remove('accent-danger','accent-warning','accent-ok');
+          // set accent based on select default (or currently selected priority)
+          const sel = document.getElementById('alertPriority');
+          const pr = sel ? sel.value : 'ok';
+          dlg.classList.add('accent-' + pr);
+          overlay.classList.add('active');
+          overlay.setAttribute('aria-hidden','false');
+          setTimeout(()=> document.getElementById('alertTitle').focus(), 120);
+        }
+
+        function closeModal(){
+          overlay.classList.remove('active');
+          overlay.setAttribute('aria-hidden','true');
+          form.reset();
+        }
+
+        openBtns.forEach(btn => btn.addEventListener('click', (e) => {
+          const t = btn.getAttribute('data-target');
+          openModal(t);
+        }));
+
+        closeBtn.addEventListener('click', closeModal);
+        cancelBtn.addEventListener('click', closeModal);
+        overlay.addEventListener('click', (e) => { if(e.target === overlay) closeModal(); });
+
+        // cambiar accent cuando se seleccione prioridad
+        document.getElementById('alertPriority').addEventListener('change', function(){
+          const dlg = overlay.querySelector('.modal-dialog');
+          if(!dlg) return;
+          dlg.classList.remove('accent-danger','accent-warning','accent-ok');
+          dlg.classList.add('accent-' + this.value);
+        });
+
+        // Submit: crear DOM y añadir alerta
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const data = new FormData(form);
+          const title = data.get('title').trim();
+          const patient = data.get('patient').trim();
+          const planta = data.get('planta').trim();
+          const priority = data.get('priority');
+          const value = data.get('value').trim();
+          const notes = data.get('notes').trim();
+          const target = data.get('target');
+
+          if(!title || !patient) { alert('Por favor complete Título y Paciente.'); return; }
+
+          const alertDiv = document.createElement('div');
+          alertDiv.className = 'alert alert--' + priority;
+          let inner = `<strong>${escapeHtml(title)}</strong><br>Paciente: ${escapeHtml(patient)}<br>`;
+          if(planta) inner += `Planta: ${escapeHtml(planta)}<br>`;
+          if(value) inner += `${escapeHtml(value)}<br>`;
+          if(notes) inner += `<div style="margin-top:8px">${escapeHtml(notes)}</div>`;
+
+          const pillText = ({danger:'Crítico', warning:'Precaución', ok:'Estable'})[priority];
+          inner += `<div style="margin-top:8px"><span class="status-pill status--${priority}">${pillText}</span></div>`;
+          alertDiv.innerHTML = inner;
+
+          // elegir contenedor
+          if(target === 'porRevisar'){
+            const container = document.getElementById('porRevisarContainer');
+            if(container) container.insertBefore(alertDiv, container.firstChild);
+          } else {
+            // primer .alert-card con h2 'Alertas' (la tarjeta principal)
+            // buscar la sección que contiene el H2 con texto 'Alertas'
+            const cards = document.querySelectorAll('.alerts__grid > .alert-card');
+            let inserted = false;
+            for(const c of cards){
+              const h2 = c.querySelector('h2');
+              if(h2 && h2.textContent.trim().startsWith('Alertas')){ c.insertBefore(alertDiv, c.querySelector('div') || null); inserted = true; break; }
+            }
+            if(!inserted){ document.querySelector('.alerts__grid').appendChild(alertDiv); }
+          }
+
+          closeModal();
+        });
+
+        // simple escape
+        function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"})[c]); }
+      })();
+    </script>
+    <!-- Slider JS removed: 'Por Revisar' ahora muestra alertas apiladas. -->
+
+    <!-- Fallback para toggle de tema: si theme.js no cambia el tema (por ejemplo si hay conflicto), este pequeño manejador asegura que el botón funcione. -->
+    <script>
+      (function(){
+        const toggles = document.querySelectorAll('[data-action="toggle-theme"]');
+        if(!toggles || toggles.length===0) return;
+        toggles.forEach(btn => {
+          // add a safe fallback click handler that toggles data-theme on <html>
+          btn.addEventListener('click', (e)=>{
+            try {
+              const root = document.documentElement;
+              const isDark = root.getAttribute('data-theme') === 'dark';
+              if(isDark) {
+                root.removeAttribute('data-theme');
+                btn.setAttribute('aria-pressed','false');
+                btn.textContent = '☀️';
+                localStorage.setItem('electromed-theme','light');
+              } else {
+                root.setAttribute('data-theme','dark');
+                btn.setAttribute('aria-pressed','true');
+                btn.textContent = '🌙';
+                localStorage.setItem('electromed-theme','dark');
+              }
+              // trigger themechange event for other listeners
+              try{ window.dispatchEvent(new CustomEvent('themechange',{detail:{theme: isDark? 'light':'dark'}})); }catch(_){ }
+            } catch(err){ /* noop */ }
+          });
+        });
+      })();
+    </script>
   </body>
 </html>
 
