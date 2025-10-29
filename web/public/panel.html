@@ -81,94 +81,97 @@
   <script src="./theme.js"></script>
   <script src="./register-sw.js"></script>
   <script>
-    // Fecha y hora
-    function updateDateTime(){
-      const now = new Date();
-      const d = document.getElementById('today');
-      const t = document.getElementById('time');
-      if(d) d.textContent = now.toLocaleDateString('es-ES',{weekday:'long', day:'numeric', month:'long'});
-      if(t) t.textContent = now.toLocaleTimeString('es-ES',{hour:'2-digit', minute:'2-digit'});
-    }
-    updateDateTime();
-    setInterval(updateDateTime, 60000);
-
-    document.addEventListener("DOMContentLoaded", () => {
-  const panelTbody = document.getElementById("panel-tbody");
-  const panelMsg = document.getElementById("panel-msg");
-
-  const pacientesPlanta = [
-    {
-      paciente: "Juan Pérez",
-      fecha: "2025-10-20",
-      estado: "Activo",
-      planta: "UCI",
-      sodio: 135,
-      potasio: 4.2,
-      cloro: 101,
-      alertas: "Ninguna"
-    },
-    {
-      paciente: "Ana López",
-      fecha: "2025-10-21",
-      estado: "Vencido",
-      planta: "Hospitalización",
-      sodio: 150,
-      potasio: 5.5,
-      cloro: 110,
-      alertas: "Alto potasio"
-    },
-    {
-      paciente: "Carlos Ruiz",
-      fecha: "2025-10-22",
-      estado: "Activo",
-      planta: "Urgencias",
-      sodio: 128,
-      potasio: 3.8,
-      cloro: 98,
-      alertas: "Bajo sodio"
-    },
-    {
-      paciente: "María Gómez",
-      fecha: "2025-10-23",
-      estado: "Activo",
-      planta: "UCI",
-      sodio: 140,
-      potasio: 4.0,
-      cloro: 103,
-      alertas: "Ninguna"
-    }
-  ];
-
-  panelTbody.innerHTML = ""; // Por si ya tenía algo
-
-  pacientesPlanta.forEach(dato => {
-    const row = document.createElement("tr");
-    row.setAttribute("data-planta", dato.planta.toLowerCase()); // ✅ útil para filtrar por pestañas
-
-    row.innerHTML = `
-      <td>${dato.paciente}</td>
-      <td>${dato.fecha}</td>
-      <td>${dato.estado}</td>
-      <td>${dato.sodio}</td>
-      <td>${dato.potasio}</td>
-      <td>${dato.cloro}</td>
-      <td>${dato.alertas}</td>
-      <td><a>Ver</a></td>
-    `;
-
-    panelTbody.appendChild(row);
-  });
-
-  // ✅ Ocultamos el mensaje "sin datos"
-  if (pacientesPlanta.length > 0) {
-    panelMsg.style.display = "none";
+  // Fecha y hora topbar
+  function updateDateTime(){
+    const now = new Date();
+    const d = document.getElementById('today');
+    const t = document.getElementById('time');
+    if(d) d.textContent = now.toLocaleDateString('es-ES',{weekday:'long', day:'numeric', month:'long'});
+    if(t) t.textContent = now.toLocaleTimeString('es-ES',{hour:'2-digit', minute:'2-digit'});
   }
-});
+  updateDateTime();
+  setInterval(updateDateTime, 60000);
 
 
-    // La lógica del panel está implementada en TypeScript (app-panel.ts)
-  </script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const panelTbody = document.getElementById("panel-tbody");
+    const panelMsg = document.getElementById("panel-msg");
+
+    const filtroPaciente = document.getElementById("filtro-paciente");
+    const filtroFecha = document.getElementById("filtro-fecha");
+    const filtroEstado = document.getElementById("filtro-estado");
+
+    const tabs = document.querySelectorAll(".panel-tab");
+
+    let plantaSeleccionada = ""; // "" = todas
+
+    const pacientesPlanta = [
+      { paciente: "Juan Pérez", fecha: "2025-10-20", estado: "activo", planta: "uci", sodio: 135, potasio: 4.2, cloro: 101, alertas: "Ninguna" },
+      { paciente: "Ana López", fecha: "2025-10-21", estado: "vencido", planta: "hospitalizacion", sodio: 150, potasio: 5.5, cloro: 110, alertas: "Alto potasio" },
+      { paciente: "Carlos Ruiz", fecha: "2025-10-22", estado: "activo", planta: "urgencias", sodio: 128, potasio: 3.8, cloro: 98, alertas: "Bajo sodio" },
+      { paciente: "María Gómez", fecha: "2025-10-23", estado: "activo", planta: "uci", sodio: 140, potasio: 4.0, cloro: 103, alertas: "Ninguna" }
+    ];
+
+    function renderTable() {
+      const busqueda = filtroPaciente.value.toLowerCase();
+      const fecha = filtroFecha.value;
+      const estadoFilt = filtroEstado.value.toLowerCase();
+
+      const filtrados = pacientesPlanta.filter(p => {
+        return (
+          (plantaSeleccionada === "" || p.planta === plantaSeleccionada) &&
+          (busqueda === "" || p.paciente.toLowerCase().includes(busqueda)) &&
+          (fecha === "" || p.fecha === fecha) &&
+          (estadoFilt === "" || p.estado === estadoFilt)
+        );
+      });
+
+      panelTbody.innerHTML = "";
+
+      if (filtrados.length === 0) {
+        panelMsg.style.display = "block";
+        return;
+      }
+
+      panelMsg.style.display = "none";
+
+      filtrados.forEach(p => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${p.paciente}</td>
+          <td>${p.fecha}</td>
+          <td>${p.estado.charAt(0).toUpperCase() + p.estado.slice(1)}</td>
+          <td>${p.sodio}</td>
+          <td>${p.potasio}</td>
+          <td>${p.cloro}</td>
+          <td>${p.alertas}</td>
+          <td><a>Ver</a></td>
+        `;
+        panelTbody.appendChild(row);
+      });
+    }
+
+    // ✅ Filtros dinámicos
+    filtroPaciente.addEventListener("input", renderTable);
+    filtroFecha.addEventListener("change", renderTable);
+    filtroEstado.addEventListener("change", renderTable);
+
+    // ✅ Tabs cambian la planta filtrada
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        tabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        plantaSeleccionada = tab.dataset.planta;
+        renderTable();
+      });
+    });
+
+    renderTable(); // inicial
+  });
+</script>
 </body>
 </html>
+
 
 
