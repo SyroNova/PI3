@@ -80,7 +80,6 @@
   </main>
   <script src="./theme.js"></script>
   <script src="./register-sw.js"></script>
-  <script type="module" src="./dist/app-panel.js"></script>
   <script>
     // Fecha y hora
     function updateDateTime(){
@@ -93,7 +92,82 @@
     updateDateTime();
     setInterval(updateDateTime, 60000);
 
+    document.addEventListener("DOMContentLoaded", () => {
+  const panelTbody = document.getElementById("panel-tbody");
+  const panelMsg = document.getElementById("panel-msg");
+
+  const pacientesPlanta = [
+    {
+      paciente: "Juan Pérez",
+      fecha: "2025-10-20",
+      estado: "Activo",
+      planta: "UCI",
+      sodio: 135,
+      potasio: 4.2,
+      cloro: 101,
+      alertas: "Ninguna"
+    },
+    {
+      paciente: "Ana López",
+      fecha: "2025-10-21",
+      estado: "Vencido",
+      planta: "Hospitalización",
+      sodio: 150,
+      potasio: 5.5,
+      cloro: 110,
+      alertas: "⚠️ Alto potasio"
+    },
+    {
+      paciente: "Carlos Ruiz",
+      fecha: "2025-10-22",
+      estado: "Activo",
+      planta: "Urgencias",
+      sodio: 128,
+      potasio: 3.8,
+      cloro: 98,
+      alertas: "⚠️ Bajo sodio"
+    },
+    {
+      paciente: "María Gómez",
+      fecha: "2025-10-23",
+      estado: "Activo",
+      planta: "UCI",
+      sodio: 140,
+      potasio: 4.0,
+      cloro: 103,
+      alertas: "Ninguna"
+    }
+  ];
+
+  panelTbody.innerHTML = ""; // Por si ya tenía algo
+
+  pacientesPlanta.forEach(dato => {
+    const row = document.createElement("tr");
+    row.setAttribute("data-planta", dato.planta.toLowerCase()); // ✅ útil para filtrar por pestañas
+
+    row.innerHTML = `
+      <td>${dato.paciente}</td>
+      <td>${dato.fecha}</td>
+      <td>${dato.estado}</td>
+      <td>${dato.sodio}</td>
+      <td>${dato.potasio}</td>
+      <td>${dato.cloro}</td>
+      <td>${dato.alertas}</td>
+      <td><button class="btn-detalles">Ver</button></td>
+    `;
+
+    panelTbody.appendChild(row);
+  });
+
+  // ✅ Ocultamos el mensaje "sin datos"
+  if (pacientesPlanta.length > 0) {
+    panelMsg.style.display = "none";
+  }
+});
+
+
     // La lógica del panel está implementada en TypeScript (app-panel.ts)
   </script>
 </body>
 </html>
+
