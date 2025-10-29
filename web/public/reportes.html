@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderTabla(filtrados);
 
     actualizarBotones(filtrados); // ✅ NUEVO
-
+    const contieneJuan = filtrados.some(d => d.paciente === "Juan Pérez");
     if (contieneJuan) {
       graficosContainer.style.display = "block";
       generarGraficaJuanPerez();
@@ -284,6 +284,7 @@ function actualizarBotones(filtrados) {
 
 </body>
 </html>
+
 
 
 
