@@ -190,11 +190,52 @@
   document.getElementById("diagnostico-paciente").textContent = paciente.diagnostico;
   document.getElementById("fecha-ingreso").textContent = paciente.fechaIngreso;
   document.getElementById("estado-paciente").textContent = paciente.estado;
-});
+  // --- Historial clínico simulado ---
+    const historialSimulado = [
+      {
+        fecha: "2025-10-20",
+        sodio: 140,
+        potasio: 4.2,
+        cloro: 102,
+        estado: "Normal"
+      },
+      {
+        fecha: "2025-10-21",
+        sodio: 139,
+        potasio: 4.1,
+        cloro: 100,
+        estado: "Normal"
+      },
+      {
+        fecha: "2025-10-23",
+        sodio: 141,
+        potasio: 4.0,
+        cloro: 103,
+        estado: "Normal"
+      }
+    ];
+    
+    // Renderizar timeline visual
+    const timeline = document.getElementById("timeline-electrolitos");
+    timeline.innerHTML = historialSimulado.map(item => `
+      <div class="timeline-item">
+        <div class="timeline-date">${item.fecha}</div>
+        <div class="timeline-values">
+          <span>Na⁺: ${item.sodio} mEq/L</span> |
+          <span>K⁺: ${item.potasio} mEq/L</span> |
+          <span>Cl⁻: ${item.cloro} mEq/L</span>
+        </div>
+        <div class="timeline-status" style="color:#22c55e;font-weight:600;">
+          ✅ ${item.estado}
+        </div>
+      </div>
+    `).join("");
+    });
 
     // TODO: Poblar datos del paciente y timeline desde el backend
   </script>
 </body>
 </html>
+
 
 
