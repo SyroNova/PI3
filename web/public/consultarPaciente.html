@@ -171,7 +171,29 @@
       // Aquí deberías enviar los datos al backend
       document.getElementById('alerta-electrolitos').innerHTML = '<span style="color:#22c55e">Resultado guardado (simulado, conectar API)</span>';
     });
+
+    document.addEventListener("DOMContentLoaded", () => {
+  // Información simulada de un paciente
+  const paciente = {
+    nombre: "Juan Pérez",
+    edad: 45,
+    sexo: "Masculino",
+    diagnostico: "Hiponatremia",
+    fechaIngreso: "2025-10-18",
+    estado: "Estable"
+  };
+
+  // Rellenar la información en la interfaz
+  document.getElementById("nombre-paciente").textContent = paciente.nombre;
+  document.getElementById("edad-paciente").textContent = paciente.edad;
+  document.getElementById("sexo-paciente").textContent = paciente.sexo;
+  document.getElementById("diagnostico-paciente").textContent = paciente.diagnostico;
+  document.getElementById("fecha-ingreso").textContent = paciente.fechaIngreso;
+  document.getElementById("estado-paciente").textContent = paciente.estado;
+});
+
     // TODO: Poblar datos del paciente y timeline desde el backend
   </script>
 </body>
 </html>
+
