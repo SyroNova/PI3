@@ -86,97 +86,132 @@
   <!-- Chart.js CDN (modo UMD) -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script>
-  // Fecha y hora topbar
-  function updateDateTime(){
-    const now = new Date();
-    const d = document.getElementById('today');
-    const t = document.getElementById('time');
-    if(d) d.textContent = now.toLocaleDateString('es-ES',{weekday:'long', day:'numeric', month:'long'});
-    if(t) t.textContent = now.toLocaleTimeString('es-ES',{hour:'2-digit', minute:'2-digit'});
+// Fecha y hora topbar
+function updateDateTime(){
+  const now = new Date();
+  const d = document.getElementById('today');
+  const t = document.getElementById('time');
+  if(d) d.textContent = now.toLocaleDateString('es-ES',{weekday:'long', day:'numeric', month:'long'});
+  if(t) t.textContent = now.toLocaleTimeString('es-ES',{hour:'2-digit', minute:'2-digit'});
+}
+updateDateTime();
+setInterval(updateDateTime, 60000);
+
+document.addEventListener("DOMContentLoaded", () => {
+  const reportesTbody = document.getElementById("reportes-tbody");
+  const reportesMsg = document.getElementById("reportes-msg");
+  const inputPaciente = document.getElementById("filtro-paciente");
+  const filtroFechaInicio = document.getElementById("filtro-fecha-inicio");
+  const filtroFechaFin = document.getElementById("filtro-fecha-fin");
+  const filtroPlanta = document.getElementById("filtro-planta");
+  const graficosContainer = document.getElementById("reportes-graficos");
+  const placeholder = document.getElementById("grafico-placeholder");
+
+  // Ocultar gráficos al inicio
+  graficosContainer.style.display = "none";
+
+  const datosSimulados = [
+    { paciente: "Juan Pérez", fecha: "2025-10-20", planta: "uci", sodio: 135, potasio: 4.2, cloro: 101, alertas: "Ninguna" },
+    { paciente: "Ana López", fecha: "2025-10-21", planta: "hospitalizacion", sodio: 150, potasio: 5.5, cloro: 110, alertas: "Alto potasio" },
+    { paciente: "Carlos Ruiz", fecha: "2025-10-22", planta: "urgencias", sodio: 128, potasio: 3.8, cloro: 98, alertas: "Bajo sodio" },
+    { paciente: "María Gómez", fecha: "2025-10-23", planta: "uci", sodio: 140, potasio: 4.0, cloro: 103, alertas: "Ninguna" },
+
+    // Nuevos 4
+    { paciente: "Diego Martínez", fecha: "2025-10-24", planta: "urgencias", sodio: 160, potasio: 4.8, cloro: 115, alertas: "Riesgo — Sodio muy alto" },
+    { paciente: "Laura Torres", fecha: "2025-10-25", planta: "hospitalizacion", sodio: 134, potasio: 5.9, cloro: 102, alertas: "Potasio crítico" },
+    { paciente: "Ricardo Silva", fecha: "2025-10-26", planta: "uci", sodio: 144, potasio: 3.5, cloro: 108, alertas: "Ninguna" },
+    { paciente: "Sofía Hernández", fecha: "2025-10-27", planta: "urgencias", sodio: 122, potasio: 4.1, cloro: 94, alertas: "Sodio crítico" }
+  ];
+
+  function renderTabla(data) {
+    reportesTbody.innerHTML = "";
+
+    if (data.length === 0) {
+      reportesMsg.style.display = "block";
+      return;
+    }
+
+    reportesMsg.style.display = "none";
+
+    data.forEach(r => {
+      const fila = document.createElement("tr");
+      fila.innerHTML = `
+        <td>${r.paciente}</td>
+        <td>${r.fecha}</td>
+        <td>${r.planta}</td>
+        <td>${r.sodio}</td>
+        <td>${r.potasio}</td>
+        <td>${r.cloro}</td>
+        <td>${r.alertas}</td>
+      `;
+      reportesTbody.appendChild(fila);
+    });
   }
-  updateDateTime();
-  setInterval(updateDateTime, 60000);
 
-  document.addEventListener("DOMContentLoaded", () => {
+  // ✅ Función para generar la gráfica de Juan Pérez
+  let chartInstance = null;
+  function generarGraficaJuanPerez() {
+    const datosJuan = datosSimulados.filter(d => d.paciente === "Juan Pérez");
 
-    const reportesTbody = document.getElementById("reportes-tbody");
-    const reportesMsg = document.getElementById("reportes-msg");
+    if (!datosJuan.length) return;
 
-    const inputPaciente = document.getElementById("filtro-paciente");
-    const filtroFechaInicio = document.getElementById("filtro-fecha-inicio");
-    const filtroFechaFin = document.getElementById("filtro-fecha-fin");
-    const filtroPlanta = document.getElementById("filtro-planta");
+    // Limpiar gráficos previos
+    graficosContainer.innerHTML = `<canvas id="graficoJuan"></canvas>`;
 
-    const datosSimulados = [
-  { paciente: "Juan Pérez", fecha: "2025-10-20", planta: "uci", sodio: 135, potasio: 4.2, cloro: 101, alertas: "Ninguna" },
-  { paciente: "Ana López", fecha: "2025-10-21", planta: "hospitalizacion", sodio: 150, potasio: 5.5, cloro: 110, alertas: "Alto potasio" },
-  { paciente: "Carlos Ruiz", fecha: "2025-10-22", planta: "urgencias", sodio: 128, potasio: 3.8, cloro: 98, alertas: "Bajo sodio" },
-  { paciente: "María Gómez", fecha: "2025-10-23", planta: "uci", sodio: 140, potasio: 4.0, cloro: 103, alertas: "Ninguna" },
+    const ctx = document.getElementById("graficoJuan");
 
-  // Nuevos 4:
-  { paciente: "Diego Martínez", fecha: "2025-10-24", planta: "urgencias", sodio: 160, potasio: 4.8, cloro: 115, alertas: "Riesgo — Sodio muy alto" },
-  { paciente: "Laura Torres", fecha: "2025-10-25", planta: "hospitalizacion", sodio: 134, potasio: 5.9, cloro: 102, alertas: "Potasio crítico" },
-  { paciente: "Ricardo Silva", fecha: "2025-10-26", planta: "uci", sodio: 144, potasio: 3.5, cloro: 108, alertas: "Ninguna" },
-  { paciente: "Sofía Hernández", fecha: "2025-10-27", planta: "urgencias", sodio: 122, potasio: 4.1, cloro: 94, alertas: "Sodio crítico" }
-];
-
-    function renderTabla(data) {
-      reportesTbody.innerHTML = "";
-
-      if (data.length === 0) {
-        reportesMsg.style.display = "block";
-        return;
+    chartInstance = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: ["Sodio", "Potasio", "Cloro"],
+        datasets: [{
+          label: "Valores Iónicos",
+          data: [datosJuan[0].sodio, datosJuan[0].potasio, datosJuan[0].cloro]
+        }]
       }
+    });
+  }
 
-      reportesMsg.style.display = "none";
+  function aplicarFiltros() {
+    const texto = inputPaciente.value.toLowerCase();
+    const fechaIni = filtroFechaInicio.value;
+    const fechaFin = filtroFechaFin.value;
+    const planta = filtroPlanta.value;
 
-      data.forEach(r => {
-        const fila = document.createElement("tr");
-        fila.innerHTML = `
-          <td>${r.paciente}</td>
-          <td>${r.fecha}</td>
-          <td>${r.planta}</td>
-          <td>${r.sodio}</td>
-          <td>${r.potasio}</td>
-          <td>${r.cloro}</td>
-          <td>${r.alertas}</td>
-        `;
-        reportesTbody.appendChild(fila);
-      });
+    const filtrados = datosSimulados.filter(d => {
+      const coincidePaciente = d.paciente.toLowerCase().includes(texto);
+      const coincidePlanta = planta === "" || d.planta === planta;
+      const coincideFechaInicio = fechaIni === "" || d.fecha >= fechaIni;
+      const coincideFechaFin = fechaFin === "" || d.fecha <= fechaFin;
+      return coincidePaciente && coincidePlanta && coincideFechaInicio && coincideFechaFin;
+    });
+
+    renderTabla(filtrados);
+
+    // ✅ Mostrar gráfica solo si Juan Pérez está en los resultados
+    const contieneJuan = filtrados.some(d => d.paciente === "Juan Pérez");
+    if (contieneJuan) {
+      graficosContainer.style.display = "block";
+      generarGraficaJuanPerez();
+    } else {
+      graficosContainer.style.display = "none";
     }
+  }
 
-    function aplicarFiltros() {
-      const texto = inputPaciente.value.toLowerCase();
-      const fechaIni = filtroFechaInicio.value;
-      const fechaFin = filtroFechaFin.value;
-      const planta = filtroPlanta.value;
+  // Render inicial
+  renderTabla(datosSimulados);
 
-      const filtrados = datosSimulados.filter(d => {
-        const coincidePaciente = d.paciente.toLowerCase().includes(texto);
-        const coincidePlanta = planta === "" || d.planta === planta;
-        const coincideFechaInicio = fechaIni === "" || d.fecha >= fechaIni;
-        const coincideFechaFin = fechaFin === "" || d.fecha <= fechaFin;
-
-        return coincidePaciente && coincidePlanta && coincideFechaInicio && coincideFechaFin;
-      });
-
-      renderTabla(filtrados);
-    }
-
-    // Render inicial
-    renderTabla(datosSimulados);
-
-    // Eventos de filtros
-    inputPaciente.addEventListener("input", aplicarFiltros);
-    filtroFechaInicio.addEventListener("change", aplicarFiltros);
-    filtroFechaFin.addEventListener("change", aplicarFiltros);
-    filtroPlanta.addEventListener("change", aplicarFiltros);
-
-  });
+  // Eventos
+  inputPaciente.addEventListener("input", aplicarFiltros);
+  filtroFechaInicio.addEventListener("change", aplicarFiltros);
+  filtroFechaFin.addEventListener("change", aplicarFiltros);
+  filtroPlanta.addEventListener("change", aplicarFiltros);
+});
 </script>
 
 </body>
 </html>
+
 
 
 
