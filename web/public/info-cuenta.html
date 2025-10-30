@@ -41,16 +41,16 @@
     <section class="profile-section">
       <div class="profile-card">
         
-        <h2 class="name">Dr. Andrés Rodríguez</h2>
-        <p class="position">Jefe de UCI - Hospital Central</p>
-        <p class="email">andres.rodriguez@electromed.co</p>
+        <h2 class="name">Dr. Ejemplo </h2>
+        <p class="position">Jefe de UCI - Hospital <button class="edit-btn" data-field="position" aria-label="Editar posición" title="Editar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z" fill="#0f172a"/><path d="M20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="#0f172a"/></svg></button></p>
+        <p class="email"><span id="email-text">ejemplo@electromed.co</span> <button class="edit-btn" data-field="email" aria-label="Editar correo" title="Editar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z" fill="#0f172a"/><path d="M20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="#0f172a"/></svg></button></p>
       </div>
 
       <div class="contact-card">
         <h3> Contacto</h3>
-        <p><strong>Teléfono fijo:</strong> +57 601 4567890</p>
-        <p><strong>Celular:</strong> +57 310 654 7890</p>
-        <p><strong>Dirección:</strong> Cra 45 #23 - 10, Bogotá</p>
+        <p><strong>Teléfono fijo:</strong> <span id="telefono-text">+57 601 4567890</span> <button class="edit-btn small" data-field="telefono" aria-label="Editar teléfono" title="Editar"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z" fill="#0f172a"/><path d="M20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="#0f172a"/></svg></button></p>
+        <p><strong>Celular:</strong> <span id="celular-text">+57 310 654 7890</span> <button class="edit-btn small" data-field="celular" aria-label="Editar celular" title="Editar"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z" fill="#0f172a"/><path d="M20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="#0f172a"/></svg></button></p>
+        <p><strong>Dirección:</strong> <span id="direccion-text">Cra 45 #23 - 10, Bogotá</span> <button class="edit-btn small" data-field="direccion" aria-label="Editar dirección" title="Editar"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z" fill="#0f172a"/><path d="M20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="#0f172a"/></svg></button></p>
       </div>
     </section>
 
@@ -58,17 +58,22 @@
     <section class="specialties-section">
       <h3>Especialidades</h3>
       <div class="specialties-grid">
-        <span class="tag">Pediatría</span>
-        <span class="tag">Neurología</span>
-        <span class="tag">Laparoscopia</span>
-        <span class="tag">Anestesiología</span>
+        <div id="specialties-list">
+          <span class="tag">Pediatría</span>
+          <span class="tag">Neurología</span>
+          <span class="tag">Laparoscopia</span>
+          <span class="tag">Anestesiología</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:.6rem;">
+          <button id="edit-specialties" class="edit-btn" title="Editar especialidades" aria-label="Editar especialidades"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z" fill="#0f172a"/><path d="M20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="#0f172a"/></svg></button>
+        </div>
       </div>
     </section>
 
     <!-- Biografía -->
     <section class="bio-section">
-      <h3>Biografía</h3>
-      <p>
+      <h3>Biografía <button class="edit-btn" data-field="bio" aria-label="Editar biografía" title="Editar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z" fill="#0f172a"/><path d="M20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="#0f172a"/></svg></button></h3>
+      <p id="bio-text">
         El Dr. Andrés Rodríguez es especialista en medicina interna con más de 20 años de experiencia en el ámbito clínico y docente. 
         Destacado por su compromiso con la atención integral de los pacientes, ha liderado múltiples proyectos de investigación y formación académica, 
         contribuyendo activamente al desarrollo del sector salud en Colombia.
@@ -77,7 +82,185 @@
 
   </main>
 
+  <!-- Confirmation modal (hidden by default) -->
+  <div id="confirm-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document">
+      <p id="confirm-modal-message">¿Deseas guardar los cambios?</p>
+      <div class="modal-buttons">
+        <button id="confirm-cancel" class="modal-cancel" type="button">Cancelar</button>
+        <button id="confirm-ok" class="modal-confirm" type="button">Guardar</button>
+      </div>
+    </div>
+  </div>
+
   <script src="./theme.js"></script>
+  <script>
+    // Inline editor for account info — lightweight, uses localStorage to persist edits
+    (function(){
+      const fields = ['name','position','email','telefono','celular','direccion','bio'];
+
+      // show confirmation modal, return Promise<boolean>
+      function showConfirm(message){
+        return new Promise((resolve)=>{
+          const overlay = document.getElementById('confirm-modal');
+          const msg = document.getElementById('confirm-modal-message');
+          const ok = document.getElementById('confirm-ok');
+          const cancel = document.getElementById('confirm-cancel');
+          let cleaned = false;
+          msg.textContent = message || '¿Deseas guardar los cambios?';
+          overlay.classList.add('show');
+          overlay.setAttribute('aria-hidden','false');
+
+          function doCleanup(result){
+            if (cleaned) return; cleaned = true;
+            overlay.classList.remove('show');
+            overlay.setAttribute('aria-hidden','true');
+            ok.removeEventListener('click', onOk);
+            cancel.removeEventListener('click', onCancel);
+            resolve(result);
+          }
+          function onOk(){ doCleanup(true); }
+          function onCancel(){ doCleanup(false); }
+          ok.addEventListener('click', onOk);
+          cancel.addEventListener('click', onCancel);
+        });
+      }
+
+      function enableInlineEdit(field, currentText) {
+        const spanId = {
+          email: 'email-text', telefono: 'telefono-text', celular: 'celular-text', direccion: 'direccion-text', bio: 'bio-text'
+        }[field];
+
+        let container;
+        if (field === 'name') container = document.querySelector('.name');
+        else if (field === 'position') container = document.querySelector('.position');
+        else container = document.getElementById(spanId);
+        if (!container) return;
+
+        // Create input or textarea depending on field
+        const isBio = field === 'bio';
+        const input = document.createElement(isBio ? 'textarea' : 'input');
+        input.className = 'inline-editor';
+        input.value = (container.textContent || '').trim();
+        if (!isBio) input.type = 'text';
+        input.style.minWidth = '220px';
+
+        const saveBtn = document.createElement('button'); saveBtn.textContent = 'Guardar'; saveBtn.className='save-edit';
+        const cancelBtn = document.createElement('button'); cancelBtn.textContent = 'Cancelar'; cancelBtn.className='cancel-edit';
+
+        // Replace text with editor
+        const parent = container.parentElement;
+        const originalHTML = container.innerHTML;
+        container.innerHTML = ''; // clear
+  // group controls so layout is consistent and responsive
+  const controls = document.createElement('div');
+  controls.className = 'editor-controls';
+  controls.appendChild(saveBtn);
+  controls.appendChild(cancelBtn);
+  container.appendChild(input);
+  container.appendChild(controls);
+        input.focus();
+
+        saveBtn.addEventListener('click', async () => {
+          const newVal = input.value.trim();
+          const confirmed = await showConfirm('¿Guardar este cambio?');
+          if (!confirmed) {
+            container.innerHTML = originalHTML;
+            return;
+          }
+          container.innerHTML = newVal || '(vacío)';
+          saveFieldToStorage(field, newVal);
+        });
+        cancelBtn.addEventListener('click', () => {
+          container.innerHTML = originalHTML;
+        });
+      }
+
+      function saveFieldToStorage(field, value) {
+        try {
+          const store = JSON.parse(localStorage.getItem('accountInfo')||'{}');
+          store[field] = value;
+          localStorage.setItem('accountInfo', JSON.stringify(store));
+        } catch(e){console.warn(e)}
+      }
+
+      function loadFieldsFromStorage(){
+        try{
+          const store = JSON.parse(localStorage.getItem('accountInfo')||'{}');
+          if (store.name) document.querySelector('.name').childNodes[0].nodeValue = store.name + ' ';
+          if (store.position) document.querySelector('.position').childNodes[0].nodeValue = store.position + ' ';
+          if (store.email) document.getElementById('email-text').textContent = store.email;
+          if (store.telefono) document.getElementById('telefono-text').textContent = store.telefono;
+          if (store.celular) document.getElementById('celular-text').textContent = store.celular;
+          if (store.direccion) document.getElementById('direccion-text').textContent = store.direccion;
+          if (store.bio) document.getElementById('bio-text').textContent = store.bio;
+          if (store.specialties) renderSpecialties(store.specialties);
+        }catch(e){console.warn(e)}
+      }
+
+      // Specialties editing
+      function renderSpecialties(arr){
+        const list = document.getElementById('specialties-list');
+        list.innerHTML = '';
+        (arr||[]).forEach(s => {
+          const span = document.createElement('span'); span.className='tag'; span.textContent = s;
+          list.appendChild(span);
+        });
+      }
+
+      function editSpecialtiesUI(){
+        const list = document.getElementById('specialties-list');
+        const existing = Array.from(list.querySelectorAll('.tag')).map(el=>el.textContent.trim());
+        list.innerHTML = '';
+        const input = document.createElement('input'); input.placeholder='Nueva especialidad'; input.className='inline-editor';
+        const addBtn = document.createElement('button'); addBtn.textContent='Añadir'; addBtn.className='save-edit';
+        const saveBtn = document.createElement('button'); saveBtn.textContent='Guardar'; saveBtn.className='save-edit';
+        const cancelBtn = document.createElement('button'); cancelBtn.textContent='Cancelar'; cancelBtn.className='cancel-edit';
+        const tagsWrap = document.createElement('div'); tagsWrap.style.display='flex'; tagsWrap.style.flexWrap='wrap'; tagsWrap.style.gap='8px';
+
+        function refreshTags(){
+          tagsWrap.innerHTML='';
+          existing.forEach((s, idx)=>{
+            const t = document.createElement('span'); t.className='tag'; t.textContent=s;
+            const rem = document.createElement('button'); rem.textContent='✕'; rem.className='tag-remove'; rem.title='Eliminar';
+            rem.addEventListener('click', ()=>{ existing.splice(idx,1); refreshTags(); });
+            t.appendChild(rem);
+            tagsWrap.appendChild(t);
+          });
+        }
+        refreshTags();
+        addBtn.addEventListener('click', ()=>{ if (input.value.trim()){ existing.push(input.value.trim()); input.value=''; refreshTags(); } });
+        saveBtn.addEventListener('click', async ()=>{ 
+          const confirmed = await showConfirm('¿Guardar las especialidades seleccionadas?');
+          if (!confirmed){ renderSpecialties(existing); return; }
+          saveFieldToStorage('specialties', existing); renderSpecialties(existing);
+        });
+        cancelBtn.addEventListener('click', ()=>{ renderSpecialties(existing); });
+
+  // group specialties controls
+  const specControls = document.createElement('div');
+  specControls.className = 'editor-controls';
+  specControls.appendChild(addBtn);
+  specControls.appendChild(saveBtn);
+  specControls.appendChild(cancelBtn);
+  list.appendChild(tagsWrap);
+  list.appendChild(input);
+  list.appendChild(specControls);
+      }
+
+      // event delegation for edit buttons
+      document.addEventListener('click', (e)=>{
+        const btn = e.target.closest('.edit-btn');
+        if (!btn) return;
+        const field = btn.getAttribute('data-field');
+        if (btn.id === 'edit-specialties') { editSpecialtiesUI(); return; }
+        if (field) enableInlineEdit(field);
+      });
+
+      // load stored data on start
+      document.addEventListener('DOMContentLoaded', loadFieldsFromStorage);
+    })();
+  </script>
   <script>
     // 🕐 Fecha y hora en tiempo real
     function updateDateTime() {
