@@ -58,6 +58,16 @@ body {
   padding: 0;
   color: #1e293b;
 }
+/* Chart theme variables - ensure charts follow site theme */
+:root {
+  --chart-text: #071033;
+  --chart-grid: rgba(2,6,23,0.06);
+}
+
+[data-theme="dark"] {
+  --chart-text: #E6F2FF;
+  --chart-grid: rgba(255,255,255,0.06);
+}
 [data-theme="dark"] body {
   background: linear-gradient(to bottom, #0f172a, #1e293b);
   color: #f1f5f9;
@@ -140,7 +150,7 @@ body {
 }
 
 #reportes-table {
-  min-height: 300px;
+  min-height: 120px; /* reduced so table doesn't create large gap above charts */
   margin-bottom: 2rem;
 }
 
@@ -184,7 +194,7 @@ body {
 }
 
 #reportes-graficos {
-  min-height: 300px;
+  min-height: 240px;
   margin-top: 2rem;
   background: #f8fafc;
   border-radius: 12px;
