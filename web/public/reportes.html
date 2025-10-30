@@ -1,335 +1,182 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Reportes — ElectroMed</title>
+  <meta name="theme-color" content="#2563eb" />
+  <title>ElectroMed — Dashboard</title>
   <link rel="icon" href="./assets/logo-electromed.png" type="image/png" />
+  <link rel="manifest" href="./manifest.json" />
   <link rel="stylesheet" href="./styles/base.css" />
-  <link rel="stylesheet" href="./styles/reportes.css" />
+  <link rel="stylesheet" href="./styles/dashboard.css" />
 </head>
 <body>
-  <!-- Topbar unificada -->
-  <div class="app-topbar" role="banner">
-    <div class="app-topbar__left">
-      <span id="today" class="app-topbar__date">Hoy</span>
-      <span class="app-topbar__sep">•</span>
-      <span id="time" class="app-topbar__time">00:00</span>
-    </div>
-    <div>
-      <button class="app-topbar__logout" data-action="toggle-theme" aria-pressed="false" title="Cambiar tema">☀️</button>
-      <button class="app-topbar__logout" aria-label="Configuración" onclick="window.location.href='config.html'" title="Configuración">
-        <span class="app-topbar__logout-icon">⚙️</span>
-        
-      </button>
-      <button class="app-topbar__logout" aria-label="Cerrar sesión" onclick="window.location.href='index.html'" title="Cerrar sesión" style="margin-left:8px;">
-        
-        <span class="app-topbar__logout-label">Salir</span>
-      </button>
-    </div>
-  </div>
+  <main class="dashboard">
 
-  <main class="reportes-main">
-    <!-- Cabecera centrada -->
-     <header class="main-header simple-header">
-  <div class="main-header-text">
-    <h1 class="main-title">Reportes y Exportación</h1>
-    <p class="main-subtitle">Genera y exporta informes clínicos</p>
-  </div>
-</header>
+    <!-- HEADER -->
+    <header class="dash-header">
+      <div class="header-left">
+        <img src="./assets/logo-electromed.png" alt="Logo" class="logo" />
+        <div>
+          <h1 class="title" id="welcome">Bienvenido, <span id="medico-nombre">Usuario</span></h1>
+          <p class="subtitle" id="role"></p>
+          <script>
+            (function () {
+              try {
+                const rawUser = sessionStorage.getItem('user') || localStorage.getItem('user');
+                const user = rawUser ? JSON.parse(rawUser) : {};
+                const rol =
+                  user.role ||
+                  user.rol ||
+                  sessionStorage.getItem('medicoRol') ||
+                  localStorage.getItem('medicoRol');
 
-    <section class="reportes-content">
-      <div class="reportes-controls">
-        <button class="btn-export" id="export-pdf">Exportar PDF</button>
-        <button class="btn-export" id="export-excel">Exportar Excel</button>
+                const el = document.getElementById('medico-rol');
+                if (el) el.textContent = rol || '';
+              } catch (_) {}
+            })();
+          </script>
+        </div>
+        <script>
+          (function () {
+            try {
+              const rawUser =
+          sessionStorage.getItem('user') ||
+          localStorage.getItem('user');
+              const user = rawUser ? JSON.parse(rawUser) : {};
+
+              const nombre =
+          user.name ||
+          user.nombre ||
+          user.fullName ||
+          user.displayName ||
+          sessionStorage.getItem('medicoNombre') ||
+          localStorage.getItem('medicoNombre');
+
+              const rol =
+          user.role ||
+          user.rol ||
+          sessionStorage.getItem('medicoRol') ||
+          localStorage.getItem('medicoRol');
+
+              const hospital =
+          user.hospital ||
+          user.hospitalNombre ||
+          sessionStorage.getItem('hospitalNombre') ||
+          localStorage.getItem('hospitalNombre');
+
+              const nombreEl = document.getElementById('medico-nombre');
+              if (nombre && nombreEl) nombreEl.textContent = nombre;
+
+              const infoEl = document.getElementById('medico-info');
+              if (infoEl) {
+          if (rol && hospital) infoEl.textContent = `${rol} - ${hospital}`;
+          else if (rol) infoEl.textContent = rol;
+          else if (hospital) infoEl.textContent = hospital;
+              }
+            } catch (_) {
+              /* noop */
+            }
+          })();
+        </script>
       </div>
-      <div class="reportes-filtros">
-        <label>Paciente: <input type="text" id="filtro-paciente" placeholder="Buscar por nombre o ID" /></label>
-        <label>Fecha inicio: <input type="date" id="filtro-fecha-inicio" /></label>
-        <label>Fecha fin: <input type="date" id="filtro-fecha-fin" /></label>
-        <label>Planta:
-          <select id="filtro-planta">
-            <option value="">Todas</option>
-            <option value="uci">UCI</option>
-            <option value="urgencias">Urgencias</option>
-            <option value="hospitalizacion">Hospitalización</option>
-          </select>
-        </label>
+      <div class="header-right">
+        <p id="today" class="date"></p>
+        <div class="time-container">
+          <span id="time" class="time"></span>
+          <button class="gear-btn" data-action="toggle-theme" aria-label="Cambiar tema" title="Cambiar tema">☀️</button>
+          <button class="gear-btn" aria-label="Configuración" onclick="window.location.href='config.html'">
+            ⚙️
+          </button>
+          <button class="gear-btn" aria-label="Cerrar sesión" onclick="window.location.href='index.html'" title="Cerrar sesión">
+            🚪
+          </button>
+        </div>
       </div>
-      <div id="reportes-table">
-        <table class="reportes-table">
-          <thead>
-            <tr>
-              <th>Paciente</th>
-              <th>Fecha Examen</th>
-              <th>Planta</th>
-              <th>Sodio</th>
-              <th>Potasio</th>
-              <th>Cloro</th>
-              <th>Alertas</th>
-            </tr>
-          </thead>
-          <tbody id="reportes-tbody">
-            <!-- Poblar desde backend -->
-          </tbody>
-        </table>
-        <div id="reportes-msg" style="margin-top:2rem; color:#64748b;">Sin datos. Conectar a backend.</div>
+    </header>
+
+    <!-- MÉTRICAS -->
+    <div class="metrics-section" id="metrics">
+      <div class="metric-card">
+        <div class="metric-icon">8</div>
+        <h2 class="metric-value"></h2>
+        <p class="metric-label">Pacientes Activos</p>
       </div>
-      <div id="reportes-graficos">
-        <!-- Aquí se mostrarán los gráficos desde el backend -->
-        <div id="grafico-placeholder" style="color:#64748b;">Sin gráficos. Conectar a backend.</div>
+      <div class="metric-card warning">
+        <div class="metric-icon">5</div>
+        <h2 class="metric-value"></h2>
+        <p class="metric-label">Alertas Pendientes</p>
+      </div>
+      <div class="metric-card success">
+        <div class="metric-icon">3</div>
+        <h2 class="metric-value"></h2>
+        <p class="metric-label">Análisis Hoy</p>
+      </div>
+      <div class="metric-card neutral">
+        <div class="metric-icon">5</div>
+        <h2 class="metric-value"></h2>
+        <p class="metric-label">Egresos</p>
+      </div>
+    </div>
+
+    <!-- ACCIONES -->
+    <section class="actions-section">
+      <h3 class="section-title">Acciones Principales</h3>
+      <div class="actions-grid">
+        <a href="ingresar.html" class="action-btn">
+           <span>Ingresar Paciente</span>
+          <small>Registrar nuevo paciente</small>
+        </a>
+        <a href="consultar.html" class="action-btn">
+           <span>Consultar Paciente</span>
+          <small>Ver historial y resultados</small>
+        </a>
+        <a href="alta.html" class="action-btn">
+           <span>Dar de Alta</span>
+          <small>Finalizar ingreso</small>
+        </a>
+        <a href="alerts.html" class="action-btn">
+           <span>Panel de Alertas</span>
+          <small>Alertas automáticas</small>
+        </a>
+        <a href="panel.html" class="action-btn panel">
+          <span>Panel por plantas</span>
+          <small>UCI, Urgencias, Hospitalización</small>
+        </a>
+        <a href="reportes.html" class="action-btn reportes">
+          <span>Reportes</span>
+          <small>Exportar PDF/Excel</small>
+        </a>      
       </div>
     </section>
+
+    <!-- Footer -->
+      <footer class="footer">
+        <div class="footer__container" style="text-align:center; padding: 1.2rem 0;">
+          <p class="footer__copyright" style="margin:0; color:var(--muted); font-size:1rem;">
+            © 2025 ElectroMed S.A.S. - Todos los derechos reservados.
+          </p>
+        </div>
+      </footer>
   </main>
+
   <script src="./theme.js"></script>
   <script src="./register-sw.js"></script>
-  <!-- Chart.js CDN (modo UMD) -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-  <!-- jsPDF -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  
-  <!-- SheetJS (Excel) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-
   <script>
-// Fecha y hora topbar
-function updateDateTime(){
-  const now = new Date();
-  const d = document.getElementById('today');
-  const t = document.getElementById('time');
-  if(d) d.textContent = now.toLocaleDateString('es-ES',{weekday:'long', day:'numeric', month:'long'});
-  if(t) t.textContent = now.toLocaleTimeString('es-ES',{hour:'2-digit', minute:'2-digit'});
-}
-updateDateTime();
-setInterval(updateDateTime, 60000);
-
-document.addEventListener("DOMContentLoaded", () => {
-  const reportesTbody = document.getElementById("reportes-tbody");
-  const reportesMsg = document.getElementById("reportes-msg");
-  const inputPaciente = document.getElementById("filtro-paciente");
-  const filtroFechaInicio = document.getElementById("filtro-fecha-inicio");
-  const filtroFechaFin = document.getElementById("filtro-fecha-fin");
-  const filtroPlanta = document.getElementById("filtro-planta");
-  const graficosContainer = document.getElementById("reportes-graficos");
-  const placeholder = document.getElementById("grafico-placeholder");
-
-  // Ocultar gráficos al inicio
-  graficosContainer.style.display = "none";
-
-  const datosSimulados = [
-    { paciente: "Juan Pérez", fecha: "2025-10-20", planta: "uci", sodio: 135, potasio: 4.2, cloro: 101, alertas: "Ninguna" },
-    { paciente: "Ana López", fecha: "2025-10-21", planta: "hospitalizacion", sodio: 150, potasio: 5.5, cloro: 110, alertas: "Alto potasio" },
-    { paciente: "Carlos Ruiz", fecha: "2025-10-22", planta: "urgencias", sodio: 128, potasio: 3.8, cloro: 98, alertas: "Bajo sodio" },
-    { paciente: "María Gómez", fecha: "2025-10-23", planta: "uci", sodio: 140, potasio: 4.0, cloro: 103, alertas: "Ninguna" },
-
-    // Nuevos 4
-    { paciente: "Diego Martínez", fecha: "2025-10-24", planta: "urgencias", sodio: 160, potasio: 4.8, cloro: 115, alertas: "Riesgo — Sodio muy alto" },
-    { paciente: "Laura Torres", fecha: "2025-10-25", planta: "hospitalizacion", sodio: 134, potasio: 5.9, cloro: 102, alertas: "Potasio crítico" },
-    { paciente: "Ricardo Silva", fecha: "2025-10-26", planta: "uci", sodio: 144, potasio: 3.5, cloro: 108, alertas: "Ninguna" },
-    { paciente: "Sofía Hernández", fecha: "2025-10-27", planta: "urgencias", sodio: 122, potasio: 4.1, cloro: 94, alertas: "Sodio crítico" }
-  ];
-
-  function renderTabla(data) {
-    reportesTbody.innerHTML = "";
-
-    if (data.length === 0) {
-      reportesMsg.style.display = "block";
-      return;
+    // Fecha y hora local en vivo
+    function updateDateTime() {
+      const now = new Date();
+      document.getElementById('today').textContent =
+        now.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+      document.getElementById('time').textContent =
+        now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
     }
-
-    reportesMsg.style.display = "none";
-
-    data.forEach(r => {
-      const fila = document.createElement("tr");
-      fila.innerHTML = `
-        <td>${r.paciente}</td>
-        <td>${r.fecha}</td>
-        <td>${r.planta}</td>
-        <td>${r.sodio}</td>
-        <td>${r.potasio}</td>
-        <td>${r.cloro}</td>
-        <td>${r.alertas}</td>
-      `;
-      reportesTbody.appendChild(fila);
-    });
-  }
-
-  // ✅ Función para generar la gráfica de Juan Pérez
-  let chartInstance = null;
-  function generarGraficaJuanPerez() {
-    const datosJuan = datosSimulados.filter(d => d.paciente === "Juan Pérez");
-
-    if (!datosJuan.length) return;
-
-    // Limpiar gráficos previos
-    graficosContainer.innerHTML = `<canvas id="graficoJuan"></canvas>`;
-
-    const ctx = document.getElementById("graficoJuan");
-
-    chartInstance = new Chart(ctx, {
-      type: "bar",
-      data: {
-        labels: ["Sodio", "Potasio", "Cloro"],
-        datasets: [{
-          label: "Valores Iónicos",
-          data: [datosJuan[0].sodio, datosJuan[0].potasio, datosJuan[0].cloro]
-        }]
-      }
-    });
-  }
-
-  function aplicarFiltros() {
-    const texto = inputPaciente.value.toLowerCase();
-    const fechaIni = filtroFechaInicio.value;
-    const fechaFin = filtroFechaFin.value;
-    const planta = filtroPlanta.value;
-
-    const filtrados = datosSimulados.filter(d => {
-      const coincidePaciente = d.paciente.toLowerCase().includes(texto);
-      const coincidePlanta = planta === "" || d.planta === planta;
-      const coincideFechaInicio = fechaIni === "" || d.fecha >= fechaIni;
-      const coincideFechaFin = fechaFin === "" || d.fecha <= fechaFin;
-      return coincidePaciente && coincidePlanta && coincideFechaInicio && coincideFechaFin;
-    });
-
-    renderTabla(filtrados);
-
-    actualizarBotones(filtrados); // ✅ NUEVO
-    const contieneJuan = filtrados.some(d => d.paciente === "Juan Pérez");
-    if (contieneJuan) {
-      graficosContainer.style.display = "block";
-      generarGraficaJuanPerez();
-    } else {
-      graficosContainer.style.display = "none";
-    }
-  }
-
-  const btnPDF = document.getElementById("export-pdf");
-const btnExcel = document.getElementById("export-excel");
-
-function descargarPDF(datosJuan) {
-  const { jsPDF } = window.jspdf;
-  const pdf = new jsPDF({
-    unit: "pt",
-    format: "letter"
-  });
-
-  // ✅ Logo
-  const logoPath = "./assets/logo-electromed.png"; // Ajusta si es necesario
-
-  pdf.addImage(logoPath, "PNG", 40, 30, 70, 70);
-
-  // ✅ Encabezado
-  pdf.setFont("helvetica", "bold");
-  pdf.setFontSize(18);
-  pdf.text("ElectroMed — Reporte Clínico", 130, 50);
-
-  pdf.setFontSize(11);
-  pdf.setFont("helvetica", "normal");
-  pdf.text("Paciente: Juan Pérez", 130, 70);
-  pdf.text("Fecha de emisión: " + new Date().toLocaleDateString("es-ES"), 130, 85);
-
-  // ✅ Línea divisoria
-  pdf.setDrawColor(40, 116, 166);
-  pdf.setLineWidth(2);
-  pdf.line(40, 115, 575, 115);
-
-  // ✅ Tabla de datos
-  pdf.setFont("helvetica", "bold");
-  pdf.setFontSize(12);
-  pdf.text("Historial de Iones en Sangre:", 40, 140);
-
-  let y = 165;
-  pdf.setFont("helvetica", "normal");
-
-  datosJuan.forEach(d => {
-    pdf.text(
-      ` ${d.fecha} → Sodio: ${d.sodio} | Potasio: ${d.potasio} | Cloro: ${d.cloro}`,
-      50,
-      y
-    );
-    y += 20;
-  });
-
-  // ✅ Footer estilo clínico
-  pdf.setFontSize(10);
-  pdf.setTextColor(120);
-  pdf.text("Sistema ElectroMed — Uso exclusivo del personal clínico", 40, 750);
-
-  // ✅ Descargar
-  pdf.save("reporte-juan-perez.pdf");
-}
-
-function descargarExcel(datosJuan) {
-  const csv = [
-    "Paciente,Fecha,Planta,Sodio,Potasio,Cloro,Alertas",
-    ...datosJuan.map(d => 
-      `${d.paciente},${d.fecha},${d.planta},${d.sodio},${d.potasio},${d.cloro},${d.alertas}`
-    )
-  ].join("\n");
-
-  const blob = new Blob([csv], { type: "text/csv" });
-  const url = URL.createObjectURL(blob);
-
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = "reporte-juan-perez.csv";
-  link.click();
-
-  URL.revokeObjectURL(url);
-}
-
-// ✅ Desactivar por defecto
-btnPDF.disabled = true;
-btnExcel.disabled = true;
-
-// ✅ Actualizar al filtrar
-btnPDF.style.opacity = "0.4";
-btnExcel.style.opacity = "0.4";
-
-function actualizarBotones(filtrados) {
-  const contieneJuan = filtrados.some(d => d.paciente === "Juan Pérez");
-
-  if (contieneJuan) {
-    btnPDF.disabled = false;
-    btnExcel.disabled = false;
-    btnPDF.style.opacity = "1";
-    btnExcel.style.opacity = "1";
-
-    const datosJuan = filtrados.filter(d => d.paciente === "Juan Pérez");
-
-    btnPDF.onclick = () => descargarPDF(datosJuan);
-    btnExcel.onclick = () => descargarExcel(datosJuan);
-  } else {
-    btnPDF.disabled = true;
-    btnExcel.disabled = true;
-    btnPDF.style.opacity = "0.4";
-    btnExcel.style.opacity = "0.4";
-
-    btnPDF.onclick = null;
-    btnExcel.onclick = null;
-  }
-}
-
-  // Render inicial
-  renderTabla(datosSimulados);
-
-  // Eventos
-  inputPaciente.addEventListener("input", aplicarFiltros);
-  filtroFechaInicio.addEventListener("change", aplicarFiltros);
-  filtroFechaFin.addEventListener("change", aplicarFiltros);
-  filtroPlanta.addEventListener("change", aplicarFiltros);
-});
-</script>
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+  </script>
 
 </body>
 </html>
-
-
-
-
-
-
 
 
 
